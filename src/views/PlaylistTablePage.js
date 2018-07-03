@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './PlaylistTablePage.css';
 import {Button, Divider, Icon, Table} from "antd";
 import playlistApi from "../api/PlaylistApi";
+
 const ButtonGroup = Button.Group;
 
 class PlaylistTablePage extends Component {
@@ -29,7 +30,7 @@ class PlaylistTablePage extends Component {
                 title: 'Name',
                 dataIndex: 'name',
                 key: 'name',
-                render: (text, record) => <a href={`/playlist/${record.id}`}>{text}</a>,
+                render: (text, record) => <a href={`/admin/playlists/${record.id}`}>{text}</a>,
             },
             {
                 title: 'Create Date',
