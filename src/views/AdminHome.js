@@ -6,7 +6,7 @@ import {Link, NavLink, Route, Switch, withRouter} from "react-router-dom";
 import PlaylistPage from "./PlaylistPage";
 import OfficeTablePage from "./OfficeTablePage";
 
-const { Header, Content, Sider } = Layout;
+const {Header, Content, Sider} = Layout;
 
 class AdminHome extends React.Component {
     constructor(props) {
@@ -45,7 +45,7 @@ class AdminHome extends React.Component {
         return (
             <Layout className="container">
                 <Header className="header">
-                    <div className="logo" />
+                    <div className="logo"/>
                     <Menu
                         theme="dark"
                         mode="horizontal"
@@ -59,10 +59,10 @@ class AdminHome extends React.Component {
                     </Menu>
                 </Header>
                 <Layout className="container">
-                    <Sider width={200} style={{ background: '#fff' }}>
+                    <Sider width={200} style={{background: '#fff'}}>
                         <Menu
                             mode="inline"
-                            style={{ height: '100%', borderRight: 0 }}
+                            style={{height: '100%', borderRight: 0}}
                             selectedKeys={selectedMenuKeys}>
                             <Menu.Item key="1">
                                 <NavLink to="/admin/playlists">
@@ -76,8 +76,8 @@ class AdminHome extends React.Component {
                             </Menu.Item>
                         </Menu>
                     </Sider>
-                    <Layout style={{ padding: '0 24px 24px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
+                    <Layout style={{padding: '0 24px 24px'}}>
+                        <Breadcrumb style={{margin: '16px 0'}}>
                             {breadcrumbItems}
                         </Breadcrumb>
                         <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 280, height: '100vh'}}>

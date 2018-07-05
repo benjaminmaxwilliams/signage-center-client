@@ -5,6 +5,7 @@ import ImageSlide from "../components/slides/ImageSlide";
 import MapSlide from "../components/slides/MapSlide";
 import WeatherSlide from "../components/slides/WeatherSlide";
 import CalendarSlide from "../components/slides/CalendarSlide";
+import EmptySlide from "../components/slides/EmptySlide";
 
 class PlaylistPlayPage extends React.Component {
     constructor(props) {
@@ -29,7 +30,9 @@ class PlaylistPlayPage extends React.Component {
             .then(slides => {
                 this.setState({playlistId: playlistId, slides: slides});
                 this.nextSlide();
-            });
+            }).catch(error => {
+            console.log(error);
+        })
     }
 
     componentWillUnmount() {
@@ -37,7 +40,7 @@ class PlaylistPlayPage extends React.Component {
     }
 
     startTimer() {
-        const {currentSlideIndex, slides} = this.state
+        const {currentSlideIndex, slides} = this.state;
 
         this.timer = setInterval(() => this.nextSlide(), slides[currentSlideIndex].duration * 1000);
     }
@@ -47,7 +50,7 @@ class PlaylistPlayPage extends React.Component {
     }
 
     nextSlide() {
-        const {currentSlideIndex, slides} = this.state
+        const {currentSlideIndex, slides} = this.state;
 
         this.stopTimer();
 
@@ -78,7 +81,7 @@ class PlaylistPlayPage extends React.Component {
     render() {
 
         if (this.state.slides.length === 0 || this.state.currentSlideIndex < 0) {
-            return <h1>No Slides</h1>
+            return <EmptySlide/>
         }
 
         return (

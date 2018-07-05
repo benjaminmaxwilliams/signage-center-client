@@ -83,19 +83,6 @@ class ImageSlideForm extends React.Component {
             },
         };
 
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: {
-                    span: 24,
-                    offset: 0,
-                },
-                sm: {
-                    span: 16,
-                    offset: 8,
-                },
-            },
-        };
-
         const uploadProps = {
             multiple: false,
             onRemove: (file) => {

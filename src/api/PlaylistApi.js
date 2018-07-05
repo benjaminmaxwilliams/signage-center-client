@@ -31,20 +31,18 @@ class PlaylistApi {
     }
 
 
-    delete(playlistId){
+    deletePlay(playlistId) {
+
         const url = process.env.REACT_APP_API_HOST + `/playlist/${playlistId}`;
 
-        return fetch(url,{
+        return fetch(url, {
             method: "DELETE",
-            // headers: {
-            //     "Access-Control-Allow-Origin": "*",
-            //     "Access-Control-Allow-Credentials": "*",
-            //     "Access-Control-Allow-Methods" :"*",
-            //     "Access-Control-Allow-Origin":"*",
-            //     "Access-Control-Allow-Headers":"*",
-            //     "content-type": "application/json"
-            // },
-        });
+        })
+            .then(response => {
+                return response.json();
+            }).catch(error => {
+                return error;
+            })
     }
 
     getPlaylist(playlistId) {

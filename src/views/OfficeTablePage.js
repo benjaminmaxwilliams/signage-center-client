@@ -1,6 +1,6 @@
 import React from 'react';
 import './OfficeTablePage.css';
-import {Button, Divider, Icon, Modal, Popconfirm, Table} from "antd";
+import {Button, Divider, Icon, notification, Popconfirm, Table} from "antd";
 import officeApi from "../api/OfficeApi";
 import OfficeForm from "../components/forms/OfficeForm";
 
@@ -29,18 +29,22 @@ class OfficeTablePage extends React.Component {
         });
     };
 
-    handleOk = (e, formVisible) => {
-        console.log(e);
+    closeModal = (formVisible) => {
         this.setState({
             [formVisible]: false,
         });
     };
 
-    handleCancel = (e, formVisible) => {
-        console.log(e);
-        this.setState({
-            [formVisible]: false,
-        });
+    /**
+     * Form Modal Success Callback
+     */
+    onOfficeFormSuccess = (success) => {
+        if (success) {
+            this.setState({newOfficeModalVisible: false});
+            notification["success"]({
+                message: 'Office Created',
+            });
+        }
     };
 
     onDelete = (id) => {
@@ -48,7 +52,15 @@ class OfficeTablePage extends React.Component {
             .then(() => {
                 const offices = [...this.state.offices];
                 this.setState({offices: offices.filter(item => item.id !== id)});
+                notification["success"]({
+                    message: 'Office Deleted',
+                });
+            }).catch(error => {
+            notification["error"]({
+                message: 'Error',
+                description: error.message
             });
+        });
     };
 
     render() {
@@ -89,13 +101,10 @@ class OfficeTablePage extends React.Component {
                         <Icon type="plus-circle"/>New
                     </Button>
                 </ButtonGroup>
-                <Modal
-                    title="New Office"
+                <OfficeForm
                     visible={this.state.newOfficeModalVisible}
-                    onOk={(e) => this.handleOk(e, "newOfficeModalVisible")}
-                    onCancel={(e) => this.handleCancel(e, "newOfficeModalVisible")}>
-                    <OfficeForm/>
-                </Modal>
+                    onSuccess={this.onOfficeFormSuccess}
+                    onCancel={() => this.closeModal("newOfficeModalVisible")}/>
                 <Divider dashed/>
                 <Table
                     title={() => 'Offices'}

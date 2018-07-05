@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './PlaylistPage.css';
-import {Button, Col, Divider, Dropdown, Icon, Menu, Modal, Row, Table} from "antd";
+import {Button, Col, Divider, Dropdown, Icon, List, Menu, notification, Row} from "antd";
 import playlistApi from "../api/PlaylistApi";
 import slideApi from "../api/SlideApi";
-import ImageSlide from "../components/slides/ImageSlide";
 import ImageSlideForm from "../components/forms/ImageSlideForm";
 import WeatherSlideForm from "../components/forms/WeatherSlideForm";
 import MapSlideForm from "../components/forms/MapSlideForm";
+import CalendarSlideForm from "../components/forms/CalendarSlideForm";
+
 const ButtonGroup = Button.Group;
 
 
-class PlaylistPage extends Component {
+class PlaylistPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -35,14 +36,15 @@ class PlaylistPage extends Component {
             .then(playlist => {
                 this.setState({playlist: playlist});
             });
-        slideApi.getSlidesByPlaylist(playlistId)
-            .then(slides => {
-                this.setState({playlistId: playlistId, slides: slides});
 
-            });
+        // slideApi.getSlidesByPlaylist(playlistId)
+        //     .then(slides => {
+        //         this.setState({playlistId: playlistId, slides: slides});
+        //
+        //     });
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         let playlistId = this.props.match.params.playlistId
         slideApi.getSlidesByPlaylist(playlistId)
             .then(slides => {
@@ -50,6 +52,7 @@ class PlaylistPage extends Component {
 
             });
     }
+
     handleMenuClick = (e) => {
         if (e.key === "1") {
             this.showModal("imageFormVisible");
@@ -68,18 +71,16 @@ class PlaylistPage extends Component {
         });
     };
 
-    handleOk = (e, formVisible) => {
-        console.log(e);
+    closeModal = (formVisible) => {
         this.setState({
             [formVisible]: false,
         });
     };
 
-    handleCancel = (e, formVisible) => {
-        console.log(e);
-        this.setState({
-            [formVisible]: false,
-        });
+    renderItem = (item) => {
+        return (
+            <h1/>
+        );
     };
 
     render() {
@@ -106,47 +107,81 @@ class PlaylistPage extends Component {
                         </Dropdown>
                     </Col>
                 </Row>
-                <Divider dashed />
-                <Modal
-                    title="New Image Slide"
+                <Divider dashed/>
+                <ImageSlideForm
                     visible={this.state.imageFormVisible}
-                    onOk={(e) => this.handleOk(e, "imageFormVisible")}
-                    onCancel={(e) => this.handleCancel(e, "imageFormVisible")}>
-                    <ImageSlideForm
-                        playlistId={playlist.id}/>
-                </Modal>
-                <Modal
-                    title="New Calendar Slide"
+                    playlistId={playlist.id}
+                    onSuccess={this.onImageFormSuccess}
+                    onCancel={() => this.closeModal("imageFormVisible")}/>
+                <CalendarSlideForm
                     visible={this.state.calendarFormVisible}
-                    onOk={(e) => this.handleOk(e, "calendarFormVisible")}
-                    onCancel={(e) => this.handleCancel(e, "calendarFormVisible")}>
-                    <ImageSlideForm
-                        playlistId={playlist.id}/>
-                </Modal>
-                <Modal
-                    title="New Map Slide"
+                    playlistId={playlist.id}
+                    onSuccess={this.onCalendarFormSuccess}
+                    onCancel={() => this.closeModal("calendarFormVisible")}/>
+                <MapSlideForm
                     visible={this.state.mapFormVisible}
-                    onOk={(e) => this.handleOk(e, "mapFormVisible")}
-                    onCancel={(e) => this.handleCancel(e, "mapFormVisible")}>
-                    <MapSlideForm
-                        playlistId={playlist.id}/>
-                </Modal>
-                <Modal
-                    title="New Weather Slide"
+                    playlistId={playlist.id}
+                    onSuccess={this.onMapFormSuccess}
+                    onCancel={() => this.closeModal("mapFormVisible")}/>
+                <WeatherSlideForm
                     visible={this.state.weatherFormVisible}
-                    onOk={(e) => this.handleOk(e, "weatherFormVisible")}
-                    onCancel={(e) => this.handleCancel(e, "weatherFormVisible")}>
-                    <WeatherSlideForm
-                        playlistId={playlist.id}/>
-                </Modal>
+                    playlistId={playlist.id}
+                    onSuccess={this.onWeatherFormSuccess}
+                    onCancel={() => this.closeModal("weatherFormVisible")}/>
                 <div>
-
-                    {this.state.slides ? this.state.slides.map(function(item, i){return <img className="tv_img_thumb" key={i}  src={item.imageUrl}></img>}): <span></span> }
+                    <h1>{playlist.name}</h1>
+                    <List
+                        itemLayout="vertical"
+                        size="large"
+                        dataSource={playlist.slides}
+                        renderItem={this.renderItem}/>
+                    {this.state.slides ? this.state.slides.map(function (item, i) {
+                        return <img className="tv_img_thumb" key={i} src={item.imageUrl}></img>
+                    }) : <span></span>}
 
                 </div>
             </div>
         );
     }
+
+    /**
+     * Slide Form Modal Success Callback
+     */
+    onImageFormSuccess = (success) => {
+        if (success) {
+            this.setState({imageFormVisible: false});
+            notification["success"]({
+                message: 'Image Slide Created',
+            });
+        }
+    };
+
+    onCalendarFormSuccess = (success) => {
+        if (success) {
+            this.setState({calendarFormVisible: false});
+            notification["success"]({
+                message: 'Calendar Slide Created',
+            });
+        }
+    };
+
+    onMapFormSuccess = (success) => {
+        if (success) {
+            this.setState({mapFormVisible: false});
+            notification["success"]({
+                message: 'Map Slide Created',
+            });
+        }
+    };
+
+    onWeatherFormSuccess = (success) => {
+        if (success) {
+            this.setState({weatherFormVisible: false});
+            notification["success"]({
+                message: 'Weather Slide Created',
+            });
+        }
+    };
 }
 
 export default PlaylistPage;

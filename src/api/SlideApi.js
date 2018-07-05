@@ -18,9 +18,17 @@ class SlideApi {
 
         return fetch(url)
             .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    throw new Error("Error");
+                }
+            })
+            .then(response => {
                 return response.json();
             }).catch(error => {
-                return error;
+                console.log(error);
+                throw error;
             })
 
     }

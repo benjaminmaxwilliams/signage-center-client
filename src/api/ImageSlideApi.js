@@ -5,12 +5,12 @@ class ImageSlideApi {
         const url = process.env.REACT_APP_API_HOST + "/slide/image";
 
         return fetch(url, {
-                body: JSON.stringify(slide),
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-            })
+            body: JSON.stringify(slide),
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+        })
             .then(response => {
                 return response.json()
             }).catch(error => {

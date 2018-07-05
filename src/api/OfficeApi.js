@@ -22,13 +22,19 @@ class OfficeApi {
 
         const url = process.env.REACT_APP_API_HOST + `/office/${officeId}`;
 
-        return fetch(url, {
-            method: "DELETE",
-        })
+        return fetch(url, {method: "DELETE",})
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    throw new Error("Error");
+                }
+            })
             .then(response => {
                 return response.json();
             }).catch(error => {
-                return error;
+                console.log(error);
+                throw error;
             })
 
     }

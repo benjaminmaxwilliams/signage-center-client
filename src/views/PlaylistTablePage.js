@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './PlaylistTablePage.css';
-import {Button, Divider, Icon, Table,Modal} from "antd";
+import {Button, Divider, Icon, Popconfirm, Table} from "antd";
 import playlistApi from "../api/PlaylistApi";
-import PlaylistSlideForm from "../components/forms/PlaylistSlideForm";
-import * as playlist from "antd";
-import slideApi from "../api/SlideApi";
+import PlaylistForm from "../components/forms/PlaylistForm";
+import {notification} from "antd/lib/index";
+
 const ButtonGroup = Button.Group;
 
-class PlaylistTablePage extends Component {
+class PlaylistTablePage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            playlists: []
+            playlists: [],
+            newPlaylistFormVisible: false
         }
     }
 
@@ -25,17 +26,19 @@ class PlaylistTablePage extends Component {
 
 
     handleMenuClick = () => {
-        this.showModal("playlistFormVisible");
+        this.showModal("newPlaylistFormVisible");
     };
 
-    handleDelete = (i) => {
-       // alert(i)
-        playlistApi.delete(i).then(
-        playlistApi.getAll()
-            .then(playlists => {
-                this.setState({playlists: playlists});
-            }));
-    }
+    onDelete = (id) => {
+        playlistApi.delete(id)
+            .then(() => {
+                const playlists = [...this.state.playlists];
+                this.setState({offices: playlists.filter(item => item.id !== id)});
+                notification["success"]({
+                    message: 'Playlist Deleted',
+                });
+            });
+    };
 
     showModal = (formVisible) => {
         this.setState({
@@ -43,21 +46,22 @@ class PlaylistTablePage extends Component {
         });
     };
 
-    handleOk = (formVisible) => {
-        playlistApi.getAll()
-            .then(playlists => {
-                this.setState({playlists: playlists,
-                    [formVisible]: false});
-            });
-        // this.setState({
-        //     [formVisible]: fal
-        // });
-    };
-
-    handleCancel = (formVisible) => {
+    closeModal = (formVisible) => {
         this.setState({
             [formVisible]: false,
         });
+    };
+
+    /**
+     * Form Modal Success Callback
+     */
+    onPlaylistFormSuccess = (success) => {
+        if (success) {
+            this.setState({newPlaylistFormVisible: false});
+            notification["success"]({
+                message: 'Playlist Created',
+            });
+        }
     };
 
     render() {
@@ -69,7 +73,12 @@ class PlaylistTablePage extends Component {
                 title: 'Name',
                 dataIndex: 'name',
                 key: 'name',
-                render: (text, record) => <a href={`/playlist/${record.id}`}>{text}</a>,
+                render: (text, record) => <a href={`/admin/playlists/${record.id}`}>{text}</a>,
+            },
+            {
+                title: 'Office',
+                dataIndex: 'office.name',
+                key: 'office.name',
             },
             {
                 title: 'Create Date',
@@ -81,16 +90,17 @@ class PlaylistTablePage extends Component {
                 title: '',
                 dataIndex: '',
                 key: 'x',
-                render: (text, record) => <a href={`/playlist/${record.id}/play`}>View</a>,
-            },
-            {
-                title: '',
-                dataIndex: '',
-                key: 'y',
-                render: (record) => <a href="#" onClick={e=> {
-                    e.preventDefault()
-                    this.handleDelete(`${record.id}`)
-                }}><Icon type="minus-circle"/>Delete</a>
+                render: (text, record) => (
+                    <span>
+                        <a href={`/playlist/${record.id}/play`}>View</a>
+                        <Divider type="vertical"/>
+                        <Popconfirm
+                            title="Are you sure? This will delete all the sides on this playlist as well."
+                            onConfirm={() => this.onDelete(record.id)}>
+                            <a href="javascript:">Delete</a>
+                        </Popconfirm>
+                    </span>
+                )
             }
         ];
 
@@ -98,16 +108,14 @@ class PlaylistTablePage extends Component {
             <div className="container">
                 <ButtonGroup>
                     <Button type="primary" onClick={this.handleMenuClick}>
-                        <Icon type="plus-circle" />New
+                        <Icon type="plus-circle"/>New
                     </Button>
                 </ButtonGroup>
-                <Modal
-                    title=" New Playlist"
-                    visible={this.state.playlistFormVisible}
-                    onOk={() => this.handleOk("playlistFormVisible")}
-                    onCancel={() => this.handleCancel("playlistFormVisible")}>
-                    <PlaylistSlideForm/>
-                </Modal>
+                <PlaylistForm
+                    visible={this.state.newPlaylistFormVisible}
+                    onSuccess={this.onPlaylistFormSuccess}
+                    onCancel={() => this.closeModal("newPlaylistFormVisible")}/>
+                <Divider dashed/>
                 <Table
                     title={() => 'Playlists'}
                     columns={columns}
