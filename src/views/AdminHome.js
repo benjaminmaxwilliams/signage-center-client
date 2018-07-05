@@ -38,7 +38,7 @@ class AdminHome extends React.Component {
         let selectedMenuKeys = [];
         if (location.pathname.startsWith("/admin/offices")) {
             selectedMenuKeys = ["2"];
-        } else {
+        } else if (location.pathname.startsWith("/admin/playlists")) {
             selectedMenuKeys = ["1"];
         }
 
@@ -51,7 +51,11 @@ class AdminHome extends React.Component {
                         mode="horizontal"
                         defaultSelectedKeys={['1']}
                         style={{lineHeight: '64px'}}>
-                        <Menu.Item key="1">Home</Menu.Item>
+                        <Menu.Item key="1">
+                            <NavLink to="/admin">
+                                {"Home"}
+                            </NavLink>
+                        </Menu.Item>
                     </Menu>
                 </Header>
                 <Layout className="container">
@@ -59,7 +63,6 @@ class AdminHome extends React.Component {
                         <Menu
                             mode="inline"
                             style={{ height: '100%', borderRight: 0 }}
-                            defaultSelectedKeys={['1']}
                             selectedKeys={selectedMenuKeys}>
                             <Menu.Item key="1">
                                 <NavLink to="/admin/playlists">
@@ -77,11 +80,12 @@ class AdminHome extends React.Component {
                         <Breadcrumb style={{ margin: '16px 0' }}>
                             {breadcrumbItems}
                         </Breadcrumb>
-                        <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+                        <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 280, height: '100vh'}}>
                             <Switch>
                                 <Route exact path="/admin/playlists" component={PlaylistTablePage}/>
-                                <Route path="/admin/playlists/:playlistId" component={PlaylistPage}/>
+                                <Route exact path="/admin/playlists/:playlistId" component={PlaylistPage}/>
                                 <Route exact path="/admin/offices" component={OfficeTablePage}/>
+                                <Route render={() => <div>Welcome</div>}/>
                             </Switch>
                         </Content>
                     </Layout>

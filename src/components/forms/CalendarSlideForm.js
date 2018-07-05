@@ -1,20 +1,20 @@
 import React from "react";
 import {DatePicker, Form, Input, InputNumber, Modal} from "antd";
-import "./MapSlideForm.css";
-import mapSlideApi from "../../api/MapSlideApi";
+import "./CalendarSlideForm.css";
+import calendarSlideApi from "../../api/CalendarSlideApi";
 import PropTypes from "prop-types";
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 
-class MapSlideForm extends React.Component {
+class CalendarSlideForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             playlistId: this.props.playlistId,
             id: null,
-            isLoading: false
+            isLoading: false,
         };
 
         this.onCreate = this.onCreate.bind(this);
@@ -31,7 +31,7 @@ class MapSlideForm extends React.Component {
         form.validateFields((err, values) => {
             if (!err) {
                 values = this.generateFormData(values);
-                mapSlideApi.create(values)
+                calendarSlideApi.create(values)
                     .then(id => {
                         form.resetFields();
                         this.setState({id: id, isLoading: false});
@@ -80,7 +80,7 @@ class MapSlideForm extends React.Component {
         return (
             <Modal
                 visible={visible}
-                title="New Map Slide"
+                title="New Calendar Slide"
                 okText="Create"
                 width={620}
                 confirmLoading={isLoading}
@@ -118,38 +118,18 @@ class MapSlideForm extends React.Component {
                             />
                         )}
                     </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Latitude"
-                    >
-                        {getFieldDecorator("latCoord", {
-                            rules: [{required: true, message: "Please input a latitude!"}]
-                        })(
-                            <InputNumber step={0.1}/>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Longitude"
-                    >
-                        {getFieldDecorator("longCoord", {
-                            rules: [{required: true, message: "Please input a longitude!"}]
-                        })(
-                            <InputNumber ste={0.1}/>
-                        )}
-                    </FormItem>
                 </Form>
             </Modal>
         );
     }
 }
 
-MapSlideForm.propTypes = {
+CalendarSlideForm.propTypes = {
     playlistId: PropTypes.number.isRequired,
     visible: PropTypes.bool,
     onSuccess: PropTypes.func,
-    onCancel: PropTypes.func,
+    onCancel: PropTypes.func
 };
 
-export default MapSlideForm = Form.create()(MapSlideForm);
+export default CalendarSlideForm = Form.create()(CalendarSlideForm);
 

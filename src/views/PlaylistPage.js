@@ -1,15 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './PlaylistPage.css';
-import {Button, Col, Divider, Dropdown, Icon, Menu, Modal, Row, Table} from "antd";
+import {Button, Col, Divider, Dropdown, Icon, Menu, notification, Row} from "antd";
 import playlistApi from "../api/PlaylistApi";
-import ImageSlide from "../components/slides/ImageSlide";
 import ImageSlideForm from "../components/forms/ImageSlideForm";
 import WeatherSlideForm from "../components/forms/WeatherSlideForm";
 import MapSlideForm from "../components/forms/MapSlideForm";
+import CalendarSlideForm from "../components/forms/CalendarSlideForm";
+
 const ButtonGroup = Button.Group;
 
 
-class PlaylistPage extends Component {
+class PlaylistPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,7 +23,7 @@ class PlaylistPage extends Component {
             imageFormVisible: false,
             calendarFormVisible: false,
             mapFormVisible: false,
-            weatherFormVisible: false
+            weatherFormVisible: false,
         }
     }
 
@@ -53,15 +54,7 @@ class PlaylistPage extends Component {
         });
     };
 
-    handleOk = (e, formVisible) => {
-        console.log(e);
-        this.setState({
-            [formVisible]: false,
-        });
-    };
-
-    handleCancel = (e, formVisible) => {
-        console.log(e);
+    closeModal = (formVisible) => {
         this.setState({
             [formVisible]: false,
         });
@@ -92,41 +85,68 @@ class PlaylistPage extends Component {
                     </Col>
                 </Row>
                 <Divider dashed />
-                <Modal
-                    title="New Image Slide"
+                <ImageSlideForm
                     visible={this.state.imageFormVisible}
-                    onOk={(e) => this.handleOk(e, "imageFormVisible")}
-                    onCancel={(e) => this.handleCancel(e, "imageFormVisible")}>
-                    <ImageSlideForm
-                        playlistId={playlist.id}/>
-                </Modal>
-                <Modal
-                    title="New Calendar Slide"
+                    playlistId={playlist.id}
+                    onSuccess={this.onImageFormSuccess}
+                    onCancel={() => this.closeModal("imageFormVisible")}/>
+                <CalendarSlideForm
                     visible={this.state.calendarFormVisible}
-                    onOk={(e) => this.handleOk(e, "calendarFormVisible")}
-                    onCancel={(e) => this.handleCancel(e, "calendarFormVisible")}>
-                    <ImageSlideForm
-                        playlistId={playlist.id}/>
-                </Modal>
-                <Modal
-                    title="New Map Slide"
+                    playlistId={playlist.id}
+                    onSuccess={this.onCalendarFormSuccess}
+                    onCancel={() => this.closeModal("calendarFormVisible")}/>
+                <MapSlideForm
                     visible={this.state.mapFormVisible}
-                    onOk={(e) => this.handleOk(e, "mapFormVisible")}
-                    onCancel={(e) => this.handleCancel(e, "mapFormVisible")}>
-                    <MapSlideForm
-                        playlistId={playlist.id}/>
-                </Modal>
-                <Modal
-                    title="New Weather Slide"
+                    playlistId={playlist.id}
+                    onSuccess={this.onMapFormSuccess}
+                    onCancel={() => this.closeModal("mapFormVisible")}/>
+                <WeatherSlideForm
                     visible={this.state.weatherFormVisible}
-                    onOk={(e) => this.handleOk(e, "weatherFormVisible")}
-                    onCancel={(e) => this.handleCancel(e, "weatherFormVisible")}>
-                    <WeatherSlideForm
-                        playlistId={playlist.id}/>
-                </Modal>
+                    playlistId={playlist.id}
+                    onSuccess={this.onWeatherFormSuccess}
+                    onCancel={() => this.closeModal("weatherFormVisible")}/>
             </div>
         );
     }
+
+    /**
+     * Slide Form Modal Success Callback
+     */
+    onImageFormSuccess = (success) => {
+        if (success) {
+            this.setState({imageFormVisible: false});
+            notification["success"]({
+                message: 'Image Slide Created',
+            });
+        }
+    };
+
+    onCalendarFormSuccess = (success) => {
+        if (success) {
+            this.setState({calendarFormVisible: false});
+            notification["success"]({
+                message: 'Calendar Slide Created',
+            });
+        }
+    };
+
+    onMapFormSuccess = (success) => {
+        if (success) {
+            this.setState({mapFormVisible: false});
+            notification["success"]({
+                message: 'Map Slide Created',
+            });
+        }
+    };
+
+    onWeatherFormSuccess = (success) => {
+        if (success) {
+            this.setState({weatherFormVisible: false});
+            notification["success"]({
+                message: 'Weather Slide Created',
+            });
+        }
+    };
 }
 
 export default PlaylistPage;

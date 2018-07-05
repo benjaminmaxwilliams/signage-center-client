@@ -85,7 +85,7 @@ WeatherSlide.propTypes = {
         id: PropTypes.number.isRequired,
         cityId: PropTypes.string.isRequired,
         duration: PropTypes.number.isRequired
-    })
+    }),
 };
 
 export default WeatherSlide;
