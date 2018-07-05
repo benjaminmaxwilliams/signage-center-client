@@ -43,7 +43,7 @@ class AdminHome extends React.Component {
         }
 
         return (
-            <Layout className="container">
+            <Layout style={{position: "absolute", width: "100%", height: "100%"}} className="container">
                 <Header className="header">
                     <div className="logo"/>
                     <Menu
@@ -76,11 +76,18 @@ class AdminHome extends React.Component {
                             </Menu.Item>
                         </Menu>
                     </Sider>
-                    <Layout style={{padding: '0 24px 24px'}}>
+                    <Layout style={{margin: '24px 16px 0'}}>
                         <Breadcrumb style={{margin: '16px 0'}}>
                             {breadcrumbItems}
                         </Breadcrumb>
-                        <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 280, height: '100vh'}}>
+                        <Content style={{
+                            background: '#fff',
+                            padding: 24,
+                            margin: "5px",
+                            minHeight: 280,
+                            height: "100%",
+                            overflow: "auto"
+                        }}>
                             <Switch>
                                 <Route exact path="/admin/playlists" component={PlaylistTablePage}/>
                                 <Route exact path="/admin/playlists/:playlistId" component={PlaylistPage}/>

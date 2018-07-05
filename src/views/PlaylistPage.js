@@ -7,9 +7,9 @@ import ImageSlideForm from "../components/forms/ImageSlideForm";
 import WeatherSlideForm from "../components/forms/WeatherSlideForm";
 import MapSlideForm from "../components/forms/MapSlideForm";
 import CalendarSlideForm from "../components/forms/CalendarSlideForm";
-
-const ButtonGroup = Button.Group;
-
+import genericMapImg from "../assets/generic-map.png";
+import genericWeatherImg from "../assets/generic-weather.png";
+import genericCalendarImg from "../assets/generic-calendar.svg";
 
 class PlaylistPage extends React.Component {
     constructor(props) {
@@ -103,11 +103,10 @@ class PlaylistPage extends React.Component {
                 key={slide.id}
                 actions={[
                     <span>
-                        <Button type="danger" icon="delete" loading={this.state.isLoading}
-                                onClick={(e) => this.onDelete(e, slide.id)}>
-                            Delete
+                         <Button type="danger" shape="circle" icon="delete" loading={this.state.isLoading}
+                                 onClick={(e) => this.onDelete(e, slide.id)}>
                         </Button>
-                    </span>
+                    </span>,
                 ]}
                 extra={
                     <div style={{maxWidth: 272, maxHeight: 200}}>
@@ -115,7 +114,18 @@ class PlaylistPage extends React.Component {
                     </div>
                 }>
                 <List.Item.Meta
-                    title={slide.name}/>
+                    title={slide.name}
+                    description="Image Slide"/>
+                <span style={{marginRight: 15}}>
+                        <Icon type="clock-circle-o" style={{marginRight: 8}}/>
+                    {slide.duration + " seconds"}
+                    </span>
+                {slide.text &&
+                <span style={{marginRight: 15}}>
+                            <Icon type="message" style={{marginRight: 8}}/>
+                    {slide.text}
+                        </span>
+                }
             </List.Item>
         );
     };
@@ -126,7 +136,7 @@ class PlaylistPage extends React.Component {
                 key={slide.id}
                 actions={[
                     <span>
-                        <Button type="danger" icon="delete" loading={this.state.isLoading}
+                        <Button icon="delete" loading={this.state.isLoading}
                                 onClick={(e) => this.onDelete(e, slide.id)}>
                             Delete
                         </Button>
@@ -134,7 +144,7 @@ class PlaylistPage extends React.Component {
                 ]}
                 extra={
                     <img width={272} alt="logo"
-                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>
+                         src={genericMapImg}/>
                 }>
                 <List.Item.Meta
                     title={slide.name}/>
@@ -156,7 +166,7 @@ class PlaylistPage extends React.Component {
                 ]}
                 extra={
                     <img width={272} alt="logo"
-                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>
+                         src={genericWeatherImg}/>
                 }>
                 <List.Item.Meta
                     title={slide.name}/>
@@ -170,7 +180,7 @@ class PlaylistPage extends React.Component {
                 key={slide.id}
                 actions={[
                     <span>
-                        <Button type="danger" icon="delete" loading={this.state.isLoading}
+                        <Button size="small" type="danger" icon="delete" loading={this.state.isLoading}
                                 onClick={(e) => this.onDelete(e, slide.id)}>
                             Delete
                         </Button>
@@ -178,7 +188,7 @@ class PlaylistPage extends React.Component {
                 ]}
                 extra={
                     <img width={272} alt="logo"
-                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>
+                         src={genericCalendarImg}/>
                 }>
                 <List.Item.Meta
                     title={slide.name}/>
@@ -190,10 +200,10 @@ class PlaylistPage extends React.Component {
         this.setState({isLoading: true});
 
         slideApi.delete(id)
-            .then((success) => {
+            .then(() => {
                 const {playlist} = this.state;
                 let slides = playlist.slides;
-                slides = slides.filter(item => item.id !== id)
+                slides = slides.filter(item => item.id !== id);
                 playlist.slides = slides;
                 this.setState({playlist: playlist});
                 notification["success"]({
@@ -203,10 +213,10 @@ class PlaylistPage extends React.Component {
             notification["error"]({
                 message: 'Error',
                 description: error.message
+            })
             }).finally(() => {
                 this.setState({isLoading: false});
             });
-        });
     };
 
     render() {
@@ -226,6 +236,9 @@ class PlaylistPage extends React.Component {
             <div className="container">
                 <Row>
                     <Col span={4}>
+                        <Button type="primary" style={{marginRight: "5px"}} href={`/playlist/${playlist.id}/play`}>
+                            View
+                        </Button>
                         <Dropdown overlay={menu}>
                             <Button type="primary">
                                 <Icon type="plus-circle"/>Add Slide
@@ -256,9 +269,9 @@ class PlaylistPage extends React.Component {
                     onCancel={() => this.closeModal("weatherFormVisible")}/>
                 <div>
                     <h1>{playlist.name}</h1>
-                    <h3>Slides</h3>
                     <Divider dashed/>
                     <List
+                        bordered={true}
                         itemLayout="vertical"
                         size="large"
                         dataSource={playlist.slides}

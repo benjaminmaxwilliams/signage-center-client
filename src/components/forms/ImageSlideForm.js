@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
+const TextArea = Input.TextArea;
 
 class ImageSlideForm extends React.Component {
     constructor(props) {
@@ -157,6 +158,18 @@ class ImageSlideForm extends React.Component {
                                     <Icon type="upload"/> Click to upload
                                 </Button>
                             </Upload>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Text"
+                    >
+                        {getFieldDecorator("text", {
+                            rules: [{max: 250}]
+                        })(
+                            <TextArea
+                                autosize={true}
+                                rows={4}/>
                         )}
                     </FormItem>
                 </Form>
