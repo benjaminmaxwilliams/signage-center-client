@@ -32,6 +32,30 @@ class SlideApi {
             })
 
     }
+
+    /**
+     * Delete slide
+     *
+     * @param slideId
+     * @returns {Promise<Response>}
+     */
+    delete(slideId) {
+
+        const url = process.env.REACT_APP_API_HOST + `/slide/${slideId}`;
+
+        return fetch(url, {method: "DELETE",})
+            .then(response => {
+                if (response.ok) {
+                    return response.ok;
+                } else {
+                    throw new Error("Error");
+                }
+            }).catch(error => {
+                console.log(error);
+                throw error;
+            })
+
+    }
 }
 
 const slideApi = new SlideApi();

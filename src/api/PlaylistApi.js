@@ -31,7 +31,7 @@ class PlaylistApi {
     }
 
 
-    deletePlay(playlistId) {
+    delete(playlistId) {
 
         const url = process.env.REACT_APP_API_HOST + `/playlist/${playlistId}`;
 

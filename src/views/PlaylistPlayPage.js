@@ -73,7 +73,7 @@ class PlaylistPlayPage extends React.Component {
             return <MapSlide slide={currentSlide}/>
         } else if (currentSlide.slideType === "WEATHER") {
             return <WeatherSlide slide={currentSlide}/>
-        } else if (currentSlide.slideType === "MAP") {
+        } else if (currentSlide.slideType === "CALENDAR") {
             return <CalendarSlide slide={currentSlide}/>
         }
     }

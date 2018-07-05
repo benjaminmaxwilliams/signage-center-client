@@ -25,8 +25,13 @@ class PlaylistPage extends React.Component {
             calendarFormVisible: false,
             mapFormVisible: false,
             weatherFormVisible: false,
-            playlistFormVisible: false
-        }
+            playlistFormVisible: false,
+            isLoading: false,
+        };
+
+        this.renderItem = this.renderItem.bind(this);
+        this.renderImageSlideItem = this.renderImageSlideItem.bind(this);
+        this.onDelete = this.onDelete.bind(this);
     }
 
     componentWillMount() {
@@ -37,15 +42,16 @@ class PlaylistPage extends React.Component {
                 this.setState({playlist: playlist});
             });
 
-        // slideApi.getSlidesByPlaylist(playlistId)
-        //     .then(slides => {
-        //         this.setState({playlistId: playlistId, slides: slides});
-        //
-        //     });
+        slideApi.getSlidesByPlaylist(playlistId)
+            .then(slides => {
+                const {playlist} = this.state;
+                playlist.slides = slides;
+                this.setState({playlist: playlist});
+            });
     }
 
     componentDidUpdate() {
-        let playlistId = this.props.match.params.playlistId
+        let playlistId = this.props.match.params.playlistId;
         slideApi.getSlidesByPlaylist(playlistId)
             .then(slides => {
                 this.setState({playlistId: playlistId, slides: slides});
@@ -77,10 +83,130 @@ class PlaylistPage extends React.Component {
         });
     };
 
-    renderItem = (item) => {
+    renderItem = (slide) => {
+        if (slide.slideType === "IMAGE") {
+            return this.renderImageSlideItem(slide);
+        } else if (slide.slideType === "MAP") {
+            return this.renderMapSlideItem(slide);
+        } else if (slide.slideType === "WEATHER") {
+            return this.renderWeatherSlideItem(slide);
+        } else if (slide.slideType === "CALENDAR") {
+            return this.renderCalendarSlideItem(slide);
+        } else {
+            return (<h1></h1>);
+        }
+    };
+
+    renderImageSlideItem = (slide) => {
         return (
-            <h1/>
+            <List.Item
+                key={slide.id}
+                actions={[
+                    <span>
+                        <Button type="danger" icon="delete" loading={this.state.isLoading}
+                                onClick={(e) => this.onDelete(e, slide.id)}>
+                            Delete
+                        </Button>
+                    </span>
+                ]}
+                extra={
+                    <div style={{maxWidth: 272, maxHeight: 200}}>
+                        <img style={{height: "100%", width: "100%"}} alt="logo" src={slide.imageUrl}/>
+                    </div>
+                }>
+                <List.Item.Meta
+                    title={slide.name}/>
+            </List.Item>
         );
+    };
+
+    renderMapSlideItem = (slide) => {
+        return (
+            <List.Item
+                key={slide.id}
+                actions={[
+                    <span>
+                        <Button type="danger" icon="delete" loading={this.state.isLoading}
+                                onClick={(e) => this.onDelete(e, slide.id)}>
+                            Delete
+                        </Button>
+                    </span>
+                ]}
+                extra={
+                    <img width={272} alt="logo"
+                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>
+                }>
+                <List.Item.Meta
+                    title={slide.name}/>
+            </List.Item>
+        );
+    };
+
+    renderWeatherSlideItem = (slide) => {
+        return (
+            <List.Item
+                key={slide.id}
+                actions={[
+                    <span>
+                        <Button type="danger" icon="delete" loading={this.state.isLoading}
+                                onClick={(e) => this.onDelete(e, slide.id)}>
+                            Delete
+                        </Button>
+                    </span>
+                ]}
+                extra={
+                    <img width={272} alt="logo"
+                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>
+                }>
+                <List.Item.Meta
+                    title={slide.name}/>
+            </List.Item>
+        );
+    };
+
+    renderCalendarSlideItem = (slide) => {
+        return (
+            <List.Item
+                key={slide.id}
+                actions={[
+                    <span>
+                        <Button type="danger" icon="delete" loading={this.state.isLoading}
+                                onClick={(e) => this.onDelete(e, slide.id)}>
+                            Delete
+                        </Button>
+                    </span>
+                ]}
+                extra={
+                    <img width={272} alt="logo"
+                         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>
+                }>
+                <List.Item.Meta
+                    title={slide.name}/>
+            </List.Item>
+        );
+    };
+
+    onDelete = (e, id) => {
+        this.setState({isLoading: true});
+
+        slideApi.delete(id)
+            .then((success) => {
+                const {playlist} = this.state;
+                let slides = playlist.slides;
+                slides = slides.filter(item => item.id !== id)
+                playlist.slides = slides;
+                this.setState({playlist: playlist});
+                notification["success"]({
+                    message: 'Slide Deleted',
+                });
+            }).catch(error => {
+            notification["error"]({
+                message: 'Error',
+                description: error.message
+            }).finally(() => {
+                this.setState({isLoading: false});
+            });
+        });
     };
 
     render() {
@@ -130,15 +256,13 @@ class PlaylistPage extends React.Component {
                     onCancel={() => this.closeModal("weatherFormVisible")}/>
                 <div>
                     <h1>{playlist.name}</h1>
+                    <h3>Slides</h3>
+                    <Divider dashed/>
                     <List
                         itemLayout="vertical"
                         size="large"
                         dataSource={playlist.slides}
                         renderItem={this.renderItem}/>
-                    {this.state.slides ? this.state.slides.map(function (item, i) {
-                        return <img className="tv_img_thumb" key={i} src={item.imageUrl}></img>
-                    }) : <span></span>}
-
                 </div>
             </div>
         );

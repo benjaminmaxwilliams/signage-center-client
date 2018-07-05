@@ -31,7 +31,7 @@ class OfficeApi {
                 }
             })
             .then(response => {
-                return response.json();
+                return response.body();
             }).catch(error => {
                 console.log(error);
                 throw error;
