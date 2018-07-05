@@ -1,10 +1,11 @@
 import React from "react";
-import {Button, Form, Icon, Input, InputNumber, Upload} from "antd";
+import {DatePicker, Form, Input, InputNumber, Modal} from "antd";
 import "./WeatherSlideForm.css";
 import weatherSlideApi from "../../api/WeatherSlideApi";
 import PropTypes from "prop-types";
 
 const FormItem = Form.Item;
+const RangePicker = DatePicker.RangePicker;
 
 class WeatherSlideForm extends React.Component {
     constructor(props) {
@@ -16,23 +17,25 @@ class WeatherSlideForm extends React.Component {
             isLoading: false
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onCreate = this.onCreate.bind(this);
+        this.generateFormData = this.generateFormData.bind(this);
+        this.onCancel = this.onCancel.bind(this);
     }
 
-    handleSubmit = (e) => {
+    onCreate = (e) => {
         e.preventDefault();
         this.setState({isLoading: true});
 
-        this.props.form.validateFields((err, values) => {
+        const {form} = this.props;
+
+        form.validateFields((err, values) => {
             if (!err) {
-                values = {
-                    ...values,
-                    playlistId: this.state.playlistId
-                };
+                values = this.generateFormData(values);
                 weatherSlideApi.create(values)
                     .then(id => {
+                        form.resetFields();
                         this.setState({id: id, isLoading: false});
-                        alert("Success");
+                        this.props.onSuccess(true);
                     })
             } else {
                 this.setState({isLoading: false})
@@ -40,8 +43,28 @@ class WeatherSlideForm extends React.Component {
         });
     };
 
+    generateFormData = (values) => {
+        let startDate;
+        let endDate;
+
+        if (typeof values.rangePicker !== "undefined") {
+            startDate = values.rangePicker[0];
+            endDate = values.rangePicker[1];
+        }
+
+        return {...values, startDate: startDate, endDate: endDate, playlistId: this.state.playlistId};
+    };
+
+    onCancel = () => {
+        const {form} = this.props;
+        form.resetFields();
+        this.props.onCancel();
+    };
+
     render() {
-        const {getFieldDecorator} = this.props.form;
+        const {visible, form} = this.props;
+        const {isLoading} = this.state;
+        const {getFieldDecorator} = form;
 
         const formItemLayout = {
             labelCol: {
@@ -54,61 +77,68 @@ class WeatherSlideForm extends React.Component {
             },
         };
 
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: {
-                    span: 24,
-                    offset: 0,
-                },
-                sm: {
-                    span: 16,
-                    offset: 8,
-                },
-            },
-        };
-
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormItem
-                    {...formItemLayout}
-                    label="Slide Name"
-                >
-                    {getFieldDecorator("name", {
-                        rules: [{required: true, message: "Please input a slide name!", whitespace: true}]
-                    })(
-                        <Input/>
-                    )}
-                </FormItem>
-                <FormItem
-                    {...formItemLayout}
-                    label="Duration (seconds)"
-                >
-                    {getFieldDecorator("duration", {
-                        rules: [{required: true, message: "Please input a duration!"}]
-                    })(
-                        <InputNumber/>
-                    )}
-                </FormItem>
-                <FormItem
-                    {...formItemLayout}
-                    label="Open Weather City ID"
-                >
-                    {getFieldDecorator("cityId", {
-                        rules: [{required: true, message: "Please input a city id!"}]
-                    })(
-                        <InputNumber/>
-                    )}
-                </FormItem>
-                <FormItem {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit" loading={this.state.isLoading}>Create</Button>
-                </FormItem>
-            </Form>
+            <Modal
+                visible={visible}
+                title="New Weather Slide"
+                okText="Create"
+                width={620}
+                confirmLoading={isLoading}
+                onCancel={this.onCancel}
+                onOk={this.onCreate}>
+                <Form>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Slide Name"
+                    >
+                        {getFieldDecorator("name", {
+                            rules: [{required: true, message: "Please input a slide name!", whitespace: true}]
+                        })(
+                            <Input/>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Duration (seconds)"
+                    >
+                        {getFieldDecorator("duration", {
+                            rules: [{required: true, message: "Please input a duration!"}]
+                        })(
+                            <InputNumber/>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Display Schedule">
+                        {getFieldDecorator("rangePicker",)(
+                            <RangePicker
+                                showTime={{format: 'HH:mm'}}
+                                format="YYYY-MM-DD HH:mm"
+                                placeholder={['Start', 'End']}
+                            />
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Open Weather City ID"
+                    >
+                        {getFieldDecorator("cityId", {
+                            rules: [{required: true, message: "Please input a city id!"}]
+                        })(
+                            <InputNumber/>
+                        )}
+                    </FormItem>
+                </Form>
+            </Modal>
         );
     }
 }
 
-WeatherSlideForm.PropTypes = {
-    playlistId: PropTypes.number.isRequired
+WeatherSlideForm.propTypes = {
+    playlistId: PropTypes.number.isRequired,
+    visible: PropTypes.bool,
+    onSuccess: PropTypes.func,
+    onCancel: PropTypes.func,
 };
 
 export default WeatherSlideForm = Form.create()(WeatherSlideForm);
