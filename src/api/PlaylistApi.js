@@ -4,17 +4,26 @@ class PlaylistApi {
 
         const url = process.env.REACT_APP_API_HOST + "/playlist";
 
-        return fetch(url, {
+        const props = {
             body: JSON.stringify(playlist),
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
-        })
+        };
+
+        return fetch(url, props)
             .then(response => {
-                return response.json()
+                if (response.ok) {
+                    return response;
+                } else {
+                    throw new Error("Error");
+                }
+            }).then(response => {
+                return response.json();
             }).catch(error => {
-                return error;
+                console.log(error);
+                throw error;
             })
     }
 
@@ -35,13 +44,16 @@ class PlaylistApi {
 
         const url = process.env.REACT_APP_API_HOST + `/playlist/${playlistId}`;
 
-        return fetch(url, {
-            method: "DELETE",
-        })
+        return fetch(url, {method: "DELETE",})
             .then(response => {
-                return response.json();
+                if (response.ok) {
+                    return response.ok;
+                } else {
+                    throw new Error("Error");
+                }
             }).catch(error => {
-                return error;
+                console.log(error);
+                throw error;
             })
     }
 

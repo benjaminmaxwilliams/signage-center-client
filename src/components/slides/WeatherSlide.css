@@ -10,14 +10,17 @@
     overflow: auto;
 }
 
-.text_over_image {
+.text-block {
     position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
+    bottom: 50px;
     right: 0;
-    bottom: 0;
-    color: #fff;
+    left: 0;
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+}
+
+.h1 {
+    color: white;
     text-align: center;
-    height: 100px;
 }

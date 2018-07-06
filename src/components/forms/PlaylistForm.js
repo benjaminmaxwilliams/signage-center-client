@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, Input, Modal, Select} from "antd";
+import {Form, Input, Modal, notification, Select} from "antd";
 import "./PlaylistForm.css";
 import PropTypes from "prop-types";
 import playlistApi from "../../api/PlaylistApi";
@@ -38,11 +38,20 @@ class PlaylistForm extends React.Component {
         form.validateFields((err, values) => {
             if (!err) {
                 playlistApi.create(values)
-                    .then(id => {
+                    .then(newPlaylist => {
                         form.resetFields();
-                        this.setState({id: id, isLoading: false});
-                        this.props.onSuccess(true);
+                        this.setState({id: newPlaylist.id});
+                        this.props.onSuccess(newPlaylist);
                     })
+                    .catch(error => {
+                        notification["error"]({
+                            message: 'Error',
+                            description: error.message
+                        });
+                    })
+                    .finally(() => {
+                        this.setState({isLoading: false});
+                    });
             } else {
                 this.setState({isLoading: false})
             }

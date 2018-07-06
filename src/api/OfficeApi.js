@@ -4,17 +4,26 @@ class OfficeApi {
 
         const url = process.env.REACT_APP_API_HOST + "/office";
 
-        return fetch(url, {
+        const props = {
             body: JSON.stringify(office),
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
-        })
+        };
+
+        return fetch(url, props)
             .then(response => {
-                return response.json()
+                if (response.ok) {
+                    return response;
+                } else {
+                    throw new Error("Error");
+                }
+            }).then(response => {
+                return response.json();
             }).catch(error => {
-                return error;
+                console.log(error);
+                throw error;
             })
     }
 
@@ -25,18 +34,14 @@ class OfficeApi {
         return fetch(url, {method: "DELETE",})
             .then(response => {
                 if (response.ok) {
-                    return response;
+                    return response.ok;
                 } else {
                     throw new Error("Error");
                 }
-            })
-            .then(response => {
-                return response.body();
             }).catch(error => {
                 console.log(error);
                 throw error;
             })
-
     }
 
     getAll() {

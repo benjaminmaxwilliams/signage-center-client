@@ -4,17 +4,26 @@ class WeatherSlideApi {
 
         const url = process.env.REACT_APP_API_HOST + "/slide/weather";
 
-        return fetch(url, {
+        const props = {
             body: JSON.stringify(slide),
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
-        })
+        };
+
+        return fetch(url, props)
             .then(response => {
-                return response.json()
+                if (response.ok) {
+                    return response;
+                } else {
+                    throw new Error("Error");
+                }
+            }).then(response => {
+                return response.json();
             }).catch(error => {
-                return error;
+                console.log(error);
+                throw error;
             })
     }
 }

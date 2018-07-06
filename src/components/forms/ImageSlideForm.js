@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, DatePicker, Form, Icon, Input, InputNumber, Modal, Upload} from "antd";
+import {Button, DatePicker, Form, Icon, Input, InputNumber, Modal, notification, Upload} from "antd";
 import "./ImageSlideForm.css";
 import imageSlideApi from "../../api/ImageSlideApi";
 import PropTypes from "prop-types";
@@ -34,16 +34,33 @@ class ImageSlideForm extends React.Component {
             if (!err) {
                 values = this.generateFormData(values);
                 imageSlideApi.create(values)
-                    .then(id => {
+                    .then(newSlide => {
                         let formData = new FormData();
                         formData.append("file", this.state.fileList[0]);
-                        imageSlideApi.uploadImage(formData, id)
-                            .then(() => {
+                        imageSlideApi.uploadImage(formData, newSlide.id)
+                            .then(response => {
+                                newSlide.imageUrl = response.response;
                                 form.resetFields();
-                                this.setState({id: id, isLoading: false});
-                                this.props.onSuccess(true);
+                                this.setState({id: newSlide.id});
+                                this.props.onSuccess(newSlide);
                             })
+                            .catch(error => {
+                                notification["error"]({
+                                    message: 'Error',
+                                    description: error.message
+                                });
+                            }).finally(() => {
+                            this.setState({isLoading: false});
+                        });
                     })
+                    .catch(error => {
+                        notification["error"]({
+                            message: 'Error',
+                            description: error.message
+                        });
+                    }).finally(() => {
+                    this.setState({isLoading: false});
+                });
             } else {
                 this.setState({isLoading: false})
             }

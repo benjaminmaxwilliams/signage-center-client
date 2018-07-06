@@ -1,5 +1,5 @@
 import React from "react";
-import {DatePicker, Form, Input, InputNumber, Modal} from "antd";
+import {DatePicker, Form, Input, InputNumber, Modal, notification} from "antd";
 import "./WeatherSlideForm.css";
 import weatherSlideApi from "../../api/WeatherSlideApi";
 import PropTypes from "prop-types";
@@ -32,11 +32,20 @@ class WeatherSlideForm extends React.Component {
             if (!err) {
                 values = this.generateFormData(values);
                 weatherSlideApi.create(values)
-                    .then(id => {
+                    .then(newSlide => {
                         form.resetFields();
-                        this.setState({id: id, isLoading: false});
-                        this.props.onSuccess(true);
+                        this.setState({id: newSlide.id});
+                        this.props.onSuccess(newSlide);
                     })
+                    .catch(error => {
+                        notification["error"]({
+                            message: 'Error',
+                            description: error.message
+                        });
+                    })
+                    .finally(() => {
+                        this.setState({isLoading: false});
+                    });
             } else {
                 this.setState({isLoading: false})
             }

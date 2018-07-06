@@ -38,13 +38,15 @@ class OfficeTablePage extends React.Component {
     /**
      * Form Modal Success Callback
      */
-    onOfficeFormSuccess = (success) => {
-        if (success) {
-            this.setState({newOfficeModalVisible: false});
-            notification["success"]({
-                message: 'Office Created',
-            });
-        }
+    onOfficeFormSuccess = (newOffice) => {
+        const offices = [...this.state.offices];
+        offices.push(newOffice);
+
+        this.setState({newOfficeModalVisible: false, offices: offices});
+
+        notification["success"]({
+            message: 'Office Created',
+        });
     };
 
     onDelete = (id) => {

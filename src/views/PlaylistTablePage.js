@@ -15,6 +15,9 @@ class PlaylistTablePage extends React.Component {
             playlists: [],
             newPlaylistFormVisible: false
         }
+
+        this.onDelete = this.onDelete.bind(this);
+        this.onPlaylistFormSuccess = this.onPlaylistFormSuccess.bind(this);
     }
 
     componentWillMount() {
@@ -55,13 +58,15 @@ class PlaylistTablePage extends React.Component {
     /**
      * Form Modal Success Callback
      */
-    onPlaylistFormSuccess = (success) => {
-        if (success) {
-            this.setState({newPlaylistFormVisible: false});
-            notification["success"]({
-                message: 'Playlist Created',
-            });
-        }
+    onPlaylistFormSuccess = (newPlaylist) => {
+        const playlists = [...this.state.playlists];
+        playlists.push(newPlaylist);
+
+        this.setState({newPlaylistFormVisible: false, playlists: playlists});
+
+        notification["success"]({
+            message: 'Playlist Created',
+        });
     };
 
     render() {
@@ -77,8 +82,8 @@ class PlaylistTablePage extends React.Component {
             },
             {
                 title: 'Office',
-                dataIndex: 'office.name',
-                key: 'office.name',
+                dataIndex: 'officeName',
+                key: 'officeName',
             },
             {
                 title: 'Create Date',

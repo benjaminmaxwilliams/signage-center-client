@@ -1,14 +1,23 @@
 class SlideApi {
 
+    handleErrors(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    }
+
     getAllSlides() {
 
         const url = process.env.REACT_APP_API_HOST + "/slide/all";
 
         return fetch(url)
+            .then(this.handleErrors)
             .then(response => {
-                return response.json()
+                return response.json();
             }).catch(error => {
-                return error;
+                console.log(error);
+                throw error;
             })
     }
 
@@ -17,20 +26,13 @@ class SlideApi {
         const url = process.env.REACT_APP_API_HOST + `/slide/playlist/${playlistId}`;
 
         return fetch(url)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    throw new Error("Error");
-                }
-            })
+            .then(this.handleErrors)
             .then(response => {
                 return response.json();
             }).catch(error => {
                 console.log(error);
                 throw error;
             })
-
     }
 
     /**
@@ -44,13 +46,11 @@ class SlideApi {
         const url = process.env.REACT_APP_API_HOST + `/slide/${slideId}`;
 
         return fetch(url, {method: "DELETE",})
+            .then(this.handleErrors)
             .then(response => {
-                if (response.ok) {
-                    return response.ok;
-                } else {
-                    throw new Error("Error");
-                }
-            }).catch(error => {
+                return response.ok;
+            })
+            .catch(error => {
                 console.log(error);
                 throw error;
             })

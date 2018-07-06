@@ -4,7 +4,6 @@ import './WeatherSlide.css';
 import weatherApi from "../../api/WeatherApi";
 
 import weatherImages from "../../assets/weather/weather";
-import GenericBlueBackground from "../../assets/generic-blue-background.jpg";
 
 class WeatherSlide extends React.Component {
     constructor(props) {
@@ -40,8 +39,6 @@ class WeatherSlide extends React.Component {
             image = weatherImages.foggy;
         } else if (weatherConditionId >= 800 && weatherConditionId < 805) {
             image = weatherImages.sunny;
-        } else {
-            image = GenericBlueBackground;
         }
 
         return (
@@ -54,7 +51,9 @@ class WeatherSlide extends React.Component {
 
         if (temperature === "undefined") {
             return (
-                <h1 className="text_over_image">Could not retrieve weather information.</h1>
+                <div className="text-block">
+                    <h1 className="h1">Could not retrieve weather information.</h1>
+                </div>
             )
         }
 
@@ -66,7 +65,9 @@ class WeatherSlide extends React.Component {
         }
 
         return (
-            <h1 className="text_over_image">{temperature} &deg;{units}</h1>
+            <div className="text-block">
+                <h1 className="h1">{temperature} &deg;{units}</h1>
+            </div>
         )
     }
 

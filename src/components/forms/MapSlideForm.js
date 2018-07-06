@@ -3,6 +3,7 @@ import {DatePicker, Form, Input, InputNumber, Modal} from "antd";
 import "./MapSlideForm.css";
 import mapSlideApi from "../../api/MapSlideApi";
 import PropTypes from "prop-types";
+import {notification} from "antd/lib/index";
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
@@ -32,11 +33,19 @@ class MapSlideForm extends React.Component {
             if (!err) {
                 values = this.generateFormData(values);
                 mapSlideApi.create(values)
-                    .then(id => {
+                    .then(newSlide => {
                         form.resetFields();
-                        this.setState({id: id, isLoading: false});
-                        this.props.onSuccess(true);
+                        this.setState({id: newSlide.id});
+                        this.props.onSuccess(newSlide);
                     })
+                    .catch(error => {
+                        notification["error"]({
+                            message: 'Error',
+                            description: error.message
+                        });
+                    }).finally(() => {
+                    this.setState({isLoading: false});
+                });
             } else {
                 this.setState({isLoading: false})
             }

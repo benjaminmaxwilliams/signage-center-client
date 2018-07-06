@@ -1,6 +1,6 @@
 import React from 'react';
 import './PlaylistPage.css';
-import {Button, Col, Divider, Dropdown, Icon, List, Menu, notification, Row} from "antd";
+import {Button, Divider, Dropdown, Icon, List, Menu, notification} from "antd";
 import playlistApi from "../api/PlaylistApi";
 import slideApi from "../api/SlideApi";
 import ImageSlideForm from "../components/forms/ImageSlideForm";
@@ -10,6 +10,7 @@ import CalendarSlideForm from "../components/forms/CalendarSlideForm";
 import genericMapImg from "../assets/generic-map.png";
 import genericWeatherImg from "../assets/generic-weather.png";
 import genericCalendarImg from "../assets/generic-calendar.svg";
+import {withRouter} from "react-router-dom";
 
 class PlaylistPage extends React.Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class PlaylistPage extends React.Component {
         this.renderItem = this.renderItem.bind(this);
         this.renderImageSlideItem = this.renderImageSlideItem.bind(this);
         this.onDelete = this.onDelete.bind(this);
+        this.onImageFormSuccess = this.onImageFormSuccess.bind(this);
     }
 
     componentWillMount() {
@@ -40,6 +42,9 @@ class PlaylistPage extends React.Component {
         playlistApi.getPlaylist(playlistId)
             .then(playlist => {
                 this.setState({playlist: playlist});
+            })
+            .catch(error => {
+                this.props.history.push("/admin/playlists");
             });
 
         slideApi.getSlidesByPlaylist(playlistId)
@@ -47,6 +52,9 @@ class PlaylistPage extends React.Component {
                 const {playlist} = this.state;
                 playlist.slides = slides;
                 this.setState({playlist: playlist});
+            })
+            .catch(error => {
+                this.props.history.push("/admin/playlists");
             });
     }
 
@@ -136,9 +144,8 @@ class PlaylistPage extends React.Component {
                 key={slide.id}
                 actions={[
                     <span>
-                        <Button icon="delete" loading={this.state.isLoading}
-                                onClick={(e) => this.onDelete(e, slide.id)}>
-                            Delete
+                         <Button type="danger" shape="circle" icon="delete" loading={this.state.isLoading}
+                                 onClick={(e) => this.onDelete(e, slide.id)}>
                         </Button>
                     </span>
                 ]}
@@ -147,7 +154,12 @@ class PlaylistPage extends React.Component {
                          src={genericMapImg}/>
                 }>
                 <List.Item.Meta
-                    title={slide.name}/>
+                    title={slide.name}
+                    description="Map Slide"/>
+                <span style={{marginRight: 15}}>
+                        <Icon type="clock-circle-o" style={{marginRight: 8}}/>
+                    {slide.duration + " seconds"}
+                    </span>
             </List.Item>
         );
     };
@@ -158,9 +170,8 @@ class PlaylistPage extends React.Component {
                 key={slide.id}
                 actions={[
                     <span>
-                        <Button type="danger" icon="delete" loading={this.state.isLoading}
-                                onClick={(e) => this.onDelete(e, slide.id)}>
-                            Delete
+                         <Button type="danger" shape="circle" icon="delete" loading={this.state.isLoading}
+                                 onClick={(e) => this.onDelete(e, slide.id)}>
                         </Button>
                     </span>
                 ]}
@@ -169,7 +180,12 @@ class PlaylistPage extends React.Component {
                          src={genericWeatherImg}/>
                 }>
                 <List.Item.Meta
-                    title={slide.name}/>
+                    title={slide.name}
+                    description="Weather Slide"/>
+                <span style={{marginRight: 15}}>
+                        <Icon type="clock-circle-o" style={{marginRight: 8}}/>
+                    {slide.duration + " seconds"}
+                    </span>
             </List.Item>
         );
     };
@@ -180,9 +196,8 @@ class PlaylistPage extends React.Component {
                 key={slide.id}
                 actions={[
                     <span>
-                        <Button size="small" type="danger" icon="delete" loading={this.state.isLoading}
-                                onClick={(e) => this.onDelete(e, slide.id)}>
-                            Delete
+                         <Button type="danger" shape="circle" icon="delete" loading={this.state.isLoading}
+                                 onClick={(e) => this.onDelete(e, slide.id)}>
                         </Button>
                     </span>
                 ]}
@@ -191,7 +206,12 @@ class PlaylistPage extends React.Component {
                          src={genericCalendarImg}/>
                 }>
                 <List.Item.Meta
-                    title={slide.name}/>
+                    title={slide.name}
+                    description="Calendar Slide"/>
+                <span style={{marginRight: 15}}>
+                        <Icon type="clock-circle-o" style={{marginRight: 8}}/>
+                    {slide.duration + " seconds"}
+                    </span>
             </List.Item>
         );
     };
@@ -214,9 +234,9 @@ class PlaylistPage extends React.Component {
                 message: 'Error',
                 description: error.message
             })
-            }).finally(() => {
-                this.setState({isLoading: false});
-            });
+        }).finally(() => {
+            this.setState({isLoading: false});
+        });
     };
 
     render() {
@@ -234,18 +254,14 @@ class PlaylistPage extends React.Component {
 
         return (
             <div className="container">
-                <Row>
-                    <Col span={4}>
-                        <Button type="primary" style={{marginRight: "5px"}} href={`/playlist/${playlist.id}/play`}>
-                            View
-                        </Button>
-                        <Dropdown overlay={menu}>
-                            <Button type="primary">
-                                <Icon type="plus-circle"/>Add Slide
-                            </Button>
-                        </Dropdown>
-                    </Col>
-                </Row>
+                <Button type="primary" style={{marginRight: "5px"}} href={`/playlist/${playlist.id}/play`}>
+                    View
+                </Button>
+                <Dropdown overlay={menu}>
+                    <Button type="primary">
+                        <Icon type="plus-circle"/>Add Slide
+                    </Button>
+                </Dropdown>
                 <Divider dashed/>
                 <ImageSlideForm
                     visible={this.state.imageFormVisible}
@@ -284,41 +300,57 @@ class PlaylistPage extends React.Component {
     /**
      * Slide Form Modal Success Callback
      */
-    onImageFormSuccess = (success) => {
-        if (success) {
-            this.setState({imageFormVisible: false});
-            notification["success"]({
-                message: 'Image Slide Created',
-            });
-        }
+    onImageFormSuccess = (newSlide) => {
+        const playlist = this.state.playlist;
+        const slides = [...this.state.playlist.slides];
+        slides.push(newSlide);
+        playlist.slides = slides;
+
+        this.setState({imageFormVisible: false, playlist: playlist});
+
+        notification["success"]({
+            message: 'Image Slide Created',
+        });
     };
 
-    onCalendarFormSuccess = (success) => {
-        if (success) {
-            this.setState({calendarFormVisible: false});
-            notification["success"]({
-                message: 'Calendar Slide Created',
-            });
-        }
+    onCalendarFormSuccess = (newSlide) => {
+        const playlist = this.state.playlist;
+        const slides = [...this.state.playlist.slides];
+        slides.push(newSlide);
+        playlist.slides = slides;
+
+        this.setState({calendarFormVisible: false, playlist: playlist});
+
+        notification["success"]({
+            message: 'Calendar Slide Created',
+        });
     };
 
-    onMapFormSuccess = (success) => {
-        if (success) {
-            this.setState({mapFormVisible: false});
-            notification["success"]({
-                message: 'Map Slide Created',
-            });
-        }
+    onMapFormSuccess = (newSlide) => {
+        const playlist = this.state.playlist;
+        const slides = [...this.state.playlist.slides];
+        slides.push(newSlide);
+        playlist.slides = slides;
+
+        this.setState({mapFormVisible: false, playlist: playlist});
+
+        notification["success"]({
+            message: 'Map Slide Created',
+        });
     };
 
-    onWeatherFormSuccess = (success) => {
-        if (success) {
-            this.setState({weatherFormVisible: false});
-            notification["success"]({
-                message: 'Weather Slide Created',
-            });
-        }
+    onWeatherFormSuccess = (newSlide) => {
+        const playlist = this.state.playlist;
+        const slides = [...this.state.playlist.slides];
+        slides.push(newSlide);
+        playlist.slides = slides;
+
+        this.setState({weatherFormVisible: false, playlist: playlist});
+
+        notification["success"]({
+            message: 'Weather Slide Created',
+        });
     };
 }
 
-export default PlaylistPage;
+export default withRouter(PlaylistPage);

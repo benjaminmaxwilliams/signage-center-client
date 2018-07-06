@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, Input, Modal} from "antd";
+import {Form, Input, Modal, notification} from "antd";
 import "./OfficeForm.css";
 import officeApi from "../../api/OfficeApi";
 import PropTypes from "prop-types";
@@ -28,11 +28,20 @@ class OfficeForm extends React.Component {
         form.validateFields((err, values) => {
             if (!err) {
                 officeApi.create(values)
-                    .then(id => {
+                    .then(newOffice => {
                         form.resetFields();
-                        this.setState({id: id, isLoading: false});
-                        this.props.onSuccess(true);
+                        this.setState({id: newOffice.id});
+                        this.props.onSuccess(newOffice);
                     })
+                    .catch(error => {
+                        notification["error"]({
+                            message: 'Error',
+                            description: error.message
+                        });
+                    })
+                    .finally(() => {
+                        this.setState({isLoading: false});
+                    });
             } else {
                 this.setState({isLoading: false})
             }
