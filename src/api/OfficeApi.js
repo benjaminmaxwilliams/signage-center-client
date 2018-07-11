@@ -1,4 +1,4 @@
-class OfficeApi {
+class OfficeApi extends Api {
 
     create(office) {
 
@@ -13,15 +13,11 @@ class OfficeApi {
         };
 
         return fetch(url, props)
+            .then(this.handleErrors)
             .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    throw new Error("Error");
-                }
-            }).then(response => {
                 return response.json();
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.log(error);
                 throw error;
             })
@@ -31,14 +27,16 @@ class OfficeApi {
 
         const url = process.env.REACT_APP_API_HOST + `/office/${officeId}`;
 
-        return fetch(url, {method: "DELETE",})
+        const props = {
+            method: "DELETE",
+        };
+
+        return fetch(url, props)
+            .then(this.handleErrors)
             .then(response => {
-                if (response.ok) {
-                    return response.ok;
-                } else {
-                    throw new Error("Error");
-                }
-            }).catch(error => {
+                return true
+            })
+            .catch(error => {
                 console.log(error);
                 throw error;
             })
@@ -49,9 +47,11 @@ class OfficeApi {
         const url = process.env.REACT_APP_API_HOST + "/office/all";
 
         return fetch(url)
+            .then(this.handleErrors)
             .then(response => {
-                return response.json()
-            }).catch(error => {
+                return response.json();
+            })
+            .catch(error => {
                 return error;
             })
     }
@@ -61,9 +61,11 @@ class OfficeApi {
         const url = process.env.REACT_APP_API_HOST + `/office/${officeId}`;
 
         return fetch(url)
+            .then(this.handleErrors)
             .then(response => {
                 return response.json();
-            }).catch(error => {
+            })
+            .catch(error => {
                 return error;
             })
 

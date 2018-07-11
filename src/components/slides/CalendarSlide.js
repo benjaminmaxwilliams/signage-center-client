@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './CalendarSlide.css';
-import {Calendar} from "antd";
+import {Calendar, Col, Row} from "antd";
 
 class CalendarSlide extends React.Component {
     constructor(props) {
@@ -13,7 +13,16 @@ class CalendarSlide extends React.Component {
 
         return (
             <div>
-                <Calendar/>
+                <Row gutter={8}>
+                    <Col span={18}>
+                        <div style={{height: "100vh"}}>
+                            <Calendar/>
+                        </div>
+                    </Col>
+                    <Col span={6}>
+                        <h1>Events</h1>
+                    </Col>
+                </Row>
             </div>
         );
     }

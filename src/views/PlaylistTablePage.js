@@ -14,7 +14,7 @@ class PlaylistTablePage extends React.Component {
         this.state = {
             playlists: [],
             newPlaylistFormVisible: false
-        }
+        };
 
         this.onDelete = this.onDelete.bind(this);
         this.onPlaylistFormSuccess = this.onPlaylistFormSuccess.bind(this);
@@ -55,9 +55,6 @@ class PlaylistTablePage extends React.Component {
         });
     };
 
-    /**
-     * Form Modal Success Callback
-     */
     onPlaylistFormSuccess = (newPlaylist) => {
         const playlists = [...this.state.playlists];
         playlists.push(newPlaylist);

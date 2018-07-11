@@ -5,6 +5,8 @@ import PlaylistTablePage from "./PlaylistTablePage";
 import {Link, NavLink, Route, Switch, withRouter} from "react-router-dom";
 import PlaylistPage from "./PlaylistPage";
 import OfficeTablePage from "./OfficeTablePage";
+import logo from "../assets/guidewire_logo_color_web.png";
+import CalendarTablePage from "./CalendarTablePage";
 
 const {Header, Content, Sider} = Layout;
 
@@ -21,6 +23,7 @@ class AdminHome extends React.Component {
             '/admin': 'Home',
             '/admin/playlists': 'Playlists',
             '/admin/offices': 'Offices',
+            '/admin/calendars': 'Calendars',
         };
 
         const pathSnippets = location.pathname.split('/').filter(i => i);
@@ -36,7 +39,9 @@ class AdminHome extends React.Component {
         });
 
         let selectedMenuKeys = [];
-        if (location.pathname.startsWith("/admin/offices")) {
+        if (location.pathname.startsWith("/admin/calendars")) {
+            selectedMenuKeys = ["3"];
+        } else if (location.pathname.startsWith("/admin/offices")) {
             selectedMenuKeys = ["2"];
         } else if (location.pathname.startsWith("/admin/playlists")) {
             selectedMenuKeys = ["1"];
@@ -45,7 +50,7 @@ class AdminHome extends React.Component {
         return (
             <Layout style={{position: "absolute", width: "100%", height: "100%"}} className="container">
                 <Header className="header">
-                    <div className="logo"/>
+                    <img className="logo" src={logo} alt=""/>
                     <Menu
                         theme="dark"
                         mode="horizontal"
@@ -59,7 +64,7 @@ class AdminHome extends React.Component {
                     </Menu>
                 </Header>
                 <Layout className="container">
-                    <Sider width={200} style={{background: '#fff'}}>
+                    <Sider width={250} style={{background: '#fff'}}>
                         <Menu
                             mode="inline"
                             style={{height: '100%', borderRight: 0}}
@@ -72,6 +77,11 @@ class AdminHome extends React.Component {
                             <Menu.Item key="2">
                                 <NavLink to="/admin/offices">
                                     {<span><Icon type="shop"/>Offices</span>}
+                                </NavLink>
+                            </Menu.Item>
+                            <Menu.Item key="3">
+                                <NavLink to="/admin/calendars">
+                                    {<span><Icon type="schedule"/>Calendars</span>}
                                 </NavLink>
                             </Menu.Item>
                         </Menu>
@@ -92,6 +102,7 @@ class AdminHome extends React.Component {
                                 <Route exact path="/admin/playlists" component={PlaylistTablePage}/>
                                 <Route exact path="/admin/playlists/:playlistId" component={PlaylistPage}/>
                                 <Route exact path="/admin/offices" component={OfficeTablePage}/>
+                                <Route exact path="/admin/calendars" component={CalendarTablePage}/>
                                 <Route render={() => <div>Welcome</div>}/>
                             </Switch>
                         </Content>

@@ -1,10 +1,23 @@
-class SlideApi {
+class SlideApi extends Api {
 
-    handleErrors(response) {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
+    delete(slideId) {
+
+        const url = process.env.REACT_APP_API_HOST + `/slide/${slideId}`;
+
+        const props = {
+            method: "DELETE",
+        };
+
+        return fetch(url, props)
+            .then(this.handleErrors)
+            .then(response => {
+                return response.ok;
+            })
+            .catch(error => {
+                console.log(error);
+                throw error;
+            })
+
     }
 
     getAllSlides() {
@@ -15,7 +28,8 @@ class SlideApi {
             .then(this.handleErrors)
             .then(response => {
                 return response.json();
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.log(error);
                 throw error;
             })
@@ -29,32 +43,11 @@ class SlideApi {
             .then(this.handleErrors)
             .then(response => {
                 return response.json();
-            }).catch(error => {
-                console.log(error);
-                throw error;
-            })
-    }
-
-    /**
-     * Delete slide
-     *
-     * @param slideId
-     * @returns {Promise<Response>}
-     */
-    delete(slideId) {
-
-        const url = process.env.REACT_APP_API_HOST + `/slide/${slideId}`;
-
-        return fetch(url, {method: "DELETE",})
-            .then(this.handleErrors)
-            .then(response => {
-                return response.ok;
             })
             .catch(error => {
                 console.log(error);
                 throw error;
             })
-
     }
 }
 

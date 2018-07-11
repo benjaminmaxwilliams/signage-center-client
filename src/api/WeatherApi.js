@@ -1,4 +1,4 @@
-class WeatherApi {
+class WeatherApi extends Api {
 
     getWeather(cityId) {
 
@@ -8,6 +8,7 @@ class WeatherApi {
             + `&units=${process.env.REACT_APP_WEATHER_UNITS}`;
 
         return fetch(url)
+            .then(this.handleErrors)
             .then(response => {
                 return response.json()
             }).catch(error => {

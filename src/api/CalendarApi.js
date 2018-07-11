@@ -1,11 +1,11 @@
-class PlaylistApi extends Api {
+class CalendarApi extends Api {
 
-    create(playlist) {
+    create(calendar) {
 
-        const url = process.env.REACT_APP_API_HOST + "/playlist";
+        const url = process.env.REACT_APP_API_HOST + "/calendar";
 
         const props = {
-            body: JSON.stringify(playlist),
+            body: JSON.stringify(calendar),
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -23,15 +23,11 @@ class PlaylistApi extends Api {
             })
     }
 
-    delete(playlistId) {
+    delete(calendarId) {
 
-        const url = process.env.REACT_APP_API_HOST + `/playlist/${playlistId}`;
+        const url = process.env.REACT_APP_API_HOST + `/calendar/${calendarId}`;
 
-        const props = {
-            method: "DELETE",
-        };
-
-        return fetch(url, props)
+        return fetch(url, {method: "DELETE",})
             .then(this.handleErrors)
             .then(response => {
                 return true
@@ -44,21 +40,7 @@ class PlaylistApi extends Api {
 
     getAll() {
 
-        const url = process.env.REACT_APP_API_HOST + "/playlist/all";
-
-        return fetch(url)
-            .then(this.handleErrors)
-            .then(response => {
-                return response.json()
-            })
-            .catch(error => {
-                return error;
-            })
-    }
-
-    getPlaylist(playlistId) {
-
-        const url = process.env.REACT_APP_API_HOST + `/playlist/${playlistId}`;
+        const url = process.env.REACT_APP_API_HOST + "/calendar/all";
 
         return fetch(url)
             .then(this.handleErrors)
@@ -66,11 +48,26 @@ class PlaylistApi extends Api {
                 return response.json();
             })
             .catch(error => {
-                return error;
+                console.log(error);
+                throw error;
             })
+    }
 
+    getCalendar(calendarId) {
+
+        const url = process.env.REACT_APP_API_HOST + `/calendar/${calendarId}`;
+
+        return fetch(url)
+            .then(this.handleErrors)
+            .then(response => {
+                return response.json();
+            })
+            .catch(error => {
+                console.log(error);
+                throw error;
+            })
     }
 }
 
-const playlistApi = new PlaylistApi();
-export default playlistApi;
+const calendarApi = new CalendarApi();
+export default calendarApi;

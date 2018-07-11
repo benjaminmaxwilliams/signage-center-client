@@ -1,4 +1,4 @@
-class MapSlideApi {
+class MapSlideApi extends Api {
 
     create(slide) {
 
@@ -13,15 +13,11 @@ class MapSlideApi {
         };
 
         return fetch(url, props)
+            .then(this.handleErrors)
             .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    throw new Error("Error");
-                }
-            }).then(response => {
                 return response.json();
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.log(error);
                 throw error;
             })

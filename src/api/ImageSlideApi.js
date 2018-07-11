@@ -1,4 +1,4 @@
-class ImageSlideApi {
+class ImageSlideApi extends Api {
 
     create(slide) {
 
@@ -13,21 +13,18 @@ class ImageSlideApi {
         };
 
         return fetch(url, props)
+            .then(this.handleErrors)
             .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    throw new Error("Error");
-                }
-            }).then(response => {
                 return response.json();
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.log(error);
                 throw error;
             })
     }
 
     uploadImage(file, slideId) {
+
         const url = process.env.REACT_APP_API_HOST + `/slide/image/attach/${slideId}`;
 
         const props = {
@@ -36,15 +33,11 @@ class ImageSlideApi {
         };
 
         return fetch(url, props)
+            .then(this.handleErrors)
             .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    throw new Error("Error");
-                }
-            }).then(response => {
                 return response.json();
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.log(error);
                 throw error;
             });
