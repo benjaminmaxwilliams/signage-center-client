@@ -1,10 +1,11 @@
-import React from "react";
-import {Button, Form, Input, Layout, Menu} from 'antd';
-import "./AdminHome.css"
+import React, { Component }  from "react";
+import {Button, Form, Input, Layout,Icon,notification, Menu} from 'antd';
+import { Link } from 'react-router-dom';
+import "./LoginPage.css"
+import playlistApi from "../api/PlaylistApi";
+import {ACCESS_TOKEN} from "../constants/constant";
 
-const {SubMenu} = Menu;
 const FormItem = Form.Item;
-
 const {Header, Content, Sider} = Layout;
 
 class LoginPage extends React.Component {
@@ -12,68 +13,73 @@ class LoginPage extends React.Component {
         super(props);
 
         this.state = {
-            activeComponent: <h1></h1>
+
         }
     }
 
+    handleLogin = () => {
+
+        this.setState({isLoading: true});
+        this.props.form.validateFields((err, values) => {
+            const loginRequest = Object.assign({}, values);
+            playlistApi.postloginData(loginRequest)
+                .then(response => {
+                    localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                    response.accessToken ? this.props.history.push('/admin') : null
+
+                }).catch(error => {
+                if (error.status === 403) {
+                    notification.error({
+                        message: 'TvScreen App',
+                        description: 'Your Username or Password is incorrect. Please try again!'
+                    });
+                } else {
+                    notification.error({
+                        message: 'TvScreen App',
+                        description: error.message || 'Sorry! Something went wrong. Please try again!'
+                    });
+                }
+            });
+        });
+
+    }
 
     render() {
-
-
-        const formItemLayout = {
-            labelCol: {
-                xs: {span: 24},
-                sm: {span: 8},
-            },
-            wrapperCol: {
-                xs: {span: 24},
-                sm: {span: 16},
-            },
-        };
-
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: {
-                    span: 24,
-                    offset: 0,
-                },
-                sm: {
-                    span: 16,
-                    offset: 8,
-                },
-            },
-        };
+        const { getFieldDecorator } = this.props.form;
         return (
-
-            <Layout className="container">
-
-                <Layout style={{
-                    margin: 'auto',
-                    border: '1px solid black',
-                    padding: '60px'
-                }} className="container">
-                    <h1>Login Page</h1>
-                    <FormItem
-                        {...formItemLayout}
-                        label="UserName:"
-                    >
-
-                        <Input/>
-
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Password:">
-
-                        <Input type="password"/>
-                    </FormItem>
-                    <FormItem {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit"><a href={"/admin"}>Submit</a></Button>
-                    </FormItem>
-                </Layout>
-            </Layout>
-        )
+            <Form onSubmit={this.handleSubmit} className="login-form">
+                <h1>Login</h1>
+                <FormItem>
+                    {getFieldDecorator('username', {
+                        rules: [{ required: true, message: 'Please input your username or email!' }],
+                    })(
+                        <Input
+                            prefix={<Icon type="user" />}
+                            size="large"
+                            name="username"
+                            placeholder="Username or Email" />
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, message: 'Please input your Password!' }],
+                    })(
+                        <Input
+                            prefix={<Icon type="lock" />}
+                            size="large"
+                            name="password"
+                            type="password"
+                            placeholder="Password"  />
+                    )}
+                </FormItem>
+                <FormItem>
+                    <Button type="primary" htmlType="submit" size="large" className="login-form-button" onClick={() => this.handleLogin()}>Login</Button>
+                    Or <Link to="/signup">register now!</Link>
+                </FormItem>
+            </Form>
+        );
     }
 }
 
-export default LoginPage;
+
+export default LoginPage = Form.create()(LoginPage);

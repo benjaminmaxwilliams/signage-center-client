@@ -1,6 +1,10 @@
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    margin: 0 auto;
+    margin-top: 40px;
+}
 
-.container .ant-layout {
-    margin: auto;
-    border: 1px solid black;
-    padding: 60px;
+.login-form-button {
+    width: 100%;
 }
