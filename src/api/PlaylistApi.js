@@ -70,7 +70,29 @@ class PlaylistApi extends Api {
             })
 
     }
+    postloginData(loginData) {
+        const url = process.env.REACT_APP_API_HOST + "/auth/signin";
+
+        return fetch(url, {
+            body: JSON.stringify(loginData),
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+        })
+            .then(response => response.json().then(json => {
+                if(!response.ok) {
+                    return Promise.reject(json);
+                }
+                return json;
+            })
+            );
+    }
+
+
 }
+
+
 
 const playlistApi = new PlaylistApi();
 export default playlistApi;
