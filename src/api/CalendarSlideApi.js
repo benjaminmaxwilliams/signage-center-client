@@ -1,4 +1,10 @@
+import Api from "./Api";
+
 class CalendarSlideApi extends Api {
+
+    constructor() {
+        super();
+    }
 
     create(slide) {
 

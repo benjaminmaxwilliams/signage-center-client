@@ -1,4 +1,10 @@
+import Api from "./Api";
+
 class WeatherSlideApi extends Api {
+
+    constructor() {
+        super();
+    }
 
     create(slide) {
 

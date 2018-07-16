@@ -1,32 +1,42 @@
 import React from 'react';
 import './CalendarTablePage.css';
-import {Button, Divider, Icon, notification, Popconfirm, Table} from "antd";
+import {Button, Divider, Dropdown, Icon, Menu, notification, Popconfirm, Table} from "antd";
 import calendarApi from "../api/CalendarApi";
-import OfficeForm from "../components/forms/OfficeForm";
-
-const ButtonGroup = Button.Group;
+import InternalCalendarForm from "../components/forms/InternalCalendarForm";
+import GuidewireIcon from "../assets/guidewire_icon_color_web.png";
 
 class CalendarTablePage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            calendars: [
-                {id: 1, type: "GOOGLE", name: "Exton", officeName: "Exton"},
-                {id: 2, type: "OUTLOOK", name: "GSC", officeName: "Exton"},
-                {id: 3, type: "WORKDAY", name: "GSC Birthday", officeName: "Exton"},
-                {id: 3, type: "INTERNAL", name: "Dev", officeName: "Exton"}
-            ],
-            newCalendarModalVisible: false
+            calendars: [],
+            internalCalendarModalVisible: false
         };
+
+        this.handleMenuClick = this.handleMenuClick.bind(this);
+        this.onInternalCalendarFormSuccess = this.onInternalCalendarFormSuccess.bind(this);
     }
 
     componentWillMount() {
-        // calendarApi.getAll()
-        //     .then(calendars => {
-        //         this.setState({calendars: calendars});
-        //     });
+        calendarApi.getAll()
+            .then(calendars => {
+                this.setState({calendars: calendars});
+            });
     }
+
+    handleMenuClick = (e) => {
+        if (e.key === "1") {
+            this.showModal("internalCalendarModalVisible");
+        }
+        // } else if (e.key === "2") {
+        //     this.showModal("calendarFormVisible");
+        // } else if (e.key === "3") {
+        //     this.showModal("mapFormVisible");
+        // } else if (e.key === "4") {
+        //     this.showModal("weatherFormVisible");
+        // }
+    };
 
     showModal = (formVisible) => {
         this.setState({
@@ -40,14 +50,11 @@ class CalendarTablePage extends React.Component {
         });
     };
 
-    /**
-     * Form Modal Success Callback
-     */
-    onCalendarFormSuccess = (newCalendar) => {
+    onInternalCalendarFormSuccess = (newCalendar) => {
         const calendars = [...this.state.calendars];
         calendars.push(newCalendar);
 
-        this.setState({newCalendarModalVisible: false, calendars: calendars});
+        this.setState({internalCalendarModalVisible: false, calendars: calendars});
 
         notification["success"]({
             message: 'Calendar Created',
@@ -93,7 +100,7 @@ class CalendarTablePage extends React.Component {
                     } else if (record.type === "WORKDAY") {
                         return (<Icon type="aliyun"/>)
                     } else {
-                        return (<Icon type="schedule"/>)
+                        return (<img className="table-icon" src={GuidewireIcon}/>)
                     }
                 }
             },
@@ -103,12 +110,12 @@ class CalendarTablePage extends React.Component {
                 key: 'officeName',
                 // render: (text, record) => <a href={`/admin/offices/${record.id}`}>{text}</a>,
             },
-            // {
-            //     title: 'Create Date',
-            //     dataIndex: 'createdAt',
-            //     key: 'createdAt',
-            //     render: text => new Date(text).toLocaleDateString("en-US")
-            // },
+            {
+                title: 'Create Date',
+                dataIndex: 'createdAt',
+                key: 'createdAt',
+                render: text => new Date(text).toLocaleDateString("en-US")
+            },
             {
                 title: '',
                 dataIndex: '',
@@ -123,17 +130,26 @@ class CalendarTablePage extends React.Component {
             }
         ];
 
+        const menu = (
+            <Menu onClick={this.handleMenuClick}>
+                <Menu.Item key="1">Internal Calendar</Menu.Item>
+                {/*<Menu.Item key="2">Outlook Calendar</Menu.Item>*/}
+                {/*<Menu.Item key="3">Workday Calendar</Menu.Item>*/}
+                {/*<Menu.Item key="4">Google Calendar</Menu.Item>*/}
+            </Menu>
+        );
+
         return (
             <div className="container">
-                <ButtonGroup>
-                    <Button type="primary" onClick={() => this.showModal("newCalendarModalVisible")}>
+                <Dropdown overlay={menu}>
+                    <Button type="primary">
                         <Icon type="plus-circle"/>New
                     </Button>
-                </ButtonGroup>
-                <OfficeForm
-                    visible={this.state.newCalendarModalVisible}
-                    onSuccess={this.onCalendarFormSuccess}
-                    onCancel={() => this.closeModal("newCalendarModalVisible")}/>
+                </Dropdown>
+                <InternalCalendarForm
+                    visible={this.state.internalCalendarModalVisible}
+                    onSuccess={this.onInternalCalendarFormSuccess}
+                    onCancel={() => this.closeModal("internalCalendarModalVisible")}/>
                 <Divider dashed/>
                 <Table
                     title={() => 'Calendars'}

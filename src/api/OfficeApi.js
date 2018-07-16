@@ -1,4 +1,10 @@
+import Api from "./Api";
+
 class OfficeApi extends Api {
+
+    constructor() {
+        super();
+    }
 
     create(office) {
 

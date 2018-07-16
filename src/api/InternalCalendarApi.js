@@ -1,36 +1,24 @@
 import Api from "./Api";
 
-class SlideApi extends Api {
+class InternalCalendarApi extends Api {
 
     constructor() {
         super();
     }
 
-    delete(slideId) {
+    create(calendar) {
 
-        const url = process.env.REACT_APP_API_HOST + `/slide/${slideId}`;
+        const url = process.env.REACT_APP_API_HOST + "/calendar/internal";
 
         const props = {
-            method: "DELETE",
+            body: JSON.stringify(calendar),
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
         };
 
         return fetch(url, props)
-            .then(this.handleErrors)
-            .then(response => {
-                return response.ok;
-            })
-            .catch(error => {
-                console.log(error);
-                throw error;
-            })
-
-    }
-
-    getAllSlides() {
-
-        const url = process.env.REACT_APP_API_HOST + "/slide/all";
-
-        return fetch(url)
             .then(this.handleErrors)
             .then(response => {
                 return response.json();
@@ -41,9 +29,24 @@ class SlideApi extends Api {
             })
     }
 
-    getSlidesByPlaylist(playlistId) {
+    delete(calendarId) {
 
-        const url = process.env.REACT_APP_API_HOST + `/slide/playlist/${playlistId}`;
+        const url = process.env.REACT_APP_API_HOST + `/calendar/internal/${calendarId}`;
+
+        return fetch(url, {method: "DELETE",})
+            .then(this.handleErrors)
+            .then(response => {
+                return true
+            })
+            .catch(error => {
+                console.log(error);
+                throw error;
+            })
+    }
+
+    getAll() {
+
+        const url = process.env.REACT_APP_API_HOST + "/calendar/internal/all";
 
         return fetch(url)
             .then(this.handleErrors)
@@ -57,5 +60,5 @@ class SlideApi extends Api {
     }
 }
 
-const slideApi = new SlideApi();
-export default slideApi;
+const internalCalendarApi = new InternalCalendarApi();
+export default internalCalendarApi;

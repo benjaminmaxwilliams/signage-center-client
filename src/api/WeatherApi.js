@@ -1,4 +1,10 @@
+import Api from "./Api";
+
 class WeatherApi extends Api {
+
+    constructor() {
+        super();
+    }
 
     getWeather(cityId) {
 

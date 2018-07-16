@@ -7,6 +7,7 @@ import PlaylistPage from "./PlaylistPage";
 import OfficeTablePage from "./OfficeTablePage";
 import logo from "../assets/guidewire_logo_color_web.png";
 import CalendarTablePage from "./CalendarTablePage";
+import CalendarPage from "./CalendarPage";
 
 const {Header, Content, Sider} = Layout;
 
@@ -103,6 +104,7 @@ class AdminHome extends React.Component {
                                 <Route exact path="/admin/playlists/:playlistId" component={PlaylistPage}/>
                                 <Route exact path="/admin/offices" component={OfficeTablePage}/>
                                 <Route exact path="/admin/calendars" component={CalendarTablePage}/>
+                                <Route exact path="/admin/calendars/:calendarId" component={CalendarPage}/>
                                 <Route render={() => <div>Welcome</div>}/>
                             </Switch>
                         </Content>

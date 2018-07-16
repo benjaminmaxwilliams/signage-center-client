@@ -1,17 +1,17 @@
 import Api from "./Api";
 
-class ImageSlideApi extends Api {
+class InternalCalendarEventApi extends Api {
 
     constructor() {
         super();
     }
 
-    create(slide) {
+    create(calendarEvent) {
 
-        const url = process.env.REACT_APP_API_HOST + "/slide/image";
+        const url = process.env.REACT_APP_API_HOST + "/calendar/event/internal";
 
         const props = {
-            body: JSON.stringify(slide),
+            body: JSON.stringify(calendarEvent),
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -29,26 +29,21 @@ class ImageSlideApi extends Api {
             })
     }
 
-    uploadImage(file, slideId) {
+    delete(calendarEventId) {
 
-        const url = process.env.REACT_APP_API_HOST + `/slide/image/attach/${slideId}`;
+        const url = process.env.REACT_APP_API_HOST + `/calendar/event/internal/${calendarEventId}`;
 
-        const props = {
-            body: file,
-            method: "POST",
-        };
-
-        return fetch(url, props)
+        return fetch(url, {method: "DELETE",})
             .then(this.handleErrors)
             .then(response => {
-                return response.json();
+                return true
             })
             .catch(error => {
                 console.log(error);
                 throw error;
-            });
+            })
     }
 }
 
-const imageSlideApi = new ImageSlideApi();
-export default imageSlideApi;
+const internalCalendarEventApi = new InternalCalendarEventApi();
+export default internalCalendarEventApi;

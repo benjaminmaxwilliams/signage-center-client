@@ -1,4 +1,10 @@
+import Api from "./Api";
+
 class MapSlideApi extends Api {
+
+    constructor() {
+        super();
+    }
 
     create(slide) {
 

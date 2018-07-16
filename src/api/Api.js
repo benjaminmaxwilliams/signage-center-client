@@ -23,3 +23,5 @@ class Api {
         return response;
     }
 }
+
+export default Api;

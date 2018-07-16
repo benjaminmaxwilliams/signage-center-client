@@ -1,4 +1,10 @@
+import Api from "./Api";
+
 class PlaylistApi extends Api {
+
+    constructor() {
+        super();
+    }
 
     create(playlist) {
 
@@ -70,6 +76,7 @@ class PlaylistApi extends Api {
             })
 
     }
+
     postloginData(loginData) {
         const url = process.env.REACT_APP_API_HOST + "/auth/signin";
 
@@ -81,17 +88,16 @@ class PlaylistApi extends Api {
             },
         })
             .then(response => response.json().then(json => {
-                if(!response.ok) {
-                    return Promise.reject(json);
-                }
-                return json;
-            })
+                    if(!response.ok) {
+                        return Promise.reject(json);
+                    }
+                    return json;
+                })
             );
     }
 
 
 }
-
 
 
 const playlistApi = new PlaylistApi();
