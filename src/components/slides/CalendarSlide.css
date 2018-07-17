@@ -1,22 +1,15 @@
-.events {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.events .ant-badge-status {
-    overflow: hidden;
-    white-space: nowrap;
+.gutter-example {
     width: 100%;
-    text-overflow: ellipsis;
-    font-size: 12px;
+    height: 100vh;
 }
 
-.notes-month {
+.gutter-example .ant-row > div {
+    background: transparent;
+    border: 0;
+}
+
+.gutter-box {
+    background: #00A0E9;
+    padding: 5px 0;
     text-align: center;
-    font-size: 28px;
-}
-
-.notes-month section {
-    font-size: 28px;
 }

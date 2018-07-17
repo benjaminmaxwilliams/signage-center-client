@@ -56,10 +56,14 @@ class MapSlideForm extends React.Component {
         let startDate;
         let endDate;
 
+
         if (typeof values.rangePicker !== "undefined") {
             startDate = values.rangePicker[0];
             endDate = values.rangePicker[1];
         }
+
+        // TODO: get address/lat long
+        // let address = geocodingApi.getAddress(values.latCoord, values.longCoord);
 
         return {...values, startDate: startDate, endDate: endDate, playlistId: this.state.playlistId};
     };

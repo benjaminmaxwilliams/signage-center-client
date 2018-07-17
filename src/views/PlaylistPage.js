@@ -1,16 +1,19 @@
 import React from 'react';
 import './PlaylistPage.css';
-import {Button, Divider, Dropdown, Icon, List, Menu, notification} from "antd";
+import {Button, Divider, Dropdown, Icon, List, Menu, Modal, notification} from "antd";
 import playlistApi from "../api/PlaylistApi";
 import slideApi from "../api/SlideApi";
 import ImageSlideForm from "../components/forms/ImageSlideForm";
 import WeatherSlideForm from "../components/forms/WeatherSlideForm";
 import MapSlideForm from "../components/forms/MapSlideForm";
 import CalendarSlideForm from "../components/forms/CalendarSlideForm";
-import genericMapImg from "../assets/generic-map.png";
-import genericWeatherImg from "../assets/generic-weather.png";
-import genericCalendarImg from "../assets/generic-calendar.svg";
 import {withRouter} from "react-router-dom";
+import ImageSlideListItem from "../components/slides/ImageSlideListItem";
+import MapSlideListItem from "../components/slides/MapSlideListItem";
+import WeatherSlideListItem from "../components/slides/WeatherSlideListItem";
+import CalendarSlideListItem from "../components/slides/CalendarSlideListItem";
+
+const confirm = Modal.confirm;
 
 class PlaylistPage extends React.Component {
     constructor(props) {
@@ -30,9 +33,9 @@ class PlaylistPage extends React.Component {
             isLoading: false,
         };
 
-        this.renderItem = this.renderItem.bind(this);
-        this.renderImageSlideItem = this.renderImageSlideItem.bind(this);
-        this.onDelete = this.onDelete.bind(this);
+        this.renderListItem = this.renderListItem.bind(this);
+        this.handleSlideDelete = this.handleSlideDelete.bind(this);
+        this.deleteSlide = this.deleteSlide.bind(this);
         this.onImageFormSuccess = this.onImageFormSuccess.bind(this);
     }
 
@@ -82,135 +85,45 @@ class PlaylistPage extends React.Component {
         });
     };
 
-    renderItem = (slide) => {
+    renderListItem = (slide) => {
+        const {isLoading} = this.state;
+
         if (slide.slideType === "IMAGE") {
-            return this.renderImageSlideItem(slide);
+            return <ImageSlideListItem slide={slide} onDelete={this.handleSlideDelete}/>
         } else if (slide.slideType === "MAP") {
-            return this.renderMapSlideItem(slide);
+            return <MapSlideListItem slide={slide} onDelete={this.handleSlideDelete}/>
         } else if (slide.slideType === "WEATHER") {
-            return this.renderWeatherSlideItem(slide);
+            return <WeatherSlideListItem slide={slide} onDelete={this.handleSlideDelete}/>
         } else if (slide.slideType === "CALENDAR") {
-            return this.renderCalendarSlideItem(slide);
+            return <CalendarSlideListItem slide={slide} onDelete={this.handleSlideDelete}/>
         } else {
             return (<h1></h1>);
         }
     };
 
-    renderImageSlideItem = (slide) => {
-        return (
-            <List.Item
-                key={slide.id}
-                actions={[
-                    <span>
-                         <Button type="danger" shape="circle" icon="delete" loading={this.state.isLoading}
-                                 onClick={(e) => this.onDelete(e, slide.id)}>
-                        </Button>
-                    </span>,
-                ]}
-                extra={
-                    <div style={{maxWidth: 272, maxHeight: 200}}>
-                        <img style={{height: "100%", width: "100%"}} alt="logo" src={slide.imageUrl}/>
-                    </div>
-                }>
-                <List.Item.Meta
-                    title={slide.name}
-                    description="Image Slide"/>
-                <span style={{marginRight: 15}}>
-                        <Icon type="clock-circle-o" style={{marginRight: 8}}/>
-                    {slide.duration + " seconds"}
-                    </span>
-                {slide.text &&
-                <span style={{marginRight: 15}}>
-                            <Icon type="message" style={{marginRight: 8}}/>
-                    {slide.text}
-                        </span>
-                }
-            </List.Item>
-        );
+    /**
+     * Slide List Item Delete Handler
+     *
+     * @param id
+     */
+    handleSlideDelete = (e, id) => {
+        confirm({
+            title: "Are you sure you want to delete this slide?",
+            okText: "Delete",
+            okType: "danger",
+            cancelText: "Cancel",
+            onOk: () => this.deleteSlide(id),
+        });
     };
 
-    renderMapSlideItem = (slide) => {
-        return (
-            <List.Item
-                key={slide.id}
-                actions={[
-                    <span>
-                         <Button type="danger" shape="circle" icon="delete" loading={this.state.isLoading}
-                                 onClick={(e) => this.onDelete(e, slide.id)}>
-                        </Button>
-                    </span>
-                ]}
-                extra={
-                    <img width={272} alt="logo"
-                         src={genericMapImg}/>
-                }>
-                <List.Item.Meta
-                    title={slide.name}
-                    description="Map Slide"/>
-                <span style={{marginRight: 15}}>
-                        <Icon type="clock-circle-o" style={{marginRight: 8}}/>
-                    {slide.duration + " seconds"}
-                    </span>
-            </List.Item>
-        );
-    };
-
-    renderWeatherSlideItem = (slide) => {
-        return (
-            <List.Item
-                key={slide.id}
-                actions={[
-                    <span>
-                         <Button type="danger" shape="circle" icon="delete" loading={this.state.isLoading}
-                                 onClick={(e) => this.onDelete(e, slide.id)}>
-                        </Button>
-                    </span>
-                ]}
-                extra={
-                    <img width={272} alt="logo"
-                         src={genericWeatherImg}/>
-                }>
-                <List.Item.Meta
-                    title={slide.name}
-                    description="Weather Slide"/>
-                <span style={{marginRight: 15}}>
-                        <Icon type="clock-circle-o" style={{marginRight: 8}}/>
-                    {slide.duration + " seconds"}
-                    </span>
-            </List.Item>
-        );
-    };
-
-    renderCalendarSlideItem = (slide) => {
-        return (
-            <List.Item
-                key={slide.id}
-                actions={[
-                    <span>
-                         <Button type="danger" shape="circle" icon="delete" loading={this.state.isLoading}
-                                 onClick={(e) => this.onDelete(e, slide.id)}>
-                        </Button>
-                    </span>
-                ]}
-                extra={
-                    <img width={272} alt="logo"
-                         src={genericCalendarImg}/>
-                }>
-                <List.Item.Meta
-                    title={slide.name}
-                    description="Calendar Slide"/>
-                <span style={{marginRight: 15}}>
-                        <Icon type="clock-circle-o" style={{marginRight: 8}}/>
-                    {slide.duration + " seconds"}
-                    </span>
-            </List.Item>
-        );
-    };
-
-    onDelete = (e, id) => {
-        this.setState({isLoading: true});
-
-        slideApi.delete(id)
+    /**
+     * API call to delete the slide
+     *
+     * @param id
+     * @returns {Promise<T> | *}
+     */
+    deleteSlide = (id) => {
+        return slideApi.delete(id)
             .then(() => {
                 const {playlist} = this.state;
                 let slides = playlist.slides;
@@ -221,13 +134,11 @@ class PlaylistPage extends React.Component {
                     message: 'Slide Deleted',
                 });
             }).catch(error => {
-            notification["error"]({
-                message: 'Error',
-                description: error.message
-            })
-        }).finally(() => {
-            this.setState({isLoading: false});
-        });
+                notification["error"]({
+                    message: 'Error',
+                    description: error.message
+                })
+            });
     };
 
     render() {
@@ -282,7 +193,7 @@ class PlaylistPage extends React.Component {
                         itemLayout="vertical"
                         size="large"
                         dataSource={playlist.slides}
-                        renderItem={this.renderItem}/>
+                        renderItem={this.renderListItem}/>
                 </div>
             </div>
         );

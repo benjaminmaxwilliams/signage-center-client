@@ -1,19 +1,21 @@
 import React from "react";
-import slideApi from "../api/SlideApi";
 import "./PlaylistPlayPage.css";
 import ImageSlide from "../components/slides/ImageSlide";
 import MapSlide from "../components/slides/MapSlide";
 import WeatherSlide from "../components/slides/WeatherSlide";
 import CalendarSlide from "../components/slides/CalendarSlide";
 import EmptySlide from "../components/slides/EmptySlide";
+import playlistApi from "../api/PlaylistApi";
 
 class PlaylistPlayPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            playlistId: null,
-            slides: [],
+            playlist: {
+                id: "",
+                slides: []
+            },
             currentSlideIndex: -1
         };
 
@@ -26,9 +28,9 @@ class PlaylistPlayPage extends React.Component {
     componentWillMount() {
         const playlistId = this.props.match.params.playlistId;
 
-        slideApi.getSlidesByPlaylist(playlistId)
-            .then(slides => {
-                this.setState({playlistId: playlistId, slides: slides});
+        playlistApi.playPlaylist(playlistId)
+            .then(playlist => {
+                this.setState({playlist: playlist});
                 this.nextSlide();
             }).catch(error => {
             console.log(error);
@@ -40,9 +42,9 @@ class PlaylistPlayPage extends React.Component {
     }
 
     startTimer() {
-        const {currentSlideIndex, slides} = this.state;
+        const {currentSlideIndex, playlist} = this.state;
 
-        this.timer = setInterval(() => this.nextSlide(), slides[currentSlideIndex].duration * 1000);
+        this.timer = setInterval(() => this.nextSlide(), playlist.slides[currentSlideIndex].duration * 1000);
     }
 
     stopTimer() {
@@ -50,11 +52,11 @@ class PlaylistPlayPage extends React.Component {
     }
 
     nextSlide() {
-        const {currentSlideIndex, slides} = this.state;
+        const {currentSlideIndex, playlist} = this.state;
 
         this.stopTimer();
 
-        if (currentSlideIndex >= slides.length - 1) {
+        if (currentSlideIndex >= playlist.slides.length - 1) {
             this.setState({currentSlideIndex: 0})
         } else {
             this.setState({currentSlideIndex: currentSlideIndex + 1})
@@ -62,10 +64,10 @@ class PlaylistPlayPage extends React.Component {
     }
 
     generateSlide() {
-        const {currentSlideIndex, slides} = this.state;
+        const {currentSlideIndex, playlist} = this.state;
         this.startTimer();
 
-        const currentSlide = slides[currentSlideIndex];
+        const currentSlide = playlist.slides[currentSlideIndex];
 
         if (currentSlide.slideType === "IMAGE") {
             return <ImageSlide slide={currentSlide}/>
@@ -80,7 +82,7 @@ class PlaylistPlayPage extends React.Component {
 
     render() {
 
-        if (this.state.slides.length === 0 || this.state.currentSlideIndex < 0) {
+        if (this.state.playlist.slides.length === 0 || this.state.currentSlideIndex < 0) {
             return <EmptySlide/>
         }
 

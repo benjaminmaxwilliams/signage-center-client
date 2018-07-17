@@ -77,6 +77,21 @@ class PlaylistApi extends Api {
 
     }
 
+    playPlaylist(playlistId) {
+
+        const url = process.env.REACT_APP_API_HOST + `/playlist/play/${playlistId}`;
+
+        return fetch(url)
+            .then(this.handleErrors)
+            .then(response => {
+                return response.json();
+            })
+            .catch(error => {
+                return error;
+            })
+
+    }
+
     postloginData(loginData) {
         const url = process.env.REACT_APP_API_HOST + "/auth/signin";
 
