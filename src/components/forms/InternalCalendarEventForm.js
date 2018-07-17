@@ -1,8 +1,9 @@
 import React from "react";
-import {DatePicker, Form, Input, Modal, notification, Select, TimePicker} from "antd";
+import {Checkbox, DatePicker, Form, Input, Modal, notification, Select, TimePicker} from "antd";
 import "./InternalCalendarEventForm.css";
 import internalCalendarEventApi from "../../api/InternalCalendarEventApi";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -15,6 +16,7 @@ class InternalCalendarEventForm extends React.Component {
         this.state = {
             id: null,
             isLoading: false,
+            allDay: true
         };
 
         this.onCreate = this.onCreate.bind(this);
@@ -53,18 +55,15 @@ class InternalCalendarEventForm extends React.Component {
     };
 
     generateFormData = (values) => {
-        let date;
-        let time;
 
-        if (typeof values.datePicker !== "undefined") {
-            date = values.datePicker.utc()
-        }
+        let date = values.datePicker;
 
         if (typeof values.timePicker !== "undefined") {
-            time = values.timePicker.utc().format("HH:mm")
+            let time = values.timePicker;
+            date.hour(time.hours()).minute(time.minutes());
         }
 
-        return {...values, date: date, time: time, calendarId: this.props.calendarId};
+        return {...values, date: date, calendarId: this.props.calendarId};
     };
 
     onCancel = () => {
@@ -73,9 +72,17 @@ class InternalCalendarEventForm extends React.Component {
         this.props.onCancel();
     };
 
+    onAllDayChange = (e) => {
+        this.setState({
+            allDay: e.target.checked
+        }, () => {
+            this.props.form.validateFields(['timePicker'], {force: true});
+        });
+    };
+
     render() {
-        const {visible, form} = this.props;
-        const {isLoading} = this.state;
+        const {visible, form, defaultDate} = this.props;
+        const {isLoading, allDay} = this.state;
         const {getFieldDecorator} = form;
 
         const formItemLayout = {
@@ -141,17 +148,32 @@ class InternalCalendarEventForm extends React.Component {
                         {...formItemLayout}
                         label="Date">
                         {getFieldDecorator("datePicker", {
-                            rules: [{required: true, message: "Please input a date!"}]
+                            rules: [{required: true, message: "Please input a date!"}],
+                            initialValue: defaultDate
                         })(
                             <DatePicker
-                                format="YYYY-MM-DD"/>
+                                format="MM/DD/YYYY"/>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="All Day">
+                        {getFieldDecorator("allDay", {
+                            valuePropName: 'checked',
+                            initialValue: true
+                        })(
+                            <Checkbox
+                                onChange={this.onAllDayChange}/>
                         )}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Time">
-                        {getFieldDecorator("timePicker",)(
+                        {getFieldDecorator("timePicker", {
+                            rules: [{required: !allDay, message: "Please input a time!"}],
+                        })(
                             <TimePicker
+                                disabled={allDay}
                                 format="HH:mm"/>
                         )}
                     </FormItem>
@@ -163,9 +185,14 @@ class InternalCalendarEventForm extends React.Component {
 
 InternalCalendarEventForm.propTypes = {
     calendarId: PropTypes.number.isRequired,
+    defaultDate: PropTypes.instanceOf(moment),
     visible: PropTypes.bool,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func,
+};
+
+InternalCalendarEventForm.defaultProps = {
+    defaultDate: moment(),
 };
 
 export default InternalCalendarEventForm = Form.create()(InternalCalendarEventForm);

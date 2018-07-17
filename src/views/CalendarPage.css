@@ -1,13 +1,23 @@
-.events {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.calendar-icon {
+    width: 16px;
+    pointer-events: none;
 }
 
-.events .ant-badge-status {
-    overflow: hidden;
+.events li {
+    list-style-position: inside;
     white-space: nowrap;
-    width: 100%;
+    overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 12px;
+    width: 100%;
+}
+
+.event-list-section {
+    background: #f1f1f1;
+    padding: 10px;
+    height: 100%;
+    overflow: auto;
+}
+
+.event-list-title {
+    text-align: center;
 }

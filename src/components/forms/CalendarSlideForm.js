@@ -1,10 +1,12 @@
 import React from "react";
-import {DatePicker, Form, Input, InputNumber, Modal, notification} from "antd";
+import {DatePicker, Form, Input, InputNumber, Modal, notification, Select} from "antd";
 import "./CalendarSlideForm.css";
 import calendarSlideApi from "../../api/CalendarSlideApi";
 import PropTypes from "prop-types";
+import calendarApi from "../../api/CalendarApi";
 
 const FormItem = Form.Item;
+const Option = Select.Option;
 const RangePicker = DatePicker.RangePicker;
 
 class CalendarSlideForm extends React.Component {
@@ -12,14 +14,45 @@ class CalendarSlideForm extends React.Component {
         super(props);
 
         this.state = {
-            playlistId: this.props.playlistId,
+            playlist: {
+                id: this.props.playlist.id,
+                officeId: this.props.playlist.officeId,
+            },
             id: null,
             isLoading: false,
+            calendars: []
         };
 
         this.onCreate = this.onCreate.bind(this);
         this.generateFormData = this.generateFormData.bind(this);
         this.onCancel = this.onCancel.bind(this);
+    }
+
+    componentWillMount() {
+        const {playlist} = this.state;
+
+        if (typeof playlist.officeId !== "undefined") {
+            calendarApi.getAllByOffice(playlist.officeId)
+                .then(calendars => {
+                    this.setState({calendars: calendars});
+                });
+        }
+    }
+
+    componentWillReceiveProps(props) {
+        const {playlist} = this.state;
+
+        if (playlist.officeId !== props.playlist.officeId && props.playlist.officeId !== "undefined") {
+            // update playlist officeId
+            playlist.officeId = props.playlist.officeId;
+            this.setState({playlist: playlist});
+
+            // get office calendars
+            calendarApi.getAllByOffice(playlist.officeId)
+                .then(calendars => {
+                    this.setState({calendars: calendars});
+                });
+        }
     }
 
     onCreate = (e) => {
@@ -51,7 +84,15 @@ class CalendarSlideForm extends React.Component {
         });
     };
 
+    /**
+     * Generate the form data to send
+     *
+     * @param values
+     * @returns {{startDate: *, endDate: *, playlistId: *}}
+     */
     generateFormData = (values) => {
+        const {playlist} = this.state;
+
         let startDate;
         let endDate;
 
@@ -60,7 +101,7 @@ class CalendarSlideForm extends React.Component {
             endDate = values.rangePicker[1];
         }
 
-        return {...values, startDate: startDate, endDate: endDate, playlistId: this.state.playlistId};
+        return {...values, startDate: startDate, endDate: endDate, playlistId: playlist.id};
     };
 
     onCancel = () => {
@@ -71,7 +112,7 @@ class CalendarSlideForm extends React.Component {
 
     render() {
         const {visible, form} = this.props;
-        const {isLoading} = this.state;
+        const {isLoading, calendars} = this.state;
         const {getFieldDecorator} = form;
 
         const formItemLayout = {
@@ -126,6 +167,22 @@ class CalendarSlideForm extends React.Component {
                             />
                         )}
                     </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Calendars"
+                    >
+                        {getFieldDecorator('calendarIds', {
+                            rules: [
+                                {required: true, message: 'Please select at least one calendar!', type: 'array'},
+                            ],
+                        })(
+                            <Select mode="multiple" placeholder="Please select which calendars to display">
+                                {calendars.map(o => {
+                                    return <Option value={o.id}>{o.name}</Option>
+                                })}
+                            </Select>
+                        )}
+                    </FormItem>
                 </Form>
             </Modal>
         );
@@ -133,7 +190,10 @@ class CalendarSlideForm extends React.Component {
 }
 
 CalendarSlideForm.propTypes = {
-    playlistId: PropTypes.number.isRequired,
+    playlist: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        officeId: PropTypes.number.isRequired
+    }),
     visible: PropTypes.bool,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func

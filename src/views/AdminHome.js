@@ -104,7 +104,7 @@ class AdminHome extends React.Component {
                                 <Route exact path="/admin/playlists/:playlistId" component={PlaylistPage}/>
                                 <Route exact path="/admin/offices" component={OfficeTablePage}/>
                                 <Route exact path="/admin/calendars" component={CalendarTablePage}/>
-                                <Route exact path="/admin/calendars/:calendarId" component={CalendarPage}/>
+                                <Route path="/admin/calendars/:calendarId" component={CalendarPage}/>
                                 <Route render={() => <div>Welcome</div>}/>
                             </Switch>
                         </Content>

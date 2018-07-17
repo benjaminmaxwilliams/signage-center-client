@@ -36,6 +36,21 @@ class CalendarApi extends Api {
             })
     }
 
+    getAllByOffice(officeId) {
+
+        const url = process.env.REACT_APP_API_HOST + `/calendar/all/office/${officeId}`;
+
+        return fetch(url)
+            .then(this.handleErrors)
+            .then(response => {
+                return response.json();
+            })
+            .catch(error => {
+                console.log(error);
+                throw error;
+            })
+    }
+
     getCalendar(calendarId) {
 
         const url = process.env.REACT_APP_API_HOST + `/calendar/${calendarId}`;

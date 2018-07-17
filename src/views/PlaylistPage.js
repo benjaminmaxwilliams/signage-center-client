@@ -58,15 +58,6 @@ class PlaylistPage extends React.Component {
             });
     }
 
-    componentDidUpdate() {
-        let playlistId = this.props.match.params.playlistId;
-        slideApi.getSlidesByPlaylist(playlistId)
-            .then(slides => {
-                this.setState({playlistId: playlistId, slides: slides});
-
-            });
-    }
-
     handleMenuClick = (e) => {
         if (e.key === "1") {
             this.showModal("imageFormVisible");
@@ -270,7 +261,7 @@ class PlaylistPage extends React.Component {
                     onCancel={() => this.closeModal("imageFormVisible")}/>
                 <CalendarSlideForm
                     visible={this.state.calendarFormVisible}
-                    playlistId={playlist.id}
+                    playlist={playlist}
                     onSuccess={this.onCalendarFormSuccess}
                     onCancel={() => this.closeModal("calendarFormVisible")}/>
                 <MapSlideForm

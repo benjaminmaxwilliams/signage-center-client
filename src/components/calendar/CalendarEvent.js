@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Badge, Icon} from "antd";
+import "./CalendarEvent.css";
 
 class CalendarEvent extends React.Component {
     constructor(props) {
@@ -21,17 +22,17 @@ class CalendarEvent extends React.Component {
             }
             case "ANNIVERSARY": {
                 color = "#14b14b";
-                icon = "notification";
+                icon = "gift";
                 break;
             }
             case "BIRTHDAY": {
                 color = "#14b14b";
-                icon = "notification";
+                icon = "gift";
                 break;
             }
             case "MEETING": {
                 color = "#f5861f";
-                icon = "notification";
+                icon = "solution";
                 break;
             }
             default: {
