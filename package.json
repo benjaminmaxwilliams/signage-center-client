@@ -5,10 +5,12 @@
   "dependencies": {
     "ant-design-pro": "^2.0.0-beta.2",
     "antd": "^3.6.4",
-    "moment": "^2.22.2",
+    "auth0-js": "^9.7.2",
+    "jwt-decode": "^2.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-big-calendar": "^0.19.2",
+    "react-datetime": "^2.14.0",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.4.1",
