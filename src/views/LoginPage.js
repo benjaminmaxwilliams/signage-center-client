@@ -1,9 +1,8 @@
-import React, { Component }  from "react";
-import {Button, Form, Input, Layout,Icon,notification, Menu} from 'antd';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {Button, Form, Icon, Input, Layout, notification} from 'antd';
+import {Link} from 'react-router-dom';
 import "./LoginPage.css"
-import playlistApi from "../api/PlaylistApi";
-import {ACCESS_TOKEN} from "../constants/constant";
+import authApi from "../api/AuthApi";
 
 const FormItem = Form.Item;
 const {Header, Content, Sider} = Layout;
@@ -12,68 +11,67 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     handleLogin = () => {
-
         this.setState({isLoading: true});
         this.props.form.validateFields((err, values) => {
-            const loginRequest = Object.assign({}, values);
-            playlistApi.postloginData(loginRequest)
-                .then(response => {
-                    localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                    response.accessToken ? this.props.history.push('/admin') : null
-
+            authApi.login(values)
+                .then(success => {
+                    if (success) {
+                        this.props.history.push('/admin');
+                    } else {
+                        throw new Error();
+                    }
                 }).catch(error => {
                 if (error.status === 403) {
                     notification.error({
-                        message: 'TvScreen App',
+                        message: 'SignageCenter',
                         description: 'Your Username or Password is incorrect. Please try again!'
                     });
                 } else {
                     notification.error({
-                        message: 'TvScreen App',
+                        message: 'SignageCenter',
                         description: error.message || 'Sorry! Something went wrong. Please try again!'
                     });
                 }
             });
         });
 
-    }
+    };
 
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const {getFieldDecorator} = this.props.form;
         return (
             <Form onSubmit={this.handleSubmit} className="login-form">
                 <h1>Login</h1>
                 <FormItem>
                     {getFieldDecorator('username', {
-                        rules: [{ required: true, message: 'Please input your username or email!' }],
+                        rules: [{required: true, message: 'Please input your username or email!'}],
                     })(
                         <Input
-                            prefix={<Icon type="user" />}
+                            prefix={<Icon type="user"/>}
                             size="large"
                             name="username"
-                            placeholder="Username or Email" />
+                            placeholder="Username or Email"/>
                     )}
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Please input your Password!' }],
+                        rules: [{required: true, message: 'Please input your Password!'}],
                     })(
                         <Input
-                            prefix={<Icon type="lock" />}
+                            prefix={<Icon type="lock"/>}
                             size="large"
                             name="password"
                             type="password"
-                            placeholder="Password"  />
+                            placeholder="Password"/>
                     )}
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" htmlType="submit" size="large" className="login-form-button" onClick={() => this.handleLogin()}>Login</Button>
+                    <Button type="primary" htmlType="submit" size="large" className="login-form-button"
+                            onClick={() => this.handleLogin()}>Login</Button>
                     Or <Link to="/signup">register now!</Link>
                 </FormItem>
             </Form>

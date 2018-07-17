@@ -1,15 +1,18 @@
-import React, { Component } from 'react';
-import { signup, checkUsernameAvailability, checkEmailAvailability } from '../api/LoginApi';
+import React, {Component} from 'react';
+import authApi from "../api/AuthApi";
 import './Signup.css';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {
-    NAME_MIN_LENGTH, NAME_MAX_LENGTH,
-    USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
-    EMAIL_MAX_LENGTH,
-    PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
+    NAME_MAX_LENGTH,
+    NAME_MIN_LENGTH,
+    PASSWORD_MAX_LENGTH,
+    PASSWORD_MIN_LENGTH,
+    USERNAME_MAX_LENGTH,
+    USERNAME_MIN_LENGTH
 } from '../constants/constant';
 
-import { Form, Input, Button, notification } from 'antd';
+import {Button, Form, Input, notification} from 'antd';
+
 const FormItem = Form.Item;
 
 class Signup extends Component {
@@ -25,7 +28,7 @@ class Signup extends Component {
             password: {
                 value: ''
             }
-        }
+        };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateUsernameAvailability = this.validateUsernameAvailability.bind(this);
@@ -53,7 +56,7 @@ class Signup extends Component {
             username: this.state.username.value,
             password: this.state.password.value
         };
-        signup(signupRequest)
+        authApi.signUp(signupRequest)
             .then(response => {
                 notification.success({
                     message: 'TvScreen App',
@@ -196,7 +199,7 @@ class Signup extends Component {
             }
         });
 
-        checkUsernameAvailability(usernameValue)
+        authApi.checkUsernameAvailability(usernameValue)
             .then(response => {
                 if(response.available) {
                     this.setState({

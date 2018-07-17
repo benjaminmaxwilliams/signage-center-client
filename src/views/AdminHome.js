@@ -7,11 +7,10 @@ import PlaylistPage from "./PlaylistPage";
 import OfficeTablePage from "./OfficeTablePage";
 import logo from "../assets/guidewire_logo_color_web.png";
 import CalendarTablePage from "./CalendarTablePage";
-import authService from "../api/AuthService";
+import Auth from "../api/AuthApi";
 import CalendarPage from "./CalendarPage";
 
 const {Header, Content, Sider} = Layout;
-const Auth = new authService();
 class AdminHome extends React.Component {
     constructor(props) {
         super(props);
@@ -64,10 +63,9 @@ class AdminHome extends React.Component {
                                 {"Home"}
                             </NavLink>
                         </Menu.Item>
-                        <Menu.Item key="2"    >
+                        <Menu.Item key="2">
                             <NavLink to="/login" style = {{marginRight:'70'}}  onClick={() => Auth.logout()} >
                                 {<span  ><Icon type="logout" />Signout</span>}
-
                             </NavLink>
                         </Menu.Item>
                     </Menu>
