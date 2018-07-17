@@ -1,5 +1,5 @@
 import React from "react";
-import {Breadcrumb, Icon, Layout, Menu} from 'antd';
+import {Alert, Breadcrumb, Icon, Layout, Menu} from 'antd';
 import "./AdminHome.css"
 import PlaylistTablePage from "./PlaylistTablePage";
 import {Link, NavLink, Route, Switch, withRouter} from "react-router-dom";
@@ -7,7 +7,7 @@ import PlaylistPage from "./PlaylistPage";
 import OfficeTablePage from "./OfficeTablePage";
 import logo from "../assets/guidewire_logo_color_web.png";
 import CalendarTablePage from "./CalendarTablePage";
-import Auth from "../api/AuthApi";
+import authApi from "../api/AuthApi";
 import CalendarPage from "./CalendarPage";
 
 const {Header, Content, Sider} = Layout;
@@ -42,11 +42,13 @@ class AdminHome extends React.Component {
 
         let selectedMenuKeys = [];
         if (location.pathname.startsWith("/admin/calendars")) {
-            selectedMenuKeys = ["3"];
+            selectedMenuKeys = ["CALENDARS"];
         } else if (location.pathname.startsWith("/admin/offices")) {
-            selectedMenuKeys = ["2"];
+            selectedMenuKeys = ["OFFICES"];
         } else if (location.pathname.startsWith("/admin/playlists")) {
-            selectedMenuKeys = ["1"];
+            selectedMenuKeys = ["PLAYLISTS"];
+        } else if (location.pathname.startsWith("/admin")) {
+            selectedMenuKeys = ["HOME"];
         }
 
         return (
@@ -56,16 +58,16 @@ class AdminHome extends React.Component {
                     <Menu
                         theme="dark"
                         mode="horizontal"
-                        defaultSelectedKeys={['1']}
+                        defaultSelectedKeys={['HOME']}
                         style={{lineHeight: '64px'}}>
-                        <Menu.Item key="1">
+                        <Menu.Item key="HOME">
                             <NavLink to="/admin">
                                 {"Home"}
                             </NavLink>
                         </Menu.Item>
-                        <Menu.Item key="2">
-                            <NavLink to="/login" style = {{marginRight:'70'}}  onClick={() => Auth.logout()} >
-                                {<span  ><Icon type="logout" />Signout</span>}
+                        <Menu.Item key="LOGOUT">
+                            <NavLink to="/login" style={{marginRight: '70'}} onClick={() => authApi.logout()}>
+                                {<span><Icon type="logout"/>Signout</span>}
                             </NavLink>
                         </Menu.Item>
                     </Menu>
@@ -76,17 +78,22 @@ class AdminHome extends React.Component {
                             mode="inline"
                             style={{height: '100%', borderRight: 0}}
                             selectedKeys={selectedMenuKeys}>
-                            <Menu.Item key="1">
+                            <Menu.Item key="HOME">
+                                <NavLink to="/admin">
+                                    {<span><Icon type="home"/>Home</span>}
+                                </NavLink>
+                            </Menu.Item>
+                            <Menu.Item key="PLAYLISTS">
                                 <NavLink to="/admin/playlists">
                                     {<span><Icon type="play-circle"/>Playlists</span>}
                                 </NavLink>
                             </Menu.Item>
-                            <Menu.Item key="2">
+                            <Menu.Item key="OFFICES">
                                 <NavLink to="/admin/offices">
                                     {<span><Icon type="shop"/>Offices</span>}
                                 </NavLink>
                             </Menu.Item>
-                            <Menu.Item key="3">
+                            <Menu.Item key="CALENDARS">
                                 <NavLink to="/admin/calendars">
                                     {<span><Icon type="schedule"/>Calendars</span>}
                                 </NavLink>
@@ -111,7 +118,19 @@ class AdminHome extends React.Component {
                                 <Route exact path="/admin/offices" component={OfficeTablePage}/>
                                 <Route exact path="/admin/calendars" component={CalendarTablePage}/>
                                 <Route path="/admin/calendars/:calendarId" component={CalendarPage}/>
-                                <Route render={() => <div>Welcome</div>}/>
+                                <Route render={() => {
+                                    return (
+                                        <div>
+                                            <h1>Welcome to SignageCenter!</h1>
+                                            <Alert
+                                                message="Information"
+                                                description="No new updates."
+                                                type="info"
+                                                showIcon
+                                            />
+                                        </div>
+                                    )
+                                }}/>
                             </Switch>
                         </Content>
                     </Layout>
