@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Breadcrumb, Icon, Layout, Menu} from 'antd';
+import {Alert, Breadcrumb, Icon, Popconfirm, Layout, Menu} from 'antd';
 import "./AdminHome.css"
 import PlaylistTablePage from "./PlaylistTablePage";
 import {Link, NavLink, Route, Switch, withRouter} from "react-router-dom";
@@ -9,11 +9,20 @@ import logo from "../assets/guidewire_logo_color_web.png";
 import CalendarTablePage from "./CalendarTablePage";
 import authApi from "../api/AuthApi";
 import CalendarPage from "./CalendarPage";
+import {notification} from "antd/lib/index";
+
 
 const {Header, Content, Sider} = Layout;
+const text = 'Are you sure delete this task?';
+
 class AdminHome extends React.Component {
     constructor(props) {
         super(props);
+
+    }
+    onLogout = () =>{
+        authApi.logout();
+        this.props.history.push('/login');
     }
 
     render() {
@@ -65,11 +74,13 @@ class AdminHome extends React.Component {
                                 {"Home"}
                             </NavLink>
                         </Menu.Item>
-                        <Menu.Item key="LOGOUT">
-                            <NavLink to="/login" style={{marginRight: '70'}} onClick={() => authApi.logout()}>
-                                {<span><Icon type="logout"/>Signout</span>}
-                            </NavLink>
+                        <Menu.Item key="LOGOUT" style = {{marginLeft:'750px'}} >
+                            <Popconfirm   title="Are you sure you want to logout?"
+                                          onConfirm={() => this.onLogout()}>
+                                {<span><Icon type="logout"/>Logout</span>}
+                            </Popconfirm>
                         </Menu.Item>
+
                     </Menu>
                 </Header>
                 <Layout className="container">
