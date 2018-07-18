@@ -9,11 +9,11 @@ import logo from "../assets/guidewire_logo_color_web.png";
 import CalendarTablePage from "./CalendarTablePage";
 import authApi from "../api/AuthApi";
 import CalendarPage from "./CalendarPage";
-import {notification} from "antd/lib/index";
+
 
 
 const {Header, Content, Sider} = Layout;
-const text = 'Are you sure delete this task?';
+
 
 class AdminHome extends React.Component {
     constructor(props) {
