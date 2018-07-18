@@ -54,6 +54,9 @@ class AuthApi extends Api {
         const props = {
             body: JSON.stringify(values),
             method: "POST",
+            headers: {
+                "content-type": "application/json"
+            }
         };
 
         return fetch(url, props)
