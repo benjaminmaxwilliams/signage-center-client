@@ -67,6 +67,7 @@ class AdminHome extends React.Component {
                         theme="dark"
                         mode="horizontal"
                         defaultSelectedKeys={['HOME']}
+                        selectedKeys={["HOME"]}
                         style={{lineHeight: '64px'}}>
                         <Menu.Item key="HOME">
                             <NavLink to="/admin">
@@ -79,7 +80,6 @@ class AdminHome extends React.Component {
                                 {<span><Icon type="logout"/>Logout</span>}
                             </Popconfirm>
                         </Menu.Item>
-
                     </Menu>
                 </Header>
                 <Layout className="container">

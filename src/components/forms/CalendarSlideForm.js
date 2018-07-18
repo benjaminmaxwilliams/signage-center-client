@@ -193,7 +193,7 @@ CalendarSlideForm.propTypes = {
     playlist: PropTypes.shape({
         id: PropTypes.number.isRequired,
         officeId: PropTypes.number.isRequired
-    }),
+    }).isRequired,
     visible: PropTypes.bool,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func

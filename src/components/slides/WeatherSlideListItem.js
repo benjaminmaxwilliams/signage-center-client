@@ -48,7 +48,7 @@ class WeatherSlideListItem extends React.Component {
                     </span>
                 <span style={{marginRight: 15}}>
                         <Icon type="environment" style={{marginRight: 8}}/>
-                    {slide.cityId}
+                    {slide.latCoord + ", " + slide.longCoord}
                     </span>
                 <span style={{marginRight: 15}}>
                         <Dropdown overlay={menu}>
@@ -65,7 +65,8 @@ WeatherSlideListItem.propTypes = {
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         duration: PropTypes.number.isRequired,
-        cityId: PropTypes.number.isRequired,
+        latCoord: PropTypes.number.isRequired,
+        longCoord: PropTypes.number.isRequired,
     }).isRequired,
     onClick: PropTypes.func,
     onDelete: PropTypes.func,

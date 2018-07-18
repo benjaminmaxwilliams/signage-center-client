@@ -6,10 +6,10 @@ class WeatherApi extends Api {
         super();
     }
 
-    getWeather(cityId) {
+    getWeather(latCoord, longCoord) {
 
         const url = process.env.REACT_APP_OPEN_WEATHER_API_HOST + "/weather"
-            + `?id=${cityId}`
+            + `?lat=${latCoord}&lon=${longCoord}`
             + `&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
             + `&units=${process.env.REACT_APP_WEATHER_UNITS}`;
 

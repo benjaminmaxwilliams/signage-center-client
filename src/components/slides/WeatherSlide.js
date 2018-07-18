@@ -10,7 +10,6 @@ class WeatherSlide extends React.Component {
         super(props);
 
         this.state = {
-            cityId: this.props.slide.cityId,
             weatherConditionId: 0,
             temperature: null,
             temperatureUnit: process.env.REACT_APP_WEATHER_UNITS
@@ -18,7 +17,9 @@ class WeatherSlide extends React.Component {
     }
 
     componentWillMount() {
-        weatherApi.getWeather(this.state.cityId)
+        const {slide} = this.props;
+
+        weatherApi.getWeather(slide.latCoord, slide.longCoord)
             .then(weather => {
                 this.setState({weatherConditionId: weather.weather[0].id, temperature: weather.main.temp});
             });
@@ -84,7 +85,8 @@ class WeatherSlide extends React.Component {
 WeatherSlide.propTypes = {
     slide: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        cityId: PropTypes.string.isRequired,
+        latCoord: PropTypes.number.isRequired,
+        longCoord: PropTypes.number.isRequired,
         duration: PropTypes.number.isRequired
     }),
 };

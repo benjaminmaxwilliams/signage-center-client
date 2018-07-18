@@ -129,12 +129,22 @@ class WeatherSlideForm extends React.Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="Open Weather City ID"
+                        label="Latitude"
                     >
-                        {getFieldDecorator("cityId", {
-                            rules: [{required: true, message: "Please input a city id!"}]
+                        {getFieldDecorator("latCoord", {
+                            rules: [{required: true, message: "Please input a latitude!"}]
                         })(
-                            <InputNumber/>
+                            <InputNumber step={0.1}/>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Longitude"
+                    >
+                        {getFieldDecorator("longCoord", {
+                            rules: [{required: true, message: "Please input a longitude!"}]
+                        })(
+                            <InputNumber ste={0.1}/>
                         )}
                     </FormItem>
                 </Form>

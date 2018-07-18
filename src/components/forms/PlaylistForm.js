@@ -15,7 +15,8 @@ class PlaylistForm extends React.Component {
         this.state = {
             id: null,
             isLoading: false,
-            offices: []
+            offices: [],
+            playlists: []
         };
 
         this.onCreate = this.onCreate.bind(this);
@@ -26,6 +27,11 @@ class PlaylistForm extends React.Component {
         officeApi.getAll()
             .then(offices => {
                 this.setState({offices: offices});
+            });
+
+        playlistApi.getAll()
+            .then(playlists => {
+                this.setState({playlists: playlists})
             });
     }
 
@@ -66,7 +72,7 @@ class PlaylistForm extends React.Component {
 
     render() {
         const {visible, form} = this.props;
-        const {isLoading, offices} = this.state;
+        const {isLoading, offices, playlists} = this.state;
         const {getFieldDecorator} = form;
 
         const formItemLayout = {
@@ -98,6 +104,18 @@ class PlaylistForm extends React.Component {
                             rules: [{required: true, message: "Please input a playlist name!", whitespace: true}]
                         })(
                             <Input/>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Subscribed Playlists"
+                    >
+                        {getFieldDecorator('subscribedPlaylistIds',)(
+                            <Select mode="multiple" placeholder="Please select which playlists to subscribe to">
+                                {playlists.map(o => {
+                                    return <Option value={o.id}>{o.name}</Option>
+                                })}
+                            </Select>
                         )}
                     </FormItem>
                     <FormItem
