@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Breadcrumb, Icon, Popconfirm, Layout, Menu} from 'antd';
+import {Alert, Breadcrumb, Icon, Layout, Menu, Popconfirm} from 'antd';
 import "./AdminHome.css"
 import PlaylistTablePage from "./PlaylistTablePage";
 import {Link, NavLink, Route, Switch, withRouter} from "react-router-dom";
@@ -9,7 +9,6 @@ import logo from "../assets/guidewire_logo_color_web.png";
 import CalendarTablePage from "./CalendarTablePage";
 import authApi from "../api/AuthApi";
 import CalendarPage from "./CalendarPage";
-import {notification} from "antd/lib/index";
 
 
 const {Header, Content, Sider} = Layout;
@@ -74,7 +73,7 @@ class AdminHome extends React.Component {
                                 {"Home"}
                             </NavLink>
                         </Menu.Item>
-                        <Menu.Item key="LOGOUT" style = {{marginLeft:'750px'}} >
+                        <Menu.Item key="LOGOUT" style={{float: "right"}}>
                             <Popconfirm   title="Are you sure you want to logout?"
                                           onConfirm={() => this.onLogout()}>
                                 {<span><Icon type="logout"/>Logout</span>}

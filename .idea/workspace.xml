@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="beeb08aa-3a4c-4118-a560-82ea3b91314f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/AuthApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/AuthApi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calendar/CalendarEventListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/CalendarEventListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/slides/CalendarSlide.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/slides/CalendarSlide.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/slides/CalendarSlide.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/slides/CalendarSlide.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/CalendarPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CalendarPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/AdminHome.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/AdminHome.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,23 +18,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AdminHome.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AdminHome.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/AdminHome.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="821">
-              <caret line="74" column="20" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="277">
+              <caret line="71" column="46" lean-forward="true" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalendarSlide.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CalendarSlide.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/slides/CalendarSlide.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="111" column="59" lean-forward="true" selection-start-line="111" selection-start-column="59" selection-end-line="111" selection-end-column="59" />
+            <state relative-caret-position="290">
+              <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -52,9 +44,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="663">
               <caret line="90" column="34" selection-start-line="87" selection-start-column="28" selection-end-line="90" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -189,12 +178,12 @@
         <option value="$PROJECT_DIR$/src/routes/PrivateRoute.js" />
         <option value="$PROJECT_DIR$/src/views/Signup.js" />
         <option value="$PROJECT_DIR$/src/views/LoginPage.js" />
-        <option value="$PROJECT_DIR$/src/views/AdminHome.js" />
         <option value="$PROJECT_DIR$/src/api/AuthApi.js" />
         <option value="$PROJECT_DIR$/src/views/CalendarPage.css" />
         <option value="$PROJECT_DIR$/src/components/calendar/CalendarEventListItem.js" />
         <option value="$PROJECT_DIR$/src/components/slides/CalendarSlide.css" />
         <option value="$PROJECT_DIR$/src/components/slides/CalendarSlide.js" />
+        <option value="$PROJECT_DIR$/src/views/AdminHome.js" />
       </list>
     </option>
   </component>
@@ -385,7 +374,7 @@
       <workItem from="1531172037912" duration="7917000" />
       <workItem from="1531744026742" duration="6681000" />
       <workItem from="1531752004356" duration="38088000" />
-      <workItem from="1531846574372" duration="20983000" />
+      <workItem from="1531846574372" duration="23263000" />
     </task>
     <task id="LOCAL-00001" summary="routing and office">
       <created>1530629445595</created>
@@ -464,11 +453,18 @@
       <option name="project" value="LOCAL" />
       <updated>1531856853433</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="calendar slide">
+      <created>1531930537680</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1531930537680</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177375000" />
+    <option name="totallyTimeSpent" value="179655000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -491,10 +487,10 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32844576" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32844576" />
       <window_info id="npm" order="2" sideWeight="0.50810015" side_tool="true" weight="0.1663113" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3362659" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32844576" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32844576" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49189985" visible="true" weight="0.1663113" />
@@ -597,7 +593,8 @@
     <MESSAGE value="slide list item refactoring" />
     <MESSAGE value="authentication cleanup" />
     <MESSAGE value="admin home" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin home" />
+    <MESSAGE value="calendar slide" />
+    <option name="LAST_COMMIT_MESSAGE" value="calendar slide" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -617,13 +614,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/antd/es/form/Form.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="76" column="20" lean-forward="true" selection-start-line="76" selection-start-column="20" selection-end-line="76" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/antd/lib/form/Form.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-65">
@@ -883,16 +873,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/AdminHome.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="821">
-          <caret line="74" column="20" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/calendar/CalendarEvent.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -924,9 +904,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="90" column="34" selection-start-line="87" selection-start-column="28" selection-end-line="90" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -944,13 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-scroll/modules/mixins/scroll-events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/slides/CalendarSlide.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="587">
@@ -958,13 +928,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="1317" column="4" selection-start-line="1317" selection-start-column="4" selection-end-line="1317" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-scroll/modules/mixins/scroll-events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/slides/CalendarSlide.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="111" column="59" lean-forward="true" selection-start-line="111" selection-start-column="59" selection-end-line="111" selection-end-column="59" />
+        <state relative-caret-position="290">
+          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/AdminHome.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="71" column="46" lean-forward="true" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
         </state>
       </provider>
     </entry>

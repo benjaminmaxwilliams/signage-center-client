@@ -31,34 +31,45 @@ class CalendarSlide extends React.Component {
     }
 
     beginAutomatedScrolling = () => {
+        this.scrollEventList("date1_1")
+            .then(() => this.scrollEventList("date1_2"))
+            .then(() => this.scrollEventList("date1_3"))
+            .then(() => this.scrollEventList("date1_4"))
+            .then(() => this.scrollEventList("date1_5"))
+            .then(() => this.scrollEventList("date2_1"))
+            .then(() => this.scrollEventList("date2_2"))
+            .then(() => this.scrollEventList("date2_3"))
+            .then(() => this.scrollEventList("date2_4"))
+            .then(() => this.scrollEventList("date2_5"));
+    };
 
-        scroll.scrollToBottom({
-            containerId: "date1_1",
-            smooth: true,
-            delay: 3000,
-            duration: 10000
+    scrollEventList = (eventListId) => {
+
+        let scrollContainer = new Promise((resolve, reject) => {
+
+            Events.scrollEvent.register('end', () => {
+                resolve();
+                Events.scrollEvent.remove('end');
+            });
+
+            scroll.scrollToBottom({
+                containerId: eventListId,
+                smooth: true,
+                delay: 5000,
+                duration: 10000
+            });
         });
 
-        scroll.scrollToBottom({
-            containerId: "date1_2",
-            smooth: true,
-            delay: 3000,
-            duration: 10000,
-        });
+        scrollContainer.then(() =>
+            scroll.scrollToTop({
+                containerId: eventListId,
+                smooth: true,
+                delay: 5000,
+                duration: 10000
+            })
+        );
 
-        scroll.scrollToBottom({
-            containerId: "date1_3",
-            smooth: true,
-            delay: 3000,
-            duration: 10000
-        });
-
-        scroll.scrollToBottom({
-            containerId: "date2_3",
-            smooth: true,
-            delay: 3000,
-            duration: 10000
-        });
+        return scrollContainer;
     };
 
     getEvents = (date) => {
