@@ -3,13 +3,19 @@
     pointer-events: none;
 }
 
+.events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 .events li {
-    list-style-position: inside;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap;
     width: 100%;
-    text-align: left;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    margin-bottom: 10px;
 }
 
 .event-list-section {

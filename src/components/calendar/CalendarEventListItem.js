@@ -29,7 +29,7 @@ class CalendarEventListItem extends React.Component {
 
         switch (event.type) {
             case "GENERAL": {
-                color = "#00739d";
+                color = "#6dcce7";
                 icon = "notification";
                 break;
             }
