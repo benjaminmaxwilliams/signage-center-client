@@ -12,6 +12,7 @@ import MapSlideCard from "../components/slides/MapSlideCard";
 import WeatherSlideCard from "../components/slides/WeatherSlideCard";
 import ImageSlideCard from "../components/slides/ImageSlideCard";
 import CalendarSlideCard from "../components/slides/CalendarSlideCard";
+import PlaylistSlideOrderForm from "../components/forms/slideorder/PlaylistSlideOrderForm";
 
 const confirm = Modal.confirm;
 
@@ -31,6 +32,7 @@ class PlaylistPage extends React.Component {
             mapFormVisible: false,
             weatherFormVisible: false,
             playlistFormVisible: false,
+            slideOrderFormVisible: false,
             isLoading: false,
         };
 
@@ -205,7 +207,7 @@ class PlaylistPage extends React.Component {
     };
 
     /**
-     * Unscribe from playlist
+     * Unsubscribe from playlist
      *
      * @param id
      */
@@ -278,12 +280,20 @@ class PlaylistPage extends React.Component {
                 <Button type="primary" style={{marginRight: "5px"}} href={`/playlist/${playlist.id}/play`}>
                     View
                 </Button>
+                <Button type="primary" style={{marginRight: "5px"}}
+                        onClick={() => this.setState({slideOrderFormVisible: true})}>
+                    Change Slide Order
+                </Button>
                 <Dropdown overlay={menu}>
                     <Button type="primary">
                         <Icon type="plus-circle"/>Add Slide
                     </Button>
                 </Dropdown>
                 <Divider dashed/>
+                <PlaylistSlideOrderForm
+                    visible={this.state.slideOrderFormVisible}
+                    onCancel={() => this.setState({slideOrderFormVisible: false})}
+                    slides={playlist.slides}/>
                 <ImageSlideForm
                     visible={this.state.imageFormVisible}
                     playlistId={playlist.id}

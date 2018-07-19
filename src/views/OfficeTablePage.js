@@ -74,7 +74,7 @@ class OfficeTablePage extends React.Component {
                 title: 'Name',
                 dataIndex: 'name',
                 key: 'name',
-                // render: (text, record) => <a href={`/admin/offices/${record.id}`}>{text}</a>,
+                render: (text, record) => <a href={`/admin/offices/${record.id}`}>{text}</a>,
             },
             {
                 title: 'Create Date',
@@ -109,6 +109,7 @@ class OfficeTablePage extends React.Component {
                     onCancel={() => this.closeModal("newOfficeModalVisible")}/>
                 <Divider dashed/>
                 <Table
+                    rowKey="id"
                     title={() => 'Offices'}
                     columns={columns}
                     bordered={true}

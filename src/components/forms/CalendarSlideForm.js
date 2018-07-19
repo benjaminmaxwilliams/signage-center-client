@@ -31,29 +31,34 @@ class CalendarSlideForm extends React.Component {
     componentWillMount() {
         const {playlist} = this.state;
 
-        if (typeof playlist.officeId !== "undefined") {
-            calendarApi.getAllByOffice(playlist.officeId)
-                .then(calendars => {
-                    this.setState({calendars: calendars});
-                });
-        }
+        // if (typeof playlist.officeId !== "undefined") {
+        //     calendarApi.getAllByOffice(playlist.officeId)
+        //         .then(calendars => {
+        //             this.setState({calendars: calendars});
+        //         });
+        // }
+
+        calendarApi.getAll()
+            .then(calendars => {
+                this.setState({calendars: calendars});
+            });
     }
 
-    componentWillReceiveProps(props) {
-        const {playlist} = this.state;
-
-        if (playlist.officeId !== props.playlist.officeId && props.playlist.officeId !== "undefined") {
-            // update playlist officeId
-            playlist.officeId = props.playlist.officeId;
-            this.setState({playlist: playlist});
-
-            // get office calendars
-            calendarApi.getAllByOffice(playlist.officeId)
-                .then(calendars => {
-                    this.setState({calendars: calendars});
-                });
-        }
-    }
+    // componentWillReceiveProps(props) {
+    //     const {playlist} = this.state;
+    //
+    //     if (playlist.officeId !== props.playlist.officeId && props.playlist.officeId !== "undefined") {
+    //         // update playlist officeId
+    //         playlist.officeId = props.playlist.officeId;
+    //         this.setState({playlist: playlist});
+    //
+    //         // get office calendars
+    //         calendarApi.getAllByOffice(playlist.officeId)
+    //             .then(calendars => {
+    //                 this.setState({calendars: calendars});
+    //             });
+    //     }
+    // }
 
     onCreate = (e) => {
         e.preventDefault();

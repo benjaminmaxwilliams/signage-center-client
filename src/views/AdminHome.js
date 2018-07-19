@@ -9,6 +9,7 @@ import logo from "../assets/guidewire_logo_color_web.png";
 import CalendarTablePage from "./CalendarTablePage";
 import authApi from "../api/AuthApi";
 import CalendarPage from "./CalendarPage";
+import OfficePage from "./OfficePage";
 
 
 const {Header, Content, Sider} = Layout;
@@ -17,12 +18,12 @@ const text = 'Are you sure delete this task?';
 class AdminHome extends React.Component {
     constructor(props) {
         super(props);
-
     }
+
     onLogout = () =>{
         authApi.logout();
         this.props.history.push('/login');
-    }
+    };
 
     render() {
 
@@ -30,7 +31,6 @@ class AdminHome extends React.Component {
 
         const breadcrumbNameMap = {
             '/admin': 'Home',
-            '/login' : 'Sign out',
             '/admin/playlists': 'Playlists',
             '/admin/offices': 'Offices',
             '/admin/calendars': 'Calendars',
@@ -42,7 +42,7 @@ class AdminHome extends React.Component {
             return (
                 <Breadcrumb.Item key={url}>
                     <Link to={url}>
-                        {breadcrumbNameMap[url]}
+                        {breadcrumbNameMap[url] ? breadcrumbNameMap[url] : "TODO"}
                     </Link>
                 </Breadcrumb.Item>
             );
@@ -93,11 +93,6 @@ class AdminHome extends React.Component {
                                     {<span><Icon type="home"/>Home</span>}
                                 </NavLink>
                             </Menu.Item>
-                            <Menu.Item key="PLAYLISTS">
-                                <NavLink to="/admin/playlists">
-                                    {<span><Icon type="play-circle"/>Playlists</span>}
-                                </NavLink>
-                            </Menu.Item>
                             <Menu.Item key="OFFICES">
                                 <NavLink to="/admin/offices">
                                     {<span><Icon type="shop"/>Offices</span>}
@@ -106,6 +101,16 @@ class AdminHome extends React.Component {
                             <Menu.Item key="CALENDARS">
                                 <NavLink to="/admin/calendars">
                                     {<span><Icon type="schedule"/>Calendars</span>}
+                                </NavLink>
+                            </Menu.Item>
+                            <Menu.Item key="PLAYLISTS">
+                                <NavLink to="/admin/playlists">
+                                    {<span><Icon type="play-circle"/>Playlists</span>}
+                                </NavLink>
+                            </Menu.Item>
+                            <Menu.Item key="SCREENS">
+                                <NavLink to="/admin/screens">
+                                    {<span><Icon type="desktop"/>Screens</span>}
                                 </NavLink>
                             </Menu.Item>
                         </Menu>
@@ -126,6 +131,7 @@ class AdminHome extends React.Component {
                                 <Route exact path="/admin/playlists" component={PlaylistTablePage}/>
                                 <Route exact path="/admin/playlists/:playlistId" component={PlaylistPage}/>
                                 <Route exact path="/admin/offices" component={OfficeTablePage}/>
+                                <Route exact path="/admin/offices/:officeId" component={OfficePage}/>
                                 <Route exact path="/admin/calendars" component={CalendarTablePage}/>
                                 <Route path="/admin/calendars/:calendarId" component={CalendarPage}/>
                                 <Route render={() => {

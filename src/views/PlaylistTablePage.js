@@ -27,7 +27,6 @@ class PlaylistTablePage extends React.Component {
             });
     }
 
-
     handleMenuClick = () => {
         this.showModal("newPlaylistFormVisible");
     };
@@ -119,6 +118,7 @@ class PlaylistTablePage extends React.Component {
                     onCancel={() => this.closeModal("newPlaylistFormVisible")}/>
                 <Divider dashed/>
                 <Table
+                    rowKey="id"
                     title={() => 'Playlists'}
                     columns={columns}
                     bordered={true}

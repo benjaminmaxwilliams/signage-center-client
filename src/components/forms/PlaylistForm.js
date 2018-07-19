@@ -138,7 +138,7 @@ class PlaylistForm extends React.Component {
     }
 }
 
-PlaylistForm.PropTypes = {
+PlaylistForm.propTypes = {
     visible: PropTypes.bool,
     onSuccess: PropTypes.func,
     onCancel: PropTypes.func

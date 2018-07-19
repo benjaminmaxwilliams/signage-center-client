@@ -152,6 +152,7 @@ class CalendarTablePage extends React.Component {
                     onCancel={() => this.closeModal("internalCalendarModalVisible")}/>
                 <Divider dashed/>
                 <Table
+                    rowKey="id"
                     title={() => 'Calendars'}
                     columns={columns}
                     bordered={true}

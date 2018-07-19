@@ -102,11 +102,11 @@ class CalendarSlide extends React.Component {
         const date1_5 = moment().add(4, "days");
 
         // week two dates
-        const date2_1 = moment().add(7, "days");
-        const date2_2 = moment().add(8, "days");
-        const date2_3 = moment().add(9, "days");
-        const date2_4 = moment().add(10, "days");
-        const date2_5 = moment().add(11, "days");
+        const date2_1 = moment().add(5, "days");
+        const date2_2 = moment().add(6, "days");
+        const date2_3 = moment().add(7, "days");
+        const date2_4 = moment().add(8, "days");
+        const date2_5 = moment().add(9, "days");
 
         return (
             <div className="calendar-container">
