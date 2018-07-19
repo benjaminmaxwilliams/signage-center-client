@@ -48,6 +48,25 @@ class PlaylistApi extends Api {
             })
     }
 
+    unsubscribe(playlistId, playlistSubscriptionId) {
+
+        const url = process.env.REACT_APP_API_HOST + `/playlist/unsubscribe/${playlistId}?playlistSubscriptionId=${playlistSubscriptionId}`;
+
+        const props = {
+            method: "PUT",
+        };
+
+        return fetch(url, props)
+            .then(this.handleErrors)
+            .then(response => {
+                return true
+            })
+            .catch(error => {
+                console.log(error);
+                throw error;
+            })
+    }
+
     getAll() {
 
         const url = process.env.REACT_APP_API_HOST + "/playlist/all";
@@ -63,8 +82,31 @@ class PlaylistApi extends Api {
     }
 
     getPlaylist(playlistId) {
+        const opts = {
+            withSlides: false,
+            withSubscriptions: false
+        };
 
-        const url = process.env.REACT_APP_API_HOST + `/playlist/${playlistId}`;
+        return this.getPlaylistWithOptions(playlistId, opts)
+    }
+
+    getPlaylistWithOptions(playlistId, opts) {
+
+        let withSlides = false;
+        let withSubscriptions = false;
+
+        if (opts) {
+            if (opts.withSlides) {
+                withSlides = true;
+            }
+
+            if (opts.withSubscriptions) {
+                withSubscriptions = true;
+            }
+        }
+
+        let url = process.env.REACT_APP_API_HOST +
+            `/playlist/${playlistId}?withSlides=${withSlides}&withSubscriptions=${withSubscriptions}`;
 
         return fetch(url)
             .then(this.handleErrors)
@@ -74,7 +116,6 @@ class PlaylistApi extends Api {
             .catch(error => {
                 return error;
             })
-
     }
 
     playPlaylist(playlistId) {
@@ -89,7 +130,6 @@ class PlaylistApi extends Api {
             .catch(error => {
                 return error;
             })
-
     }
 }
 

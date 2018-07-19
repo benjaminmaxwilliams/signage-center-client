@@ -26,6 +26,21 @@ class SlideApi extends Api {
 
     }
 
+    getSlide(slideId) {
+
+        const url = process.env.REACT_APP_API_HOST + `/slide/${slideId}`;
+
+        return fetch(url)
+            .then(this.handleErrors)
+            .then(response => {
+                return response.json();
+            })
+            .catch(error => {
+                console.log(error);
+                throw error;
+            })
+    }
+
     getAllSlides() {
 
         const url = process.env.REACT_APP_API_HOST + "/slide/all";

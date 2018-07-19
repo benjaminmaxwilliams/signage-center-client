@@ -36,7 +36,7 @@ class PlaylistTablePage extends React.Component {
         playlistApi.delete(id)
             .then(() => {
                 const playlists = [...this.state.playlists];
-                this.setState({offices: playlists.filter(item => item.id !== id)});
+                this.setState({playlist: playlists.filter(item => item.id !== id)});
                 notification["success"]({
                     message: 'Playlist Deleted',
                 });

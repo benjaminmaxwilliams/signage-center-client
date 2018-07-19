@@ -1,6 +1,6 @@
 import React from 'react';
 import './PlaylistPage.css';
-import {Button, Divider, Dropdown, Icon, List, Menu, Modal, notification} from "antd";
+import {Button, Divider, Dropdown, Icon, List, Menu, Modal, notification, Popconfirm, Table} from "antd";
 import playlistApi from "../api/PlaylistApi";
 import slideApi from "../api/SlideApi";
 import ImageSlideForm from "../components/forms/ImageSlideForm";
@@ -8,10 +8,10 @@ import WeatherSlideForm from "../components/forms/WeatherSlideForm";
 import MapSlideForm from "../components/forms/MapSlideForm";
 import CalendarSlideForm from "../components/forms/CalendarSlideForm";
 import {withRouter} from "react-router-dom";
-import ImageSlideListItem from "../components/slides/ImageSlideListItem";
-import MapSlideListItem from "../components/slides/MapSlideListItem";
-import WeatherSlideListItem from "../components/slides/WeatherSlideListItem";
-import CalendarSlideListItem from "../components/slides/CalendarSlideListItem";
+import MapSlideCard from "../components/slides/MapSlideCard";
+import WeatherSlideCard from "../components/slides/WeatherSlideCard";
+import ImageSlideCard from "../components/slides/ImageSlideCard";
+import CalendarSlideCard from "../components/slides/CalendarSlideCard";
 
 const confirm = Modal.confirm;
 
@@ -23,7 +23,8 @@ class PlaylistPage extends React.Component {
             playlist: {
                 id: this.props.match.params.playlistId,
                 name: "",
-                slides: []
+                slides: [],
+                subscribedPlaylists: []
             },
             imageFormVisible: false,
             calendarFormVisible: false,
@@ -33,30 +34,30 @@ class PlaylistPage extends React.Component {
             isLoading: false,
         };
 
-        this.renderListItem = this.renderListItem.bind(this);
+        this.renderCardItem = this.renderCardItem.bind(this);
         this.handleSlideDelete = this.handleSlideDelete.bind(this);
         this.deleteSlide = this.deleteSlide.bind(this);
+        this.unsubscribe = this.unsubscribe.bind(this);
         this.onImageFormSuccess = this.onImageFormSuccess.bind(this);
     }
 
     componentWillMount() {
         let playlistId = this.props.match.params.playlistId;
 
-        playlistApi.getPlaylist(playlistId)
+        const opts = {
+            withSlides: true,
+            withSubscriptions: true
+        };
+
+        playlistApi.getPlaylistWithOptions(playlistId, opts)
             .then(playlist => {
                 this.setState({playlist: playlist});
             })
             .catch(error => {
-                this.props.history.push("/admin/playlists");
-            });
-
-        slideApi.getSlidesByPlaylist(playlistId)
-            .then(slides => {
-                const {playlist} = this.state;
-                playlist.slides = slides;
-                this.setState({playlist: playlist});
-            })
-            .catch(error => {
+                notification["error"]({
+                    message: 'Error retrieving playlist',
+                    description: error.message
+                });
                 this.props.history.push("/admin/playlists");
             });
     }
@@ -85,17 +86,15 @@ class PlaylistPage extends React.Component {
         });
     };
 
-    renderListItem = (slide) => {
-        const {isLoading} = this.state;
-
+    renderCardItem = (slide) => {
         if (slide.slideType === "IMAGE") {
-            return <ImageSlideListItem slide={slide} onDelete={this.handleSlideDelete}/>
+            return <ImageSlideCard slide={slide} onDelete={this.handleSlideDelete}/>
         } else if (slide.slideType === "MAP") {
-            return <MapSlideListItem slide={slide} onDelete={this.handleSlideDelete}/>
+            return <MapSlideCard slide={slide} onDelete={this.handleSlideDelete}/>
         } else if (slide.slideType === "WEATHER") {
-            return <WeatherSlideListItem slide={slide} onDelete={this.handleSlideDelete}/>
+            return <WeatherSlideCard slide={slide} onDelete={this.handleSlideDelete}/>
         } else if (slide.slideType === "CALENDAR") {
-            return <CalendarSlideListItem slide={slide} onDelete={this.handleSlideDelete}/>
+            return <CalendarSlideCard slide={slide} onDelete={this.handleSlideDelete}/>
         } else {
             return (<h1></h1>);
         }
@@ -141,6 +140,96 @@ class PlaylistPage extends React.Component {
             });
     };
 
+    /**
+     * Slide Form Modal Success Callback
+     */
+    onImageFormSuccess = (newSlide) => {
+        const playlist = this.state.playlist;
+        const slides = [...this.state.playlist.slides];
+        slides.push(newSlide);
+        playlist.slides = slides;
+
+        this.setState({imageFormVisible: false, playlist: playlist});
+
+        notification["success"]({
+            message: 'Image Slide Created',
+        });
+    };
+
+    /**
+     * Slide Form Modal Success Callback
+     */
+    onCalendarFormSuccess = (newSlide) => {
+        const playlist = this.state.playlist;
+        const slides = [...this.state.playlist.slides];
+        slides.push(newSlide);
+        playlist.slides = slides;
+
+        this.setState({calendarFormVisible: false, playlist: playlist});
+
+        notification["success"]({
+            message: 'Calendar Slide Created',
+        });
+    };
+
+    /**
+     * Slide Form Modal Success Callback
+     */
+    onMapFormSuccess = (newSlide) => {
+        const playlist = this.state.playlist;
+        const slides = [...this.state.playlist.slides];
+        slides.push(newSlide);
+        playlist.slides = slides;
+
+        this.setState({mapFormVisible: false, playlist: playlist});
+
+        notification["success"]({
+            message: 'Map Slide Created',
+        });
+    };
+
+    /**
+     * Slide Form Modal Success Callback
+     */
+    onWeatherFormSuccess = (newSlide) => {
+        const playlist = this.state.playlist;
+        const slides = [...this.state.playlist.slides];
+        slides.push(newSlide);
+        playlist.slides = slides;
+
+        this.setState({weatherFormVisible: false, playlist: playlist});
+
+        notification["success"]({
+            message: 'Weather Slide Created',
+        });
+    };
+
+    /**
+     * Unscribe from playlist
+     *
+     * @param id
+     */
+    unsubscribe = (id) => {
+        const {playlist} = this.state;
+
+        playlistApi.unsubscribe(playlist.id, id)
+            .then(() => {
+                const {playlist} = this.state;
+                const subscribedPlaylists = [...playlist.subscribedPlaylists];
+                playlist.subscribedPlaylists = subscribedPlaylists.filter(item => item.id !== id)
+                this.setState({playlist: playlist});
+                notification["success"]({
+                    message: 'Playlist Unsubscribed',
+                });
+            })
+            .catch(error => {
+                notification["error"]({
+                    message: 'An error occured',
+                    description: error.message
+                });
+            });
+    };
+
     render() {
 
         const {playlist} = this.state;
@@ -153,6 +242,36 @@ class PlaylistPage extends React.Component {
                 <Menu.Item key="4">Weather Slide</Menu.Item>
             </Menu>
         );
+
+        const columns = [
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                // render: (text, record) => <a href={`/admin/playlists/${record.id}`}>{text}</a>,
+            },
+            {
+                title: 'Office',
+                dataIndex: 'officeName',
+                key: 'officeName',
+            },
+            {
+                title: '',
+                dataIndex: '',
+                key: 'x',
+                render: (text, record) => (
+                    <span>
+                        <a href={`/playlist/${record.id}/play`}>View</a>
+                        <Divider type="vertical"/>
+                        <Popconfirm
+                            title="Are you sure you want to unsubscribe from this playlist?"
+                            onConfirm={() => this.unsubscribe(record.id)}>
+                            <a href="javascript:">Unsubscribe</a>
+                        </Popconfirm>
+                    </span>
+                )
+            }
+        ];
 
         return (
             <div className="container">
@@ -187,72 +306,26 @@ class PlaylistPage extends React.Component {
                     onCancel={() => this.closeModal("weatherFormVisible")}/>
                 <div>
                     <h1>{playlist.name}</h1>
-                    <Divider dashed/>
+                    <Divider dashed>Slides</Divider>
                     <List
-                        bordered={true}
-                        itemLayout="vertical"
-                        size="large"
+                        grid={{gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 4}}
                         dataSource={playlist.slides}
-                        renderItem={this.renderListItem}/>
+                        renderItem={(item) => (
+                            <List.Item>
+                                {this.renderCardItem(item)}
+                            </List.Item>
+                        )}
+                    />
+                    <Divider dashed>Subscribed Playlists</Divider>
+                    <Table
+                        rowKey="id"
+                        columns={columns}
+                        bordered={true}
+                        dataSource={playlist.subscribedPlaylists}/>
                 </div>
             </div>
         );
     }
-
-    /**
-     * Slide Form Modal Success Callback
-     */
-    onImageFormSuccess = (newSlide) => {
-        const playlist = this.state.playlist;
-        const slides = [...this.state.playlist.slides];
-        slides.push(newSlide);
-        playlist.slides = slides;
-
-        this.setState({imageFormVisible: false, playlist: playlist});
-
-        notification["success"]({
-            message: 'Image Slide Created',
-        });
-    };
-
-    onCalendarFormSuccess = (newSlide) => {
-        const playlist = this.state.playlist;
-        const slides = [...this.state.playlist.slides];
-        slides.push(newSlide);
-        playlist.slides = slides;
-
-        this.setState({calendarFormVisible: false, playlist: playlist});
-
-        notification["success"]({
-            message: 'Calendar Slide Created',
-        });
-    };
-
-    onMapFormSuccess = (newSlide) => {
-        const playlist = this.state.playlist;
-        const slides = [...this.state.playlist.slides];
-        slides.push(newSlide);
-        playlist.slides = slides;
-
-        this.setState({mapFormVisible: false, playlist: playlist});
-
-        notification["success"]({
-            message: 'Map Slide Created',
-        });
-    };
-
-    onWeatherFormSuccess = (newSlide) => {
-        const playlist = this.state.playlist;
-        const slides = [...this.state.playlist.slides];
-        slides.push(newSlide);
-        playlist.slides = slides;
-
-        this.setState({weatherFormVisible: false, playlist: playlist});
-
-        notification["success"]({
-            message: 'Weather Slide Created',
-        });
-    };
 }
 
 export default withRouter(PlaylistPage);

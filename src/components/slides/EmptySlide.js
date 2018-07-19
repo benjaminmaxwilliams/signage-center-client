@@ -2,7 +2,7 @@ import React from "react";
 import './EmptySlide.css';
 import guidewireImg from "../../assets/guidewire_logo_color_web.png";
 
-class CalendarSlide extends React.Component {
+class EmptySlide extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -16,4 +16,4 @@ class CalendarSlide extends React.Component {
     }
 }
 
-export default CalendarSlide;
+export default EmptySlide;
