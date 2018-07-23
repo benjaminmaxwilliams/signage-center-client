@@ -1,7 +1,7 @@
 import React from 'react';
 import './OfficePage.css';
 import {Divider, Modal, notification} from "antd";
-import officeApi from "../api/OfficeApi";
+import * as officeApi from "../api/OfficeApi";
 import {withRouter} from "react-router-dom";
 
 const confirm = Modal.confirm;

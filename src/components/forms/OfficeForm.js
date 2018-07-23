@@ -1,7 +1,7 @@
 import React from "react";
 import {Form, Input, Modal, notification} from "antd";
 import "./OfficeForm.css";
-import officeApi from "../../api/OfficeApi";
+import * as officeApi from "../../api/OfficeApi";
 import PropTypes from "prop-types";
 
 const FormItem = Form.Item;

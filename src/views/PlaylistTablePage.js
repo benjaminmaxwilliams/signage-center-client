@@ -1,7 +1,7 @@
 import React from 'react';
 import './PlaylistTablePage.css';
 import {Button, Divider, Icon, Popconfirm, Table} from "antd";
-import playlistApi from "../api/PlaylistApi";
+import * as playlistApi from "../api/PlaylistApi";
 import PlaylistForm from "../components/forms/PlaylistForm";
 import {notification} from "antd/lib/index";
 
@@ -32,7 +32,7 @@ class PlaylistTablePage extends React.Component {
     };
 
     onDelete = (id) => {
-        playlistApi.delete(id)
+        playlistApi.deletePlaylist(id)
             .then(() => {
                 const playlists = [...this.state.playlists];
                 this.setState({playlists: playlists.filter(item => item.id !== id)});

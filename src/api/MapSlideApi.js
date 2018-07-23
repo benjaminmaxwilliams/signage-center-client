@@ -1,34 +1,30 @@
-import Api from "./Api";
+import * as api from "./Api";
 
-class MapSlideApi extends Api {
+/**
+ * Create a map slide via web service
+ *
+ * @param slide
+ * @returns {Promise<Response>}
+ */
+export function create(slide) {
 
-    constructor() {
-        super();
-    }
+    const url = process.env.REACT_APP_API_HOST + "/slide/map";
 
-    create(slide) {
+    const props = {
+        body: JSON.stringify(slide),
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+    };
 
-        const url = process.env.REACT_APP_API_HOST + "/slide/map";
-
-        const props = {
-            body: JSON.stringify(slide),
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-        };
-
-        return fetch(url, props)
-            .then(this.handleErrors)
-            .then(response => {
-                return response.json();
-            })
-            .catch(error => {
-                console.log(error);
-                throw error;
-            })
-    }
+    return fetch(url, props)
+        .then(api.handleErrors)
+        .then(response => {
+            return response.json();
+        })
+        .catch(error => {
+            console.log(error);
+            throw error;
+        })
 }
-
-const mapSlideApi = new MapSlideApi();
-export default mapSlideApi;

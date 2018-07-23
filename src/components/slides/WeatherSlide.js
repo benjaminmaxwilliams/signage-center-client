@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './WeatherSlide.css';
-import weatherApi from "../../api/WeatherApi";
+import * as weatherApi from "../../api/WeatherApi";
 
 import weatherImages from "../../assets/weather/weather";
 

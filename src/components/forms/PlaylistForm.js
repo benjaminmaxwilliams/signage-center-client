@@ -2,8 +2,8 @@ import React from "react";
 import {Form, Input, Modal, notification, Select} from "antd";
 import "./PlaylistForm.css";
 import PropTypes from "prop-types";
-import playlistApi from "../../api/PlaylistApi";
-import officeApi from "../../api/OfficeApi";
+import * as playlistApi from "../../api/PlaylistApi";
+import * as officeApi from "../../api/OfficeApi";
 
 const FormItem = Form.Item;
 const Option = Select.Option;

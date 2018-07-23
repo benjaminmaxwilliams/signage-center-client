@@ -1,7 +1,7 @@
 import React from "react";
 import {DatePicker, Form, Input, InputNumber, Modal, notification} from "antd";
 import "./WeatherSlideForm.css";
-import weatherSlideApi from "../../api/WeatherSlideApi";
+import * as weatherSlideApi from "../../api/WeatherSlideApi";
 import PropTypes from "prop-types";
 
 const FormItem = Form.Item;

@@ -1,14 +1,14 @@
 import React from 'react';
 import './CalendarPage.css';
 import {Button, Calendar, Col, Divider, Icon, Modal, notification, Row} from "antd";
-import calendarApi from "../api/CalendarApi";
+import * as calendarApi from "../api/CalendarApi";
 import {withRouter} from "react-router-dom";
 import CalendarEvent from "../components/calendar/CalendarEvent";
 import InternalCalendarEventForm from "../components/forms/InternalCalendarEventForm";
 import moment from "moment";
 import CalendarEventList from "../components/calendar/CalendarEventList";
 import GuidewireIcon from "../assets/guidewire_icon_color_web.png";
-import internalCalendarEventApi from "../api/InternalCalendarEventApi";
+import * as internalCalendarEventApi from "../api/InternalCalendarEventApi";
 
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
@@ -140,7 +140,7 @@ class CalendarPage extends React.Component {
     };
 
     deleteEvent = (id) => {
-        return internalCalendarEventApi.delete(id)
+        return internalCalendarEventApi.deleteEvent(id)
             .then(() => {
                 const calendar = {...this.state.calendar};
                 calendar.events = calendar.events.filter(item => item.id !== id);

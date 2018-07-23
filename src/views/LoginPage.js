@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Form, Icon, Input, Layout, notification} from 'antd';
 import {Link} from 'react-router-dom';
 import "./LoginPage.css"
-import authApi from "../api/AuthApi";
+import * as authApi from "../api/AuthApi";
 
 const FormItem = Form.Item;
 const {Header, Content, Sider} = Layout;

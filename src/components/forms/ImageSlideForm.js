@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, DatePicker, Form, Icon, Input, InputNumber, Modal, notification, Upload} from "antd";
 import "./ImageSlideForm.css";
-import imageSlideApi from "../../api/ImageSlideApi";
+import * as imageSlideApi from "../../api/ImageSlideApi";
 import PropTypes from "prop-types";
 
 const FormItem = Form.Item;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import authApi from "../api/AuthApi";
+import * as authApi from "../api/AuthApi";
 import './Signup.css';
 import {Link} from 'react-router-dom';
 import {

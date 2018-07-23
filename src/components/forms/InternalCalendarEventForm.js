@@ -1,7 +1,7 @@
 import React from "react";
 import {Checkbox, DatePicker, Form, Input, Modal, notification, Select, TimePicker} from "antd";
 import "./InternalCalendarEventForm.css";
-import internalCalendarEventApi from "../../api/InternalCalendarEventApi";
+import * as internalCalendarEventApi from "../../api/InternalCalendarEventApi";
 import PropTypes from "prop-types";
 import moment from "moment";
 

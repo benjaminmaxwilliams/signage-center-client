@@ -1,9 +1,9 @@
 import React from "react";
 import {Form, Input, Modal, notification, Select} from "antd";
 import "./InternalCalendarForm.css";
-import internalCalendarApi from "../../api/InternalCalendarApi";
+import * as internalCalendarApi from "../../api/InternalCalendarApi";
 import PropTypes from "prop-types";
-import officeApi from "../../api/OfficeApi";
+import * as officeApi from "../../api/OfficeApi";
 
 const FormItem = Form.Item;
 const Option = Select.Option;

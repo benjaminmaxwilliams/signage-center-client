@@ -7,13 +7,11 @@ import PlaylistPage from "./PlaylistPage";
 import OfficeTablePage from "./OfficeTablePage";
 import logo from "../assets/guidewire_logo_color_web.png";
 import CalendarTablePage from "./CalendarTablePage";
-import authApi from "../api/AuthApi";
+import * as authApi from "../api/AuthApi";
 import CalendarPage from "./CalendarPage";
 import OfficePage from "./OfficePage";
 
-
 const {Header, Content, Sider} = Layout;
-const text = 'Are you sure delete this task?';
 
 class AdminHome extends React.Component {
     constructor(props) {

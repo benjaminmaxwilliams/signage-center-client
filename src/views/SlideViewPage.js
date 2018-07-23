@@ -1,7 +1,7 @@
 import React from "react";
 import "./SlideViewPage.css";
 import EmptySlide from "../components/slides/EmptySlide";
-import slideApi from "../api/SlideApi";
+import * as slideApi from "../api/SlideApi";
 import Slide from "../components/slides/Slide";
 
 /**

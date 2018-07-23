@@ -1,9 +1,9 @@
 import React from "react";
 import {DatePicker, Form, Input, InputNumber, Modal, notification, Select} from "antd";
 import "./CalendarSlideForm.css";
-import calendarSlideApi from "../../api/CalendarSlideApi";
+import * as calendarSlideApi from "../../api/CalendarSlideApi";
 import PropTypes from "prop-types";
-import calendarApi from "../../api/CalendarApi";
+import * as calendarApi from "../../api/CalendarApi";
 
 const FormItem = Form.Item;
 const Option = Select.Option;

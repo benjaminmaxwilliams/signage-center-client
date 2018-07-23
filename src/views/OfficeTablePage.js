@@ -1,7 +1,7 @@
 import React from 'react';
 import './OfficeTablePage.css';
 import {Button, Divider, Icon, notification, Popconfirm, Table} from "antd";
-import officeApi from "../api/OfficeApi";
+import * as officeApi from "../api/OfficeApi";
 import OfficeForm from "../components/forms/OfficeForm";
 
 const ButtonGroup = Button.Group;

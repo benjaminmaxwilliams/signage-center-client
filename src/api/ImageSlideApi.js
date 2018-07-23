@@ -1,54 +1,57 @@
-import Api from "./Api";
+import * as api from "./Api";
 
-class ImageSlideApi extends Api {
+/**
+ * Create image slide via web service
+ *
+ * @param slide
+ * @returns {Promise<Response>}
+ */
+export function create(slide) {
 
-    constructor() {
-        super();
-    }
+    const url = process.env.REACT_APP_API_HOST + "/slide/image";
 
-    create(slide) {
+    const props = {
+        body: JSON.stringify(slide),
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+    };
 
-        const url = process.env.REACT_APP_API_HOST + "/slide/image";
-
-        const props = {
-            body: JSON.stringify(slide),
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-        };
-
-        return fetch(url, props)
-            .then(this.handleErrors)
-            .then(response => {
-                return response.json();
-            })
-            .catch(error => {
-                console.log(error);
-                throw error;
-            })
-    }
-
-    uploadImage(file, slideId) {
-
-        const url = process.env.REACT_APP_API_HOST + `/slide/image/attach/${slideId}`;
-
-        const props = {
-            body: file,
-            method: "POST",
-        };
-
-        return fetch(url, props)
-            .then(this.handleErrors)
-            .then(response => {
-                return response.json();
-            })
-            .catch(error => {
-                console.log(error);
-                throw error;
-            });
-    }
+    return fetch(url, props)
+        .then(api.handleErrors)
+        .then(response => {
+            return response.json();
+        })
+        .catch(error => {
+            console.log(error);
+            throw error;
+        })
 }
 
-const imageSlideApi = new ImageSlideApi();
-export default imageSlideApi;
+/**
+ * Upload an image to a slide via web services
+ *
+ * @param file
+ * @param slideId
+ * @returns {Promise<Response>}
+ */
+export function uploadImage(file, slideId) {
+
+    const url = process.env.REACT_APP_API_HOST + `/slide/image/attach/${slideId}`;
+
+    const props = {
+        body: file,
+        method: "POST",
+    };
+
+    return fetch(url, props)
+        .then(api.handleErrors)
+        .then(response => {
+            return response.json();
+        })
+        .catch(error => {
+            console.log(error);
+            throw error;
+        });
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './CalendarTablePage.css';
 import {Button, Divider, Dropdown, Icon, Menu, notification, Popconfirm, Table} from "antd";
-import calendarApi from "../api/CalendarApi";
+import * as calendarApi from "../api/CalendarApi";
 import InternalCalendarForm from "../components/forms/InternalCalendarForm";
 import GuidewireIcon from "../assets/guidewire_icon_color_web.png";
 
@@ -62,7 +62,7 @@ class CalendarTablePage extends React.Component {
     };
 
     onDelete = (id) => {
-        calendarApi.delete(id)
+        calendarApi.deleteCalendar(id)
             .then(() => {
                 const calendars = [...this.state.calendars];
                 this.setState({calendars: calendars.filter(item => item.id !== id)});

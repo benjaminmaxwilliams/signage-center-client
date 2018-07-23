@@ -1,8 +1,8 @@
 import React from 'react';
 import './PlaylistPage.css';
 import {Button, Divider, Dropdown, Icon, List, Menu, Modal, notification, Popconfirm, Table} from "antd";
-import playlistApi from "../api/PlaylistApi";
-import slideApi from "../api/SlideApi";
+import * as playlistApi from "../api/PlaylistApi";
+import * as slideApi from "../api/SlideApi";
 import ImageSlideForm from "../components/forms/ImageSlideForm";
 import WeatherSlideForm from "../components/forms/WeatherSlideForm";
 import MapSlideForm from "../components/forms/MapSlideForm";
@@ -124,7 +124,7 @@ class PlaylistPage extends React.Component {
      * @returns {Promise<T> | *}
      */
     deleteSlide = (id) => {
-        return slideApi.delete(id)
+        return slideApi.deleteSlide(id)
             .then(() => {
                 const {playlist} = this.state;
                 let slides = playlist.slides;
@@ -318,8 +318,8 @@ class PlaylistPage extends React.Component {
                     <h1>{playlist.name}</h1>
                     <Divider dashed>Slides</Divider>
                     <List
-                        // grid={{gutter: 4, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 4}}
-                        grid={{gutter: 4, column: 4}}
+                        grid={{gutter: 4, xs: 1, sm: 2, md: 2, lg: 2, xl: 2, xxl: 4}}
+                        // grid={{gutter: 4, column: 4}}
                         dataSource={playlist.slides}
                         renderItem={(item) => (
                             <List.Item>

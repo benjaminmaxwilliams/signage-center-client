@@ -1,7 +1,7 @@
 import React from "react";
 import {DatePicker, Form, Input, InputNumber, Modal} from "antd";
 import "./MapSlideForm.css";
-import mapSlideApi from "../../api/MapSlideApi";
+import * as mapSlideApi from "../../api/MapSlideApi";
 import PropTypes from "prop-types";
 import {notification} from "antd/lib/index";
 

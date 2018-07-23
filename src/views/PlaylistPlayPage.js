@@ -1,7 +1,7 @@
 import React from "react";
 import "./PlaylistPlayPage.css";
 import EmptySlide from "../components/slides/EmptySlide";
-import playlistApi from "../api/PlaylistApi";
+import * as playlistApi from "../api/PlaylistApi";
 import Slide from "../components/slides/Slide";
 
 class PlaylistPlayPage extends React.Component {
