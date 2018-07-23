@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import 'antd/dist/antd.css';
-import 'ant-design-pro/dist/ant-design-pro.css';
-import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import indexRoutes from "./routes/index";
 import NoMatchUrlPage from "./views/NoMatchUrlPage";
@@ -24,5 +21,3 @@ ReactDOM.render(
         </Switch>
     </BrowserRouter>,
     document.getElementById('root'));
-
-registerServiceWorker();
