@@ -2,6 +2,7 @@ import React from "react";
 import "./WeatherSlideCard.css";
 import PropTypes from "prop-types";
 import {Card, Icon} from "antd";
+import {withRouter} from "react-router-dom";
 
 const {Meta} = Card;
 
@@ -24,8 +25,8 @@ class WeatherSlideCard extends React.Component {
 
         const actions = [
             <Icon type="desktop" onClick={this.viewSlide}/>,
-            <Icon type="edit" onClick={this.props.onClick}/>,
-            <Icon type="delete" onClick={this.props.onDelete}/>
+            <Icon type="edit" onClick={(e) => this.props.onClick(e, slide.id)}/>,
+            <Icon type="delete" onClick={(e) => this.props.onDelete(e, slide.id)}/>
         ];
 
         return (
@@ -67,4 +68,4 @@ WeatherSlideCard.defaultProps = {
     onDelete: () => console.log("not implemented")
 };
 
-export default WeatherSlideCard;
+export default withRouter(WeatherSlideCard);

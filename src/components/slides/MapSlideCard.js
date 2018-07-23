@@ -3,6 +3,7 @@ import "./MapSlideCard.css";
 import PropTypes from "prop-types";
 import {Card, Icon} from "antd";
 import "../../shared/material-design-icon.css"
+import {withRouter} from "react-router-dom";
 
 const {Meta} = Card;
 
@@ -68,4 +69,4 @@ MapSlideCard.defaultProps = {
     onDelete: () => console.log("not implemented")
 };
 
-export default MapSlideCard;
+export default withRouter(MapSlideCard);

@@ -19,7 +19,7 @@ class ImageSlideCard extends React.Component {
         const {slide} = this.props;
 
         const cover = (
-            <img alt="" src={slide.imageUrl}/>
+            <img className="card-img" alt="" src={slide.imageUrl}/>
         );
 
         const actions = [
@@ -29,25 +29,27 @@ class ImageSlideCard extends React.Component {
         ];
 
         return (
-            <Card
-                style={{width: 300}}
-                cover={cover}
-                actions={actions}
-            >
-                <Meta
-                    title={slide.name}
-                />
-                <span style={{marginRight: 15}}>
+            <div style={{width: 300, height: 350}}>
+                <Card
+                    style={{width: 300}}
+                    cover={cover}
+                    actions={actions}
+                >
+                    <Meta
+                        title={slide.name}
+                    />
+                    <span style={{marginRight: 15}}>
                 <Icon type="clock-circle-o" style={{marginRight: 8}}/>
-                    {slide.duration + " seconds"}
+                        {slide.duration + " seconds"}
             </span>
-                {slide.text &&
-                <span style={{marginRight: 15}}>
+                    {slide.text &&
+                    <span style={{marginRight: 15}}>
                             <Icon type="message" style={{marginRight: 8}}/>
-                    {slide.text}
+                        {slide.text}
                         </span>
-                }
-            </Card>
+                    }
+                </Card>
+            </div>
         );
     }
 }
