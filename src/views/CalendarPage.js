@@ -9,9 +9,37 @@ import moment from "moment";
 import CalendarEventList from "../components/calendar/CalendarEventList";
 import GuidewireIcon from "../assets/guidewire_icon_color_web.png";
 import * as internalCalendarEventApi from "../api/InternalCalendarEventApi";
+import {defineMessages, FormattedDate, FormattedMessage} from 'react-intl';
 
 const ButtonGroup = Button.Group;
 const confirm = Modal.confirm;
+
+const messages = defineMessages({
+    eventCreated: {
+        id: "calendar.page.event.create.success",
+        defaultMessage: "Event Created"
+    },
+    deleteModalTitle: {
+        id: "calendar.page.event.delete.modal.title",
+        defaultMessage: "Are you sure you want to delete this event?"
+    },
+    deleteModalOk: {
+        id: "calendar.page.event.delete.modal.ok",
+        defaultMessage: "Delete"
+    },
+    deleteModalCancel: {
+        id: "calendar.page.event.delete.modal.cancel",
+        defaultMessage: "Cancel"
+    },
+    eventDeleted: {
+        id: "calendar.page.event.delete.success",
+        defaultMessage: "Event Deleted"
+    },
+    eventDeleteError: {
+        id: "calendar.page.event.delete.error",
+        defaultMessage: "Error"
+    },
+});
 
 class CalendarPage extends React.Component {
     constructor(props) {
@@ -77,7 +105,7 @@ class CalendarPage extends React.Component {
         this.setState({internalCalendarEventModalVisible: false, calendar: calendar});
 
         notification["success"]({
-            message: 'Event Created',
+            message: <FormattedMessage {...messages.eventCreated} />,
         });
     };
 
@@ -131,10 +159,10 @@ class CalendarPage extends React.Component {
      */
     handleEventDelete = (id) => {
         confirm({
-            title: "Are you sure you want to delete this event?",
-            okText: "Delete",
+            title: <FormattedMessage {...messages.deleteModalTitle} />,
+            okText: <FormattedMessage {...messages.deleteModalOk} />,
+            cancelText: <FormattedMessage {...messages.deleteModalCancel} />,
             okType: "danger",
-            cancelText: "Cancel",
             onOk: () => this.deleteEvent(id),
         });
     };
@@ -146,12 +174,12 @@ class CalendarPage extends React.Component {
                 calendar.events = calendar.events.filter(item => item.id !== id);
                 this.setState({calendar: calendar});
                 notification["success"]({
-                    message: 'Event Deleted',
+                    message: <FormattedMessage {...messages.eventDeleted} />,
                 });
             }).catch(error => {
                 notification["error"]({
                     message: 'Error',
-                    description: error.message
+                    description: <FormattedMessage {...messages.eventDeleteError} />
                 });
             });
     };
@@ -219,7 +247,15 @@ class CalendarPage extends React.Component {
                         </Col>
                         <Col style={{height: "100%", overflow: "auto"}} span={6}>
                             <div className="event-list-section">
-                                <h1 className="event-list-title">{selectedDate.format("MM-DD-YYYY")}</h1>
+                                <h1 className="event-list-title">
+                                    <FormattedDate
+                                        value={selectedDate}
+                                        year='numeric'
+                                        month='long'
+                                        day='numeric'
+                                        weekday='long'
+                                    />
+                                </h1>
                                 <CalendarEventList
                                     events={this.getEvents(selectedDate)}
                                     onItemClick={this.onEventSelect}

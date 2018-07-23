@@ -29,13 +29,6 @@ class CalendarTablePage extends React.Component {
         if (e.key === "1") {
             this.showModal("internalCalendarModalVisible");
         }
-        // } else if (e.key === "2") {
-        //     this.showModal("calendarFormVisible");
-        // } else if (e.key === "3") {
-        //     this.showModal("mapFormVisible");
-        // } else if (e.key === "4") {
-        //     this.showModal("weatherFormVisible");
-        // }
     };
 
     showModal = (formVisible) => {

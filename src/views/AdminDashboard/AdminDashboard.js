@@ -1,19 +1,48 @@
 import React from "react";
-import {Alert, Breadcrumb, Icon, Layout, Menu, Popconfirm} from 'antd';
-import "./AdminHome.css"
-import PlaylistTablePage from "./PlaylistTablePage";
+import {Breadcrumb, Icon, Layout, Menu, Popconfirm} from 'antd';
+import "./AdminDashboard.css"
+import PlaylistTablePage from "../PlaylistTablePage";
 import {Link, NavLink, Route, Switch, withRouter} from "react-router-dom";
-import PlaylistPage from "./PlaylistPage";
-import OfficeTablePage from "./OfficeTablePage";
-import logo from "../assets/guidewire_logo_color_web.png";
-import CalendarTablePage from "./CalendarTablePage";
-import * as authApi from "../api/AuthApi";
-import CalendarPage from "./CalendarPage";
-import OfficePage from "./OfficePage";
+import PlaylistPage from "../PlaylistPage";
+import OfficeTablePage from "../OfficeTablePage";
+import logo from "../../assets/guidewire_logo_color_web.png";
+import CalendarTablePage from "../CalendarTablePage";
+import * as authApi from "../../api/AuthApi";
+import CalendarPage from "../CalendarPage";
+import OfficePage from "../OfficePage";
+import {defineMessages, FormattedMessage} from 'react-intl';
+import AdminHome from "../../components/AdminHome";
 
 const {Header, Content, Sider} = Layout;
 
-class AdminHome extends React.Component {
+const messages = defineMessages({
+    menuHome: {
+        id: "admin.menu.home",
+        defaultMessage: "Home"
+    },
+    menuOffices: {
+        id: "admin.menu.offices",
+        defaultMessage: "Offices"
+    },
+    menuCalendars: {
+        id: "admin.menu.calendars",
+        defaultMessage: "Calendars"
+    },
+    menuPlaylists: {
+        id: "admin.menu.playlists",
+        defaultMessage: "Playlists"
+    },
+    logout: {
+        id: "admin.logout",
+        defaultMessage: "Logout"
+    },
+    logoutConfirm: {
+        id: "admin.logout.confirm",
+        defaultMessage: "Are you sure you want to logout?"
+    }
+});
+
+class AdminDashboard extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -69,13 +98,17 @@ class AdminHome extends React.Component {
                         style={{lineHeight: '64px'}}>
                         <Menu.Item key="HOME">
                             <NavLink to="/admin">
-                                {"Home"}
+                                <FormattedMessage {...messages.menuHome}/>
                             </NavLink>
                         </Menu.Item>
                         <Menu.Item key="LOGOUT" style={{float: "right"}}>
-                            <Popconfirm   title="Are you sure you want to logout?"
-                                          onConfirm={() => this.onLogout()}>
-                                {<span><Icon type="logout"/>Logout</span>}
+                            <Popconfirm title={<FormattedMessage {...messages.logoutConfirm}/>}
+                                        onConfirm={() => this.onLogout()}
+                            >
+                                <span>
+                                    <Icon type="logout"/>
+                                    <FormattedMessage {...messages.logout}/>
+                                </span>
                             </Popconfirm>
                         </Menu.Item>
                     </Menu>
@@ -88,27 +121,34 @@ class AdminHome extends React.Component {
                             selectedKeys={selectedMenuKeys}>
                             <Menu.Item key="HOME">
                                 <NavLink to="/admin">
-                                    {<span><Icon type="home"/>Home</span>}
+                                    <span>
+                                        <Icon type="home"/>
+                                        <FormattedMessage {...messages.menuHome}/>
+                                    </span>
                                 </NavLink>
                             </Menu.Item>
                             <Menu.Item key="OFFICES">
                                 <NavLink to="/admin/offices">
-                                    {<span><Icon type="shop"/>Offices</span>}
+                                    <span>
+                                        <Icon type="shop"/>
+                                        <FormattedMessage {...messages.menuOffices}/>
+                                    </span>
                                 </NavLink>
                             </Menu.Item>
                             <Menu.Item key="CALENDARS">
                                 <NavLink to="/admin/calendars">
-                                    {<span><Icon type="schedule"/>Calendars</span>}
+                                    <span>
+                                        <Icon type="schedule"/>
+                                        <FormattedMessage {...messages.menuCalendars}/>
+                                    </span>
                                 </NavLink>
                             </Menu.Item>
                             <Menu.Item key="PLAYLISTS">
                                 <NavLink to="/admin/playlists">
-                                    {<span><Icon type="play-circle"/>Playlists</span>}
-                                </NavLink>
-                            </Menu.Item>
-                            <Menu.Item key="SCREENS">
-                                <NavLink to="/admin/screens">
-                                    {<span><Icon type="desktop"/>Screens</span>}
+                                    <span>
+                                        <Icon type="play-circle"/>
+                                        <FormattedMessage {...messages.menuPlaylists}/>
+                                    </span>
                                 </NavLink>
                             </Menu.Item>
                         </Menu>
@@ -131,20 +171,8 @@ class AdminHome extends React.Component {
                                 <Route exact path="/admin/offices" component={OfficeTablePage}/>
                                 <Route exact path="/admin/offices/:officeId" component={OfficePage}/>
                                 <Route exact path="/admin/calendars" component={CalendarTablePage}/>
-                                <Route path="/admin/calendars/:calendarId" component={CalendarPage}/>
-                                <Route render={() => {
-                                    return (
-                                        <div>
-                                            <h1>Welcome to SignageCenter!</h1>
-                                            <Alert
-                                                message="Information"
-                                                description="No new updates."
-                                                type="info"
-                                                showIcon
-                                            />
-                                        </div>
-                                    )
-                                }}/>
+                                <Route exact path="/admin/calendars/:calendarId" component={CalendarPage}/>
+                                <Route componenent={AdminHome}/>
                             </Switch>
                         </Content>
                     </Layout>
@@ -154,4 +182,4 @@ class AdminHome extends React.Component {
     }
 }
 
-export default withRouter(AdminHome);
+export default withRouter(AdminDashboard);
