@@ -1,12 +1,12 @@
 import React from "react";
 import "./SlideViewPage.css";
-import ImageSlide from "../components/slides/ImageSlide";
-import MapSlide from "../components/slides/MapSlide";
-import WeatherSlide from "../components/slides/WeatherSlide";
-import CalendarSlide from "../components/slides/CalendarSlide";
 import EmptySlide from "../components/slides/EmptySlide";
 import slideApi from "../api/SlideApi";
+import Slide from "../components/slides/Slide";
 
+/**
+ * Display a singular slide as it would be displayed in a playlist
+ */
 class SlideViewPage extends React.Component {
     constructor(props) {
         super(props);
@@ -14,8 +14,6 @@ class SlideViewPage extends React.Component {
         this.state = {
             slide: null,
         };
-
-        this.generateSlide = this.generateSlide.bind(this);
     }
 
     componentWillMount() {
@@ -29,22 +27,6 @@ class SlideViewPage extends React.Component {
         })
     }
 
-    generateSlide() {
-        const {slide} = this.state;
-
-        if (slide.slideType === "IMAGE") {
-            return <ImageSlide slide={slide}/>
-        } else if (slide.slideType === "MAP") {
-            return <MapSlide slide={slide}/>
-        } else if (slide.slideType === "WEATHER") {
-            return <WeatherSlide slide={slide}/>
-        } else if (slide.slideType === "CALENDAR") {
-            return <CalendarSlide slide={slide}/>
-        } else {
-            return <EmptySlide/>
-        }
-    }
-
     render() {
         const {slide} = this.state;
 
@@ -54,7 +36,7 @@ class SlideViewPage extends React.Component {
 
         return (
             <div className="container">
-                {this.generateSlide()}
+                <Slide slide={slide}/>
             </div>
         );
     }

@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import {Badge, Icon} from "antd";
 import "./CalendarEvent.css";
 
+/**
+ * Component to be displayed within the calendar day
+ */
 class CalendarEvent extends React.Component {
     constructor(props) {
         super(props);

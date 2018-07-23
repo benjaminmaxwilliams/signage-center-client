@@ -1,11 +1,8 @@
 import React from "react";
 import "./PlaylistPlayPage.css";
-import ImageSlide from "../components/slides/ImageSlide";
-import MapSlide from "../components/slides/MapSlide";
-import WeatherSlide from "../components/slides/WeatherSlide";
-import CalendarSlide from "../components/slides/CalendarSlide";
 import EmptySlide from "../components/slides/EmptySlide";
 import playlistApi from "../api/PlaylistApi";
+import Slide from "../components/slides/Slide";
 
 class PlaylistPlayPage extends React.Component {
     constructor(props) {
@@ -68,18 +65,7 @@ class PlaylistPlayPage extends React.Component {
         this.startTimer();
 
         const currentSlide = playlist.slides[currentSlideIndex];
-
-        if (currentSlide.slideType === "IMAGE") {
-            return <ImageSlide slide={currentSlide}/>
-        } else if (currentSlide.slideType === "MAP") {
-            return <MapSlide slide={currentSlide}/>
-        } else if (currentSlide.slideType === "WEATHER") {
-            return <WeatherSlide slide={currentSlide}/>
-        } else if (currentSlide.slideType === "CALENDAR") {
-            return <CalendarSlide slide={currentSlide}/>
-        } else {
-            return <EmptySlide/>
-        }
+        return <Slide slide={currentSlide}/>
     }
 
     render() {
