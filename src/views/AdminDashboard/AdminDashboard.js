@@ -1,46 +1,20 @@
 import React from "react";
 import {Breadcrumb, Icon, Layout, Menu, Popconfirm} from 'antd';
 import "./AdminDashboard.css"
-import PlaylistTablePage from "../PlaylistTablePage";
+import PlaylistTablePage from "../PlaylistTablePage/PlaylistTablePage";
 import {Link, NavLink, Route, Switch, withRouter} from "react-router-dom";
-import PlaylistPage from "../PlaylistPage";
-import OfficeTablePage from "../OfficeTablePage";
+import PlaylistPage from "../PlaylistPage/PlaylistPage";
+import OfficeTablePage from "../OfficeTablePage/OfficeTablePage";
 import logo from "../../assets/guidewire_logo_color_web.png";
-import CalendarTablePage from "../CalendarTablePage";
+import CalendarTablePage from "../CalendarTablePage/CalendarTablePage";
 import * as authApi from "../../api/AuthApi";
-import CalendarPage from "../CalendarPage";
-import OfficePage from "../OfficePage";
-import {defineMessages, FormattedMessage} from 'react-intl';
-import AdminHome from "../../components/AdminHome";
+import CalendarPage from "../CalendarPage/CalendarPage";
+import OfficePage from "../OfficePage/OfficePage";
+import {FormattedMessage} from 'react-intl';
+import AdminHome from "../AdminHome/AdminHome";
+import messages from "./messages";
 
 const {Header, Content, Sider} = Layout;
-
-const messages = defineMessages({
-    menuHome: {
-        id: "admin.menu.home",
-        defaultMessage: "Home"
-    },
-    menuOffices: {
-        id: "admin.menu.offices",
-        defaultMessage: "Offices"
-    },
-    menuCalendars: {
-        id: "admin.menu.calendars",
-        defaultMessage: "Calendars"
-    },
-    menuPlaylists: {
-        id: "admin.menu.playlists",
-        defaultMessage: "Playlists"
-    },
-    logout: {
-        id: "admin.logout",
-        defaultMessage: "Logout"
-    },
-    logoutConfirm: {
-        id: "admin.logout.confirm",
-        defaultMessage: "Are you sure you want to logout?"
-    }
-});
 
 class AdminDashboard extends React.Component {
     constructor(props) {

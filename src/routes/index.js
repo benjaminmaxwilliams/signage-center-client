@@ -1,8 +1,8 @@
 import AdminDashboard from "../views/AdminDashboard/AdminDashboard";
-import PlaylistPlayPage from "../views/PlaylistPlayPage";
-import LoginPage from "../views/LoginPage";
-import Signup from "../views/Signup";
-import SlideViewPage from "../views/SlideViewPage";
+import PlaylistPlayPage from "../views/PlaylistPlayPage/PlaylistPlayPage";
+import LoginPage from "../views/LoginPage/LoginPage";
+import Signup from "../views/SignUpPage/SignUpPage";
+import SlideViewPage from "../views/SlideViewPage/SlideViewPage";
 
 const indexRoutes = [
     {
