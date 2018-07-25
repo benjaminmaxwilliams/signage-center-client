@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {List} from "antd";
 import "./CalendarEventList.css"
-import CalendarEventListItem from "./CalendarEventListItem";
+import CalendarEventListItem from "../CalendarEventListItem/CalendarEventListItem";
 
 class CalendarEventList extends React.Component {
     constructor(props) {

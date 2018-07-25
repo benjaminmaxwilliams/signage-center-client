@@ -9,19 +9,14 @@ import * as util from "./util/util.js"
 // localization
 import {LocaleProvider} from 'antd';
 import {addLocaleData, IntlProvider} from "react-intl";
-
-import locale_en from 'react-intl/locale-data/en';
-import locale_es from 'react-intl/locale-data/es';
-import locale_de from 'react-intl/locale-data/de';
-import {locales} from "./localization/locales";
+import {antdLocales, intlLocales} from "./localization/locales";
 import {messages} from "./localization/messages";
 
-addLocaleData([...locale_en, ...locale_es, ...locale_de]);
-
+addLocaleData(intlLocales);
 const language = util.getLanguage();
 
 ReactDOM.render(
-    <LocaleProvider locale={locales[language.toLowerCase()]}>
+    <LocaleProvider locale={antdLocales[language.toLowerCase()]}>
         <IntlProvider locale={language} messages={messages[language.toLowerCase()]}>
             <BrowserRouter>
                 <Switch>

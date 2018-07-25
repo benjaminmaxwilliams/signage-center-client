@@ -12,10 +12,10 @@ class CalendarEventListItem extends React.Component {
     }
 
     handleMenuClick = (e) => {
-        const {onDelete, event} = this.props;
+        const {onDelete, onClick, event} = this.props;
 
         if (e.key === "1") {
-
+            onClick();
         } else if (e.key === "2") {
             onDelete(event.id);
         }
@@ -107,6 +107,11 @@ CalendarEventListItem.propTypes = {
     }),
     onClick: PropTypes.func,
     onDelete: PropTypes.func
+};
+
+CalendarEventListItem.defaultProps = {
+    onClick: () => console.log("not implemented"),
+    onDelete: () => console.log("not implemented")
 };
 
 export default CalendarEventListItem;

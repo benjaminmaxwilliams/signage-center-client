@@ -146,7 +146,7 @@ class AdminDashboard extends React.Component {
                                 <Route exact path="/admin/offices/:officeId" component={OfficePage}/>
                                 <Route exact path="/admin/calendars" component={CalendarTablePage}/>
                                 <Route exact path="/admin/calendars/:calendarId" component={CalendarPage}/>
-                                <Route componenent={AdminHome}/>
+                                <Route render={() => <AdminHome/>}/>
                             </Switch>
                         </Content>
                     </Layout>

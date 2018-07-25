@@ -5,9 +5,6 @@ module.exports = function override(config, env) {
     // antd style
     config = injectBabelPlugin(['import', {libraryName: 'antd', style: true}], config);
 
-    // react internationalization
-    config = injectBabelPlugin(['react-intl', {messagesDir: "./build/mesages"}], config);
-
     // override antd styles
     config = rewireLess.withLoaderOptions({
         javascriptEnabled: true,

@@ -96,7 +96,7 @@ class CalendarTablePage extends React.Component {
                     } else if (record.type === "WORKDAY") {
                         return (<Icon type="aliyun"/>)
                     } else {
-                        return (<img className="table-icon" src={GuidewireIcon}/>)
+                        return (<img className="table-icon" alt="" src={GuidewireIcon}/>)
                     }
                 }
             },
