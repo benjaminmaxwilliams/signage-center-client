@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import indexRoutes from "./routes/index";
-import NoMatchUrlPage from "./views/NoMatchUrlPage";
+import NoMatchUrlPage from "./views/NoMatchUrlPage/NoMatchUrlPage";
 import PrivateRoute from "./routes/PrivateRoute";
 import * as util from "./util/util.js"
 // localization

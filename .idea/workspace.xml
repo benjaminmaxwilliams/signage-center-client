@@ -2,27 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beeb08aa-3a4c-4118-a560-82ea3b91314f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/localization/ja.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/localization/ms.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/localization/pl.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/NoMatchUrlPage/messages.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-overrides.js" beforeDir="false" afterPath="$PROJECT_DIR$/config-overrides.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/translationRunner.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calendar/CalendarEvent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/CalendarEvent/CalendarEvent.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calendar/CalendarEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/CalendarEvent/CalendarEvent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calendar/CalendarEventList.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/CalendarEventList/CalendarEventList.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calendar/CalendarEventList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/CalendarEventList/CalendarEventList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calendar/CalendarEventListItem.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/CalendarEventListItem/CalendarEventListItem.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/calendar/CalendarEventListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/CalendarEventListItem/CalendarEventListItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/localization/locales.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/localization/locales.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/localization/messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/localization/messages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/util.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/AdminDashboard/AdminDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/AdminDashboard/AdminDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/CalendarPage/CalendarPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CalendarPage/CalendarPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/CalendarPage/CalendarPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CalendarPage/CalendarPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/CalendarTablePage/CalendarTablePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/CalendarTablePage/CalendarTablePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/localization/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/localization/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/NoMatchUrlPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/NoMatchUrlPage/NoMatchUrlPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/NoMatchUrlPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/NoMatchUrlPage/NoMatchUrlPage.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,78 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="messages.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/localization/messages.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdminDashboard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/AdminDashboard/AdminDashboard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="138" column="43" lean-forward="true" selection-start-line="138" selection-start-column="43" selection-end-line="138" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="locales.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/localization/locales.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="60" lean-forward="true" selection-start-line="4" selection-start-column="60" selection-end-line="4" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CalendarPage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/CalendarPage/CalendarPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="190" column="22" lean-forward="true" selection-start-line="190" selection-start-column="22" selection-end-line="190" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="en.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/localization/en.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CalendarPage.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/CalendarPage/CalendarPage.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
               <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#346#382#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -121,11 +39,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalendarSlideCard.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ImageSlideCard.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/cards/ImageSlideCard/ImageSlideCard.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CalendarSlideCard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/cards/CalendarSlideCard/CalendarSlideCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="40" column="56" lean-forward="true" selection-start-line="40" selection-start-column="56" selection-end-line="40" selection-end-column="56" />
+            <state relative-caret-position="238">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -133,14 +60,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/index.js">
+      <file leaf-file-name="NoMatchUrlPage.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/NoMatchUrlPage/NoMatchUrlPage.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+            <state relative-caret-position="102">
+              <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NoMatchUrlPage.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/views/NoMatchUrlPage/NoMatchUrlPage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="54" lean-forward="true" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
               <folding>
-                <element signature="e#0#68#0" expanded="true" />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminHome.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/AdminHome/AdminHome.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminDashboard.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/AdminDashboard/AdminDashboard.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="402">
+              <caret line="73" column="33" lean-forward="true" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="messages.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/NoMatchUrlPage/messages.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -226,9 +195,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/slides/cards/ImageSlideCard/ImageSlideCard.js" />
-        <option value="$PROJECT_DIR$/src/components/slides/cards/ImageSlideCard/ImageSlideCard.css" />
-        <option value="$PROJECT_DIR$/src/components/slides/CalendarSlide/CalendarSlide.css" />
         <option value="$PROJECT_DIR$/src/components/slides/CalendarSlide/CalendarSlide.js" />
         <option value="$PROJECT_DIR$/src/components/slides/EmptySlide/EmptySlide.js" />
         <option value="$PROJECT_DIR$/src/util/Util.js" />
@@ -267,7 +233,6 @@
         <option value="$PROJECT_DIR$/src/views/CalendarTablePage/CalendarTablePage.js" />
         <option value="$PROJECT_DIR$/src/views/PlaylistTablePage/PlaylistTablePage.js" />
         <option value="$PROJECT_DIR$/scripts/translationRunner.js" />
-        <option value="$PROJECT_DIR$/src/localization/en.json" />
         <option value="$PROJECT_DIR$/src/util/util.js" />
         <option value="$PROJECT_DIR$/config-overrides.js" />
         <option value="$PROJECT_DIR$/package.json" />
@@ -277,6 +242,10 @@
         <option value="$PROJECT_DIR$/src/views/AdminDashboard/AdminDashboard.js" />
         <option value="$PROJECT_DIR$/src/views/CalendarPage/CalendarPage.css" />
         <option value="$PROJECT_DIR$/src/views/CalendarPage/CalendarPage.js" />
+        <option value="$PROJECT_DIR$/src/views/NoMatchUrlPage/messages.js" />
+        <option value="$PROJECT_DIR$/src/localization/en.json" />
+        <option value="$PROJECT_DIR$/src/views/NoMatchUrlPage/NoMatchUrlPage.css" />
+        <option value="$PROJECT_DIR$/src/views/NoMatchUrlPage/NoMatchUrlPage.js" />
       </list>
     </option>
   </component>
@@ -350,23 +319,7 @@
               <item name="signage-center-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="signage-center-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="cards" type="462c0819:PsiDirectoryNode" />
-              <item name="CalendarSlideCard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="signage-center-client" type="b2602c69:ProjectViewProjectNode" />
-              <item name="signage-center-client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="cards" type="462c0819:PsiDirectoryNode" />
-              <item name="ImageSlideCard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="signage-center-client" type="b2602c69:ProjectViewProjectNode" />
-              <item name="signage-center-client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="localization" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="signage-center-client" type="b2602c69:ProjectViewProjectNode" />
@@ -379,7 +332,21 @@
               <item name="signage-center-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="CalendarPage" type="462c0819:PsiDirectoryNode" />
+              <item name="AdminDashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="signage-center-client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="signage-center-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="LoginPage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="signage-center-client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="signage-center-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="NoMatchUrlPage" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -406,11 +373,11 @@
       <recent name="C:\Guidewire Bench Projects\signage-center-client\src\components\forms\OfficeForm" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Guidewire Bench Projects\signage-center-client\src\views\NoMatchUrlPage" />
       <recent name="C:\Guidewire Bench Projects\signage-center-client\src\components\calendar\CalendarEventListItem" />
       <recent name="C:\Guidewire Bench Projects\signage-center-client\src\components\calendar\CalendarEventList" />
       <recent name="C:\Guidewire Bench Projects\signage-center-client\src\components\calendar\CalendarEvent" />
       <recent name="C:\Guidewire Bench Projects\signage-center-client\src\components\forms\InternalCalendarEventForm" />
-      <recent name="C:\Guidewire Bench Projects\signage-center-client\src\components\forms\PlaylistForm" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -484,7 +451,7 @@
       <workItem from="1531172037912" duration="7917000" />
       <workItem from="1531744026742" duration="6681000" />
       <workItem from="1531752004356" duration="38088000" />
-      <workItem from="1531846574372" duration="118359000" />
+      <workItem from="1531846574372" duration="119044000" />
     </task>
     <task id="LOCAL-00001" summary="routing and office">
       <created>1530629445595</created>
@@ -640,11 +607,18 @@
       <option name="project" value="LOCAL" />
       <updated>1532463537240</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="localization / translations">
+      <created>1532524342210</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1532524342210</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="274751000" />
+    <option name="totallyTimeSpent" value="275436000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -657,6 +631,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -677,9 +652,9 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32844576" />
       <window_info id="npm" order="2" sideWeight="0.50810015" side_tool="true" weight="0.1663113" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3362659" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3362659" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32844576" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49189985" visible="true" weight="0.1663113" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49189985" visible="true" weight="0.1663113" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.61876833" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -811,33 +786,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/forms/ImageSlideForm/ImageSlideForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="77" column="49" selection-start-line="77" selection-start-column="7" selection-end-line="77" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/forms/MapSlideForm/messages.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/forms/MapSlideForm/MapSlideForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/forms/OfficeForm/messages.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -927,13 +875,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/cards/ImageSlideCard/ImageSlideCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="62" selection-start-line="5" selection-start-column="62" selection-end-line="5" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -1083,43 +1024,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/NoMatchUrlPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/NoMatchUrlPage.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/config-overrides.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="87" selection-start-line="5" selection-start-column="87" selection-end-line="5" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/AdminHome/AdminHome.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/AdminDashboard/AdminDashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="138" column="43" lean-forward="true" selection-start-line="138" selection-start-column="43" selection-end-line="138" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1144,23 +1052,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="190" column="22" lean-forward="true" selection-start-line="190" selection-start-column="22" selection-end-line="190" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/localization/en.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/localization/locales.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="4" column="60" lean-forward="true" selection-start-line="4" selection-start-column="60" selection-end-line="4" selection-end-column="60" />
+          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -1168,9 +1066,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1178,10 +1073,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#346#382#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1192,10 +1083,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/cards/CalendarSlideCard/CalendarSlideCard.js">
+    <entry file="file://$PROJECT_DIR$/src/views/LoginPage/messages.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
-          <caret line="40" column="56" lean-forward="true" selection-start-line="40" selection-start-column="56" selection-end-line="40" selection-end-column="56" />
+          <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/localization/en.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="156" column="41" selection-start-line="156" selection-start-column="41" selection-end-line="156" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/NoMatchUrlPage/messages.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router-dom/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="173" selection-start-line="3" selection-start-column="173" selection-end-line="3" selection-end-column="173" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/AdminDashboard/AdminDashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="73" column="33" lean-forward="true" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/AdminHome/AdminHome.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="39" lean-forward="true" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/cards/ImageSlideCard/ImageSlideCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/cards/CalendarSlideCard/CalendarSlideCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/NoMatchUrlPage/NoMatchUrlPage.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/NoMatchUrlPage/NoMatchUrlPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="54" lean-forward="true" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

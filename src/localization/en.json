@@ -151,5 +151,8 @@
   "internal.calendar.event.form.date.validation.message": "Please select an date!",
   "internal.calendar.event.form.allday.label": "All Day",
   "internal.calendar.event.form.time.label": "Time",
-  "internal.calendar.event.form.time.validation.message": "Please select an time!"
+  "internal.calendar.event.form.time.validation.message": "Please select an time!",
+  "nomatchurl.page.title": "Sorry!",
+  "nomatchurl.page.description": "This is not a valid url!",
+  "nomatchurl.page.action.redirect": "Ok"
 }
