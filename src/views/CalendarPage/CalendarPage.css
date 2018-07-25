@@ -1,0 +1,31 @@
+.calendar-icon {
+    width: 16px;
+    float: left;
+    pointer-events: none;
+}
+
+.events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.events li {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.event-list-section {
+    background: #f1f1f1;
+    padding: 10px;
+    height: 100%;
+    overflow: auto;
+}
+
+.event-list-title {
+    text-align: center;
+}

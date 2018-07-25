@@ -1,8 +1,8 @@
-import AdminHome from "../views/AdminHome";
-import PlaylistPlayPage from "../views/PlaylistPlayPage";
-import LoginPage from "../views/LoginPage";
-import Signup from "../views/Signup";
-import SlideViewPage from "../views/SlideViewPage";
+import AdminDashboard from "../views/AdminDashboard/AdminDashboard";
+import PlaylistPlayPage from "../views/PlaylistPlayPage/PlaylistPlayPage";
+import LoginPage from "../views/LoginPage/LoginPage";
+import Signup from "../views/SignUpPage/SignUpPage";
+import SlideViewPage from "../views/SlideViewPage/SlideViewPage";
 
 const indexRoutes = [
     {
@@ -13,7 +13,7 @@ const indexRoutes = [
         component: PlaylistPlayPage
     },
     {private: false, exact: true, path: "/slide/view/:slideId", name: "SlideView", component: SlideViewPage},
-    {private: true, exact: false, path: "/admin", name: "Admin", component: AdminHome},
+    {private: true, exact: false, path: "/admin", name: "Admin", component: AdminDashboard},
     {private: false, exact: true, path: "/signup", name: "Signup", component: Signup},
     {private: false, exact: true, path: "/login", name: "Login", component: LoginPage},
     {private: false, exact: true, path: "/", name: "Login", component: LoginPage}
