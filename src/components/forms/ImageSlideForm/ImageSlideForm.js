@@ -42,23 +42,9 @@ class ImageSlideForm extends React.Component {
                 values = this.generateFormData(values);
                 imageSlideApi.create(values)
                     .then(newSlide => {
-                        let formData = new FormData();
-                        formData.append("file", this.state.fileList[0]);
-                        imageSlideApi.uploadImage(formData, newSlide.id)
-                            .then(response => {
-                                newSlide.imageUrl = response.response;
-                                form.resetFields();
-                                this.setState({id: newSlide.id});
-                                this.props.onSuccess(newSlide);
-                            })
-                            .catch(error => {
-                                notification["error"]({
-                                    message: this.props.intl.formatMessage({...messages.error}),
-                                    description: error.message
-                                });
-                            }).finally(() => {
-                            this.setState({isLoading: false});
-                        });
+                        form.resetFields();
+                        this.setState({id: newSlide.id});
+                        this.props.onSuccess(newSlide);
                     })
                     .catch(error => {
                         notification["error"]({
@@ -89,13 +75,46 @@ class ImageSlideForm extends React.Component {
             endDate = values.rangePicker[1];
         }
 
-        return {...values, startDate: startDate, endDate: endDate, playlistId: this.state.playlistId};
+        return {
+            ...values,
+            startDate: startDate,
+            endDate: endDate,
+            imageUuid: this.state.fileList[0].response.uuid,
+            playlistId: this.state.playlistId
+        };
     };
 
     onCancel = () => {
         const {form} = this.props;
         form.resetFields();
         this.props.onCancel();
+    };
+
+    onImageUpload = (info) => {
+        let fileList = info.fileList;
+
+        // 1. Limit the number of uploaded files
+        //    Only to show two recent uploaded files, and old ones will be replaced by the new
+        fileList = fileList.slice(-1);
+
+        // // 2. read from response and show file link
+        // fileList = fileList.map((file) => {
+        //     if (file.uuid) {
+        //         // Component will show file.url as link
+        //         file.url = file.response.url;
+        //     }
+        //     return file;
+        // });
+        //
+        // // 3. filter successfully uploaded files according to response from server
+        // fileList = fileList.filter((file) => {
+        //     if (file.response) {
+        //         return file.response.status === 'success';
+        //     }
+        //     return true;
+        // });
+
+        this.setState({fileList});
     };
 
     render() {
@@ -116,6 +135,9 @@ class ImageSlideForm extends React.Component {
 
         const uploadProps = {
             multiple: false,
+            action: imageSlideApi.imageUploadUrl,
+            listType: 'picture',
+            onChange: this.onImageUpload,
             onRemove: (file) => {
                 this.setState(({fileList}) => {
                     const index = fileList.indexOf(file);
@@ -125,12 +147,6 @@ class ImageSlideForm extends React.Component {
                         fileList: newFileList,
                     };
                 });
-            },
-            beforeUpload: (file) => {
-                this.setState(({fileList}) => ({
-                    fileList: [file],
-                }));
-                return false;
             },
             fileList: this.state.fileList,
         };

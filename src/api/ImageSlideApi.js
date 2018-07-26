@@ -36,22 +36,4 @@ export function create(slide) {
  * @param slideId
  * @returns {Promise<Response>}
  */
-export function uploadImage(file, slideId) {
-
-    const url = process.env.REACT_APP_API_HOST + `/slide/image/attach/${slideId}`;
-
-    const props = {
-        body: file,
-        method: "POST",
-    };
-
-    return fetch(url, props)
-        .then(api.handleErrors)
-        .then(response => {
-            return response.json();
-        })
-        .catch(error => {
-            console.log(error);
-            throw error;
-        });
-}
+export const imageUploadUrl = process.env.REACT_APP_API_HOST + `/slide/image/upload/image`;
