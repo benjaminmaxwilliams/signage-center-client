@@ -7,7 +7,9 @@
  */
 export function handleErrors(response) {
     if (!response.ok) {
-        throw Error(response.statusText);
+        const error = new Error(response.statusText);
+        error.response = response;
+        throw error;
     }
     return response;
 }

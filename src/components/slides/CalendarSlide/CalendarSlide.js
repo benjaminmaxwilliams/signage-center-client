@@ -175,7 +175,7 @@ class CalendarSlide extends React.Component {
                 <Row className="date-row" type="flex" justify="center">
                     {weekOneDates.map(m => {
                         return (
-                            <Col className={this.getDateColStyle(m)} span={3}>
+                            <Col id={m.format("MM/DD")} className={this.getDateColStyle(m)} span={3}>
                                 <h1>
                                     <FormattedDate value={m} month="2-digit" day="2-digit"/>
                                 </h1>
@@ -186,8 +186,8 @@ class CalendarSlide extends React.Component {
                 <Row className="event-row" type="flex" justify="center">
                     {weekOneDates.map(m => {
                         return (
-                            <Col className={this.getEventColStyle(m)} span={3}>
-                                <div id={m.format("MM/DD")} className="calendar-slide-events">
+                            <Col id={m.format("MM/DD")} className={this.getEventColStyle(m)} span={3}>
+                                <div className="calendar-slide-events">
                                     {this.getEvents(m)}
                                 </div>
                             </Col>
@@ -197,7 +197,7 @@ class CalendarSlide extends React.Component {
                 <Row className="date-row" type="flex" justify="center">
                     {weekTwoDates.map(m => {
                         return (
-                            <Col className={this.getDateColStyle(m)} span={3}>
+                            <Col id={m.format("MM/DD")} className={this.getDateColStyle(m)} span={3}>
                                 <h1>
                                     <FormattedDate value={m} month="2-digit" day="2-digit"/>
                                 </h1>
@@ -208,8 +208,8 @@ class CalendarSlide extends React.Component {
                 <Row className="event-row" type="flex" justify="center">
                     {weekTwoDates.map(m => {
                         return (
-                            <Col className={this.getEventColStyle(m)} span={3}>
-                                <div id={m.format("MM/DD")} className="calendar-slide-events">
+                            <Col id={m.format("MM/DD")} className={this.getEventColStyle(m)} span={3}>
+                                <div className="calendar-slide-events">
                                     {this.getEvents(m)}
                                 </div>
                             </Col>

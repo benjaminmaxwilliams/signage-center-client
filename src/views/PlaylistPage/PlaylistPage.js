@@ -92,6 +92,7 @@ class PlaylistPage extends React.Component {
      * @param id
      */
     handleSlideDelete = (e, id) => {
+        e.preventDefault();
         confirm({
             title: this.props.intl.formatMessage({...messages.slideDeleteConfirmTitle}),
             okText: this.props.intl.formatMessage({...messages.slideDeleteConfirmOk}),
